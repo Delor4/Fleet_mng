@@ -3,11 +3,11 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
-from fleet_mng.models import Vehicle, Renter
+from fleet_mng.models import Vehicle, Renter, Rent
 
 
 def index(request):
-    return render(request, 'fleet_mng/index.html', {'sites_list': ['vehicles', 'renters']})
+    return render(request, 'fleet_mng/index.html', {'sites_list': ['vehicles', 'renters', 'rents']})
 
 
 def vehicles(request):
@@ -33,3 +33,14 @@ def renters(request):
 def renter(request, renter_id):
     renter = get_object_or_404(Renter, pk=renter_id)
     return render(request, 'fleet_mng/renter.html', {'renter': renter})
+
+
+def rents(request):
+    rents_list = Rent.objects.all()
+    context = {'rents_list': rents_list}
+    return render(request, 'fleet_mng/rents.html', context)
+
+
+def rent(request, rent_id):
+    rent = get_object_or_404(Rent, pk=rent_id)
+    return render(request, 'fleet_mng/rent.html', {'rent': rent})

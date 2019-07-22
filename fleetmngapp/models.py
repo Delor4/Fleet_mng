@@ -13,6 +13,9 @@ class Vehicle(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "{0} [{1} {2}]".format(self.name, self.brand, self.model)
+
 
 class Renter(models.Model):
     name = models.CharField(max_length=193, db_index=True)
@@ -21,6 +24,9 @@ class Renter(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{}".format(self.name)
 
 
 class Rent(models.Model):
@@ -33,3 +39,10 @@ class Rent(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{3}, {4}: {0} - {1}: {2}".format(self.from_date,
+                                                 self.to_date,
+                                                 self.description,
+                                                 self.vehicle,
+                                                 self.renter)

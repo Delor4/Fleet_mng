@@ -47,8 +47,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted', models.BooleanField(default=False)),
-                ('renter', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='fleetmngapp.Renter')),
-                ('vehicle', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='fleetmngapp.Vehicle')),
+                ('renter', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='fleet_mng.Renter')),
+                ('vehicle', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='fleet_mng.Vehicle')),
             ],
         ),
     ]

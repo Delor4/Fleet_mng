@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
-from fleetmngapp.models import Vehicle
+from fleet_mng.models import Vehicle
 
 
 def index(request):

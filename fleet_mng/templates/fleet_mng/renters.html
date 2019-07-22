@@ -1,0 +1,9 @@
+{% if renters_list %}
+    <ul>
+    {% for renter in renters_list %}
+        <li><a href="{% url 'renter' renter.id %}">{{ renter }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No renters are available.</p>
+{% endif %}

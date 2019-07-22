@@ -7,7 +7,7 @@ from fleet_mng.models import Vehicle
 
 
 def index(request):
-    return HttpResponse("You're at the app index.")
+    return render(request, 'fleet_mng/index.html', {'sites_list': ['vehicles']})
 
 
 def vehicles(request):

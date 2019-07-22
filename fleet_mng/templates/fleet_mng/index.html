@@ -1,0 +1,9 @@
+{% if sites_list %}
+    <ul>
+    {% for site in sites_list %}
+        <li><a href="{% url site %}">{{ site }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No sites are available.</p>
+{% endif %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import loader
 
 from fleet_mng.models import Vehicle
@@ -17,4 +17,8 @@ def vehicles(request):
 
 
 def vehicle(request, vehicle_id):
-    return HttpResponse("Vehicle {}".format(Vehicle.objects.get(id=vehicle_id)))
+    try:
+        car = Vehicle.objects.get(pk=vehicle_id)
+    except Vehicle.DoesNotExist:
+        raise Http404("Vehicle does not exist")
+    return render(request, 'fleet_mng/vehicle.html', {'vehicle': car})

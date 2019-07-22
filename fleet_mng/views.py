@@ -12,11 +12,8 @@ def index(request):
 
 def vehicles(request):
     vehicles_list = Vehicle.objects.all()
-    template = loader.get_template('fleet_mng/vehicles.html')
-    context = {
-        'vehicles_list': vehicles_list,
-    }
-    return HttpResponse(template.render(context, request))
+    context = {'vehicles_list': vehicles_list}
+    return render(request, 'fleet_mng/vehicles.html', context)
 
 
 def vehicle(request, vehicle_id):

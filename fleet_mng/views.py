@@ -67,14 +67,14 @@ def show_week(request):
     vehicles = Vehicle.objects.all()
     # initialize vehicles table
     for v in vehicles:
-        tabl[v] = [0 for _ in range(len(days))]
+        tabl[v] = [{'present': 0, 'rent': None} for _ in range(len(days))]
 
     # filling table
     for v in week:
         for i, d in enumerate(date_range(v.from_date, v.to_date)):
             da = datetime.date(d.year, d.month, d.day)
             if da in days:
-                tabl[v.vehicle][days.index(datetime.date(d.year, d.month, d.day))] = 1
+                tabl[v.vehicle][days.index(datetime.date(d.year, d.month, d.day))] = {'present': 1, 'rent': v}
 
     return render(request, 'fleet_mng/week.html',
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,

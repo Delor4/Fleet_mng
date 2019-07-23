@@ -9,6 +9,8 @@ In month:
   table, th, td {
     border: 1px solid black;
 }
+
+
 </style>
 <table>
     <tr>
@@ -29,7 +31,13 @@ In month:
     <tr>
         <td>{{vehicle}}</td>
         {% for h in d %}
-        <td>{{h}}</td>
+        <td>
+            {%ifequal h.present 1 %}
+                <a href="{% url 'rent' h.rent.id %}">{{ h.present }}</a>
+            {% else %}
+                {{ h.present }}
+            {% endifequal %}
+        </td>
         {% endfor %}
     </tr>
     {% endfor %}

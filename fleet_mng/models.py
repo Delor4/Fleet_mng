@@ -15,11 +15,12 @@ class Vehicle(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{0} [{1} {2}]".format(self.name, self.brand, self.model)
+        return "{0} [{1} {2}, {3}]".format(self.name, self.brand, self.model, ("Free", "Rented")[self.is_rented()])
 
     def is_rented(self):
-        return Rent.objects.filter(vehicle=self, to_date__gte=timezone.now()).exists() or Rent.objects.filter(
-            vehicle=self, from_date__gte=timezone.now()).exists()
+        return Rent.objects.filter(vehicle=self, rented__exact=1).exists() or \
+               Rent.objects.filter(vehicle=self, to_date__gte=timezone.now()).exists() or \
+               Rent.objects.filter(vehicle=self, from_date__gte=timezone.now()).exists()
 
 
 class Renter(models.Model):
@@ -40,6 +41,7 @@ class Rent(models.Model):
     to_date = models.DateTimeField()
     vehicle = models.ForeignKey(Vehicle, on_delete=models.DO_NOTHING)
     renter = models.ForeignKey(Renter, on_delete=models.DO_NOTHING)
+    rented = models.IntegerField(default=1)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

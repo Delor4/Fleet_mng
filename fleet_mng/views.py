@@ -2,6 +2,7 @@ import datetime
 
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from django.views import generic
 
 from fleet_mng.models import Vehicle, Renter, Rent
 
@@ -18,9 +19,9 @@ def vehicles(request):
     return render(request, 'fleet_mng/vehicles.html', context)
 
 
-def vehicle(request, vehicle_id):
-    car = get_object_or_404(Vehicle, pk=vehicle_id)
-    return render(request, 'fleet_mng/vehicle.html', {'vehicle': car})
+class VehicleView(generic.DetailView):
+    model = Vehicle
+    template_name = 'fleet_mng/vehicle.html'
 
 
 def renters(request):
@@ -29,9 +30,9 @@ def renters(request):
     return render(request, 'fleet_mng/renters.html', context)
 
 
-def renter(request, renter_id):
-    renter = get_object_or_404(Renter, pk=renter_id)
-    return render(request, 'fleet_mng/renter.html', {'renter': renter})
+class RenterView(generic.DetailView):
+    model = Renter
+    template_name = 'fleet_mng/renter.html'
 
 
 def rents(request):
@@ -40,9 +41,9 @@ def rents(request):
     return render(request, 'fleet_mng/rents.html', context)
 
 
-def rent(request, rent_id):
-    rent = get_object_or_404(Rent, pk=rent_id)
-    return render(request, 'fleet_mng/rent.html', {'rent': rent})
+class RentView(generic.DetailView):
+    model = Rent
+    template_name = 'fleet_mng/rent.html'
 
 
 def date_range(start_date, end_date):

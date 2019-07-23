@@ -5,13 +5,9 @@ In month:
     <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
 </ul>
-<style>
-  table, th, td {
-    border: 1px solid black;
-}
+{% load static %}
 
-
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/style.css' %}">
 <table>
     <tr>
         <th>

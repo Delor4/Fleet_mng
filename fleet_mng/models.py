@@ -14,13 +14,21 @@ class Vehicle(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
-    def __str__(self):
-        return "{0} [{1} {2}, {3}]".format(self.name, self.brand, self.model, ("Free", "Rented")[self.is_rented()])
+    def __str__(self) -> str:
+        return "{0} [{1} {2}, {3}{4}]".format(self.name, self.brand, self.model, ("Free", "Rented")[self.is_rented()],
+                                              ('', ' ! ! !')[self.is_not_bring_back()])
 
-    def is_rented(self):
+    def is_rented(self) -> bool:
         return Rent.objects.filter(vehicle=self, rented__exact=1).exists() or \
                Rent.objects.filter(vehicle=self, to_date__gte=timezone.now()).exists() or \
                Rent.objects.filter(vehicle=self, from_date__gte=timezone.now()).exists()
+
+    def is_not_bring_back(self) -> bool:
+        rents = Rent.objects.filter(vehicle=self)
+        for rent in rents:
+            if rent.is_not_bring_back():
+                return True
+        return False
 
 
 class Renter(models.Model):
@@ -31,7 +39,7 @@ class Renter(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "{}".format(self.name)
 
 
@@ -47,9 +55,12 @@ class Rent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "{3}, {4}: {0} - {1}: {2}".format(self.from_date,
                                                  self.to_date,
                                                  self.description,
                                                  self.vehicle,
                                                  self.renter)
+
+    def is_not_bring_back(self) -> bool:
+        return self.to_date < timezone.now() and self.from_date < timezone.now() and self.rented == 1

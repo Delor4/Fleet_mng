@@ -2,7 +2,7 @@ In month:
 {% if rents_list %}
 <ul>
     {% for rent in rents_list %}
-    <li><a href="{% url 'rent' rent.id %}">{{ rent }}</a></li>
+    <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
 </ul>
 <style>
@@ -33,7 +33,7 @@ In month:
         {% for h in d %}
         <td>
             {%ifequal h.present 1 %}
-                <a href="{% url 'rent' h.rent.id %}">{{ h.present }}</a>
+                <a href="{% url 'fleet_mng:rent' h.rent.id %}">{{ h.present }}</a>
             {% else %}
                 {{ h.present }}
             {% endifequal %}

@@ -7,7 +7,9 @@ from fleet_mng.models import Vehicle, Renter, Rent
 
 
 def index(request):
-    return render(request, 'fleet_mng/index.html', {'sites_list': ['vehicles', 'renters', 'rents', 'week']})
+    sites = ['vehicles', 'renters', 'rents', 'week']
+    sites_list = ['fleet_mng:' + x for x in sites]
+    return render(request, 'fleet_mng/index.html', {'sites_list': sites_list})
 
 
 def vehicles(request):

@@ -24,9 +24,9 @@ In month:
         {% endfor %}
     </tr>
     {% for vehicle, d in rents_table.items %}
-    <tr>
+    <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
         <td>
-            <div class="{%if vehicle.is_rented %}rented{%endif%}{%if vehicle.is_not_bring_back %} not_bring_back{%endif%}">
+            <div class="{%if vehicle.is_rented %}rented{%endif%}">
                 {{vehicle}}
             </div>
         </td>

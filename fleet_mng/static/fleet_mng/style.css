@@ -2,3 +2,10 @@
 table, th, td {
     border: 1px solid black;
 }
+
+.rented {
+    font-weight: bold;
+}
+.not_bring_back {
+    background: red;
+}

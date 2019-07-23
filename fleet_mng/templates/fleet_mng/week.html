@@ -1,0 +1,40 @@
+In month:
+{% if rents_list %}
+<ul>
+    {% for rent in rents_list %}
+    <li><a href="{% url 'rent' rent.id %}">{{ rent }}</a></li>
+    {% endfor %}
+</ul>
+<style>
+  table, th, td {
+    border: 1px solid black;
+}
+</style>
+<table>
+    <tr>
+        <th>
+            Vehicle
+        </th>
+        {% for w in weeks %}
+        <th colspan="7">{{ w }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td></td>
+        {% for d in days %}
+        <td>{{d.day}}</td>
+        {% endfor %}
+    </tr>
+    {% for vehicle, d in rents_table.items %}
+    <tr>
+        <td>{{vehicle}}</td>
+        {% for h in d %}
+        <td>{{h}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+<p>No rents are available.</p>
+{% endif %}

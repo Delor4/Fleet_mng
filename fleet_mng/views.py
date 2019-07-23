@@ -13,10 +13,11 @@ def index(request):
     return render(request, 'fleet_mng/index.html', {'sites_list': sites_list})
 
 
-def vehicles(request):
-    vehicles_list = Vehicle.objects.all()
-    context = {'vehicles_list': vehicles_list}
-    return render(request, 'fleet_mng/vehicles.html', context)
+class VehiclesView(generic.ListView):
+    template_name = 'fleet_mng/vehicles.html'
+
+    def get_queryset(self):
+        return Vehicle.objects.all()
 
 
 class VehicleView(generic.DetailView):
@@ -24,10 +25,11 @@ class VehicleView(generic.DetailView):
     template_name = 'fleet_mng/vehicle.html'
 
 
-def renters(request):
-    renters_list = Renter.objects.all()
-    context = {'renters_list': renters_list}
-    return render(request, 'fleet_mng/renters.html', context)
+class RentersView(generic.ListView):
+    template_name = 'fleet_mng/renters.html'
+
+    def get_queryset(self):
+        return Renter.objects.all()
 
 
 class RenterView(generic.DetailView):
@@ -35,10 +37,11 @@ class RenterView(generic.DetailView):
     template_name = 'fleet_mng/renter.html'
 
 
-def rents(request):
-    rents_list = Rent.objects.all()
-    context = {'rents_list': rents_list}
-    return render(request, 'fleet_mng/rents.html', context)
+class RentsView(generic.ListView):
+    template_name = 'fleet_mng/rents.html'
+
+    def get_queryset(self):
+        return Rent.objects.all()
 
 
 class RentView(generic.DetailView):

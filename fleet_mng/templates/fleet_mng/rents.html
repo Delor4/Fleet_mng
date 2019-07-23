@@ -1,6 +1,6 @@
-{% if rents_list %}
+{% if rent_list %}
     <ul>
-    {% for rent in rents_list %}
+    {% for rent in rent_list %}
         <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
     </ul>

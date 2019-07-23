@@ -1,9 +1,12 @@
+{% extends "fleet_mng/base.html" %}
+{% block content %}
 {% if rent_list %}
-    <ul>
+<ul>
     {% for rent in rent_list %}
-        <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
+    <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
-    </ul>
+</ul>
 {% else %}
-    <p>No rents are available.</p>
+<p>No rents are available.</p>
 {% endif %}
+{% endblock %}

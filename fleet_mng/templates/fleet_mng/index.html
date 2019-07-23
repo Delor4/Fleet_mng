@@ -1,9 +1,12 @@
+{% extends "fleet_mng/base.html" %}
+{% block content %}
 {% if sites_list %}
-    <ul>
+<ul>
     {% for site in sites_list %}
-        <li><a href="{% url site %}">{{ site }}</a></li>
+    <li><a href="{% url site %}">{{ site }}</a></li>
     {% endfor %}
-    </ul>
+</ul>
 {% else %}
-    <p>No sites are available.</p>
+<p>No sites are available.</p>
 {% endif %}
+{% endblock %}

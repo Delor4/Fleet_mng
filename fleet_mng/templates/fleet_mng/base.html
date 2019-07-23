@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/style.css' %}">
+    <title>{% block title %}Vehicle Management{% endblock %}</title>
+</head>
+<body>
+<div id="sidebar">
+    {% block sidebar %}
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
+        <li><a href="{% url 'fleet_mng:renters' %}">Renters</a></li>
+        <li><a href="{% url 'fleet_mng:rents' %}">Rents</a></li>
+        <li><a href="{% url 'fleet_mng:week' %}">Week table</a></li>
+    </ul>
+    {% endblock %}
+</div>
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

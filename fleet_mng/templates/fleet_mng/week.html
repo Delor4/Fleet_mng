@@ -1,3 +1,5 @@
+{% extends "fleet_mng/base.html" %}
+{% block content %}
 In month:
 {% if rents_list %}
 <ul>
@@ -5,9 +7,7 @@ In month:
     <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
 </ul>
-{% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/style.css' %}">
 <table>
     <tr>
         <th>
@@ -29,9 +29,9 @@ In month:
         {% for h in d %}
         <td>
             {%ifequal h.present 1 %}
-                <a href="{% url 'fleet_mng:rent' h.rent.id %}">{{ h.present }}</a>
+            <a href="{% url 'fleet_mng:rent' h.rent.id %}">{{ h.present }}</a>
             {% else %}
-                {{ h.present }}
+            {{ h.present }}
             {% endifequal %}
         </td>
         {% endfor %}
@@ -42,3 +42,4 @@ In month:
 {% else %}
 <p>No rents are available.</p>
 {% endif %}
+{% endblock %}

@@ -15,8 +15,7 @@ class Vehicle(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return "{0} [{1} {2}, {3}{4}]".format(self.name, self.brand, self.model, ("Free", "Rented")[self.is_rented()],
-                                              ('', ' ! ! !')[self.is_not_bring_back()])
+        return "{0} [{1} {2}]".format(self.name, self.brand, self.model)
 
     def is_rented(self) -> bool:
         return Rent.objects.filter(vehicle=self, rented__exact=1).exists() or \

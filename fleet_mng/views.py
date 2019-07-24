@@ -1,5 +1,7 @@
 import datetime
 
+from django import forms
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views import generic
@@ -85,3 +87,35 @@ def show_week(request):
     return render(request, 'fleet_mng/week.html',
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
                    'rents_table': tabl})
+
+
+class RentForm(forms.ModelForm):
+    class Meta:
+        model = Rent
+        fields = ('from_date', 'to_date', 'vehicle', 'renter')
+
+    def __init__(self, *args, **kwargs):
+        search_str = kwargs.pop('search_str', None)
+        super().__init__(*args, **kwargs)
+        v = Vehicle.objects.raw('select * from fleet_mng_vehicle where id not in (select distinct(vehicle_id) from fleet_mng_rent where rented = 1)')
+        self.fields['vehicle'].initial = search_str
+        self.fields['vehicle'].choices = [(x.id, x) for x in v]
+
+
+def show_rent_form(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = RentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = RentForm()
+
+    return render(request, 'fleet_mng/rent_form.html', {'form': form})

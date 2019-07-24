@@ -12,5 +12,7 @@ urlpatterns = [
     path('rents/', views.RentsView.as_view(), name='rents'),
     path('rent/<int:pk>/', views.RentView.as_view(), name='rent'),
 
-    path('week/', views.show_week, name='week')
+    path('week/', views.show_week, name='week'),
+
+    path('rent_form/', views.show_rent_form, name='rent_form'),
 ]

@@ -29,6 +29,9 @@ class Vehicle(models.Model):
                 return True
         return False
 
+    def is_free(self):
+        return not Rent.objects.filter(vehicle=self, rented__exact=1).exist()
+
 
 class Renter(models.Model):
     name = models.CharField(max_length=193, db_index=True)
@@ -44,7 +47,7 @@ class Renter(models.Model):
 
 class Rent(models.Model):
     description = models.TextField(blank=True)
-    from_date = models.DateTimeField()
+    from_date = models.DateTimeField(default=timezone.now)
     to_date = models.DateTimeField()
     vehicle = models.ForeignKey(Vehicle, on_delete=models.DO_NOTHING)
     renter = models.ForeignKey(Renter, on_delete=models.DO_NOTHING)

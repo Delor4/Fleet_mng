@@ -79,10 +79,15 @@ def show_week(request):
 
     # filling table
     for v in week:
+        tab_item = None
         for i, d in enumerate(date_range(v.from_date, v.to_date)):
             da = datetime.date(d.year, d.month, d.day)
             if da in days:
-                tabl[v.vehicle][days.index(datetime.date(d.year, d.month, d.day))] = {'present': 1, 'rent': v}
+                tab_item = {'present': 1, 'rent': v, 'first': i == 0, 'last': False}
+                tabl[v.vehicle][days.index(datetime.date(d.year, d.month, d.day))] = tab_item
+            else:
+                tab_item = {'last': False}
+        tab_item['last'] = True
 
     return render(request, 'fleet_mng/week.html',
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
@@ -97,7 +102,9 @@ class RentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
         super().__init__(*args, **kwargs)
-        v = Vehicle.objects.raw('select * from fleet_mng_vehicle where id not in (select distinct(vehicle_id) from fleet_mng_rent where rented = 1)')
+        v = Vehicle.objects.raw(
+            'select * from fleet_mng_vehicle where id not in '
+            '(select distinct(vehicle_id) from fleet_mng_rent where rented = 1)')
         self.fields['vehicle'].initial = search_str
         self.fields['vehicle'].choices = [(x.id, x) for x in v]
 

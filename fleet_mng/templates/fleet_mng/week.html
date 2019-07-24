@@ -31,7 +31,7 @@ In month:
             </div>
         </td>
         {% for h in d %}
-        <td>
+        <td class="{%ifequal h.present 1 %}rent_bar{% else %}no_rent_bar{% endifequal %}">
             {%ifequal h.present 1 %}
             <a href="{% url 'fleet_mng:rent' h.rent.id %}">{{ h.present }}</a>
             {% else %}

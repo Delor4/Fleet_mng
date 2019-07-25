@@ -1,9 +1,11 @@
 import datetime
 
+import pytz
 from django import forms
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.views import generic
 
 from fleet_mng.models import Vehicle, Renter, Rent
@@ -52,7 +54,7 @@ class RentView(generic.DetailView):
 
 
 def date_range(start_date, end_date):
-    for n in range(int((end_date - start_date).days)):
+    for n in range(int((end_date - start_date).days) + 1):
         yield start_date + datetime.timedelta(n)
 
 
@@ -66,7 +68,7 @@ def show_nrel_week(request, week_rel):
 
 def show_week(request, week_rel=0):
     show_from = timezone.now() + datetime.timedelta(week_rel * 7)
-    show_to = show_from + datetime.timedelta(4 * 7)
+    show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
     to_range = show_to
     week = Rent.objects.filter(from_date__lte=to_range).filter(to_date__gte=from_range)
@@ -87,8 +89,10 @@ def show_week(request, week_rel=0):
 
     # filling table
     for v in week:
+        print("*", v)
         tab_item = {'last': False}
         for i, d in enumerate(date_range(v.from_date, v.to_date)):
+            print(i, d)
             da = datetime.date(d.year, d.month, d.day)
             if da in days:
                 tab_item = {'present': 1, 'rent': v, 'first': i == 0, 'last': False}
@@ -137,17 +141,35 @@ class RentForm(forms.Form):
 
         new_renter = cleaned_data.get('new_renter')
         new_renter_description = cleaned_data.get('new_renter_description')
-        if not renter and (new_renter == '' or not new_renter):
-            raise forms.ValidationError('You have to select or make new renter!')
+
+        if (not renter or int(renter) == 0) and (not new_renter or new_renter == ''):
+            raise forms.ValidationError('You have to fill new renter\'s name!')
 
 
 def show_rent_form(request):
     if request.method == 'POST':
         form = RentForm(request.POST)
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
+            renter = int(form.cleaned_data.get('renter'))
+            new_renter = form.fields['new_renter']
+            new_renter_description = form.fields['new_renter_description']
+            renter_db = None
+            if renter == 0:
+                renter_db = Renter(name=new_renter, description=new_renter_description)
+                renter_db.save()
+            else:
+                renter_db = Renter.objects.get(id=renter)
+            v = Vehicle.objects.get(id=int(form.cleaned_data.get('vehicle')))
+            d = form.cleaned_data.get('to_date')
+            td = datetime.datetime.now()
+            naive = timezone.datetime(d.year, d.month, d.day, td.hour)
+            t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
+
+            rent_db = Rent(to_date=t,
+                           vehicle=v,
+                           renter=renter_db)
+            rent_db.save()
+
             return HttpResponseRedirect('/')
     else:
         form = RentForm()

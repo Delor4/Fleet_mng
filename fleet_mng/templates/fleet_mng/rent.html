@@ -1,4 +1,10 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-{{ rent }}
+
+Od {{ rent.from_date }} do {{ rent.to_date }}<br>
+Pojazd: <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
+Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>{%if rent.rented == 1 %} (nie oddany){% endif %}<br>
+Uwagi: {{ rent.description }}<br>
+
+<a href="{% url 'fleet_mng:rent_bring_back' rent.id %}">Zwróć</a>
 {% endblock %}

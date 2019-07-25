@@ -184,3 +184,6 @@ def show_rent_form(request):
         form = RentForm()
 
     return render(request, 'fleet_mng/rent_form.html', {'form': form})
+
+def rent_bring_back(request, pk):
+    return HttpResponseRedirect('/')

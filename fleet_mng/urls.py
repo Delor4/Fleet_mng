@@ -13,6 +13,8 @@ urlpatterns = [
     path('rent/<int:pk>/', views.RentView.as_view(), name='rent'),
 
     path('week/', views.show_week, name='week'),
+    path('week/<int:week_rel>/', views.show_rel_week, name='week_rel'),
+    path('week/-<int:week_rel>/', views.show_nrel_week, name='week_nrel'),
 
     path('rent_form/', views.show_rent_form, name='rent_form'),
 ]

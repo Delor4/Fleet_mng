@@ -56,8 +56,16 @@ def date_range(start_date, end_date):
         yield start_date + datetime.timedelta(n)
 
 
-def show_week(request):
-    show_from = timezone.now()
+def show_rel_week(request, week_rel):
+    return show_week(request, week_rel)
+
+
+def show_nrel_week(request, week_rel):
+    return show_week(request, -week_rel)
+
+
+def show_week(request, week_rel=0):
+    show_from = timezone.now() + datetime.timedelta(week_rel * 7)
     show_to = show_from + datetime.timedelta(4 * 7)
     from_range = show_from
     to_range = show_to
@@ -79,7 +87,7 @@ def show_week(request):
 
     # filling table
     for v in week:
-        tab_item = None
+        tab_item = {'last': False}
         for i, d in enumerate(date_range(v.from_date, v.to_date)):
             da = datetime.date(d.year, d.month, d.day)
             if da in days:
@@ -91,7 +99,10 @@ def show_week(request):
 
     return render(request, 'fleet_mng/week.html',
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
-                   'rents_table': tabl})
+                   'rents_table': tabl,
+                   'prev_past': (week_rel - 1) < 0, 'prev_week': abs(week_rel - 1),
+                   'next_past': (week_rel + 1) < 0, 'next_week': abs(week_rel + 1),
+                   })
 
 
 class RentForm(forms.Form):

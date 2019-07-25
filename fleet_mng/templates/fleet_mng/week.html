@@ -7,7 +7,9 @@ In month:
     <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
 </ul>
-
+{% else %}
+<p>No rents are available.</p>
+{% endif %}
 <table>
     <tr>
         <th>
@@ -43,7 +45,7 @@ In month:
     {% endfor %}
 
 </table>
-{% else %}
-<p>No rents are available.</p>
-{% endif %}
+<a href="{%if prev_past %}{% url 'fleet_mng:week_nrel' prev_week %}{% else %}{% url 'fleet_mng:week_rel' prev_week %}{% endif %}">prev</a>
+...
+<a href="{%if next_past %}{% url 'fleet_mng:week_nrel' next_week %}{% else %}{% url 'fleet_mng:week_rel' next_week %}{% endif %}">next</a>
 {% endblock %}

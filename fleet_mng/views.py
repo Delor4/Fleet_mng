@@ -136,6 +136,8 @@ class RentForm(forms.Form):
     def clean(self):
         cleaned_data = super(RentForm, self).clean()
         to_date = cleaned_data.get('to_date')
+        if to_date < timezone.now().date():
+            raise forms.ValidationError('Date can\'t be in past!')
         vehicle = cleaned_data.get('vehicle')
         renter = cleaned_data.get('renter')
 
@@ -151,8 +153,8 @@ def show_rent_form(request):
         form = RentForm(request.POST)
         if form.is_valid():
             renter = int(form.cleaned_data.get('renter'))
-            new_renter = form.fields['new_renter']
-            new_renter_description = form.fields['new_renter_description']
+            new_renter = form.cleaned_data.get('new_renter')
+            new_renter_description = form.cleaned_data.get('new_renter_description')
             renter_db = None
             if renter == 0:
                 renter_db = Renter(name=new_renter, description=new_renter_description)

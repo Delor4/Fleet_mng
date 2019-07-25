@@ -47,8 +47,8 @@ class Renter(models.Model):
 
 class Rent(models.Model):
     description = models.TextField(blank=True)
-    from_date = models.DateTimeField(default=timezone.now)
-    to_date = models.DateTimeField()
+    from_date = models.DateField(default=timezone.now)
+    to_date = models.DateField()
     vehicle = models.ForeignKey(Vehicle, on_delete=models.DO_NOTHING)
     renter = models.ForeignKey(Renter, on_delete=models.DO_NOTHING)
     rented = models.IntegerField(default=1)
@@ -65,4 +65,4 @@ class Rent(models.Model):
                                                  self.renter)
 
     def is_not_bring_back(self) -> bool:
-        return self.to_date < timezone.now() and self.from_date < timezone.now() and self.rented == 1
+        return self.to_date < timezone.now().date() and self.from_date < timezone.now().date() and self.rented == 1

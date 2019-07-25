@@ -3,9 +3,8 @@ import datetime
 import pytz
 from django import forms
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.utils import timezone
-from django.utils.dateparse import parse_datetime
 from django.views import generic
 
 from fleet_mng.models import Vehicle, Renter, Rent
@@ -110,9 +109,9 @@ def show_week(request, week_rel=0):
 
 
 class RentForm(forms.Form):
-    to_date = forms.DateField()
-    vehicle = forms.ChoiceField()
-    renter = forms.ChoiceField()
+    to_date = forms.DateField(label="Przewidywana data zwrotu:")
+    vehicle = forms.ChoiceField(label="Dostępne pojazdy:")
+    renter = forms.ChoiceField(label="Wypożyczający:")
 
     new_renter = forms.CharField(max_length=191, required=False)
     new_renter_description = forms.CharField(

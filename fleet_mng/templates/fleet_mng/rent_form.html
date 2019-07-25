@@ -5,4 +5,26 @@
     {{ form }}
     <input type="submit" value="Submit">
 </form>
+<script>
+    jQuery(document).ready(function($){
+    $('select[name=renter]').change(function () {
+    // hide all optional elements
+    $('#id_new_renter').hide();
+    $('label[for=id_new_renter]').hide()
+    $('#id_new_renter_description').hide();
+    $('label[for=id_new_renter_description]').hide()
+
+    $("select[name=renter] option:selected").each(function () {
+        var value = $(this).val();
+        if(value == 0) {
+            $('#id_new_renter').show();
+            $('label[for=id_new_renter]').show()
+            $('#id_new_renter_description').show();
+            $('label[for=id_new_renter_description]').show()
+        }
+
+    });
+});
+});
+</script>
 {% endblock %}

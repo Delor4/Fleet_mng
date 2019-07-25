@@ -94,10 +94,17 @@ def show_week(request):
                    'rents_table': tabl})
 
 
-class RentForm(forms.ModelForm):
-    class Meta:
-        model = Rent
-        fields = ('from_date', 'to_date', 'vehicle', 'renter')
+class RentForm(forms.Form):
+    to_date = forms.DateField()
+    vehicle = forms.ChoiceField()
+    renter = forms.ChoiceField()
+
+    new_renter = forms.CharField(max_length=191, required=False)
+    new_renter_description = forms.CharField(
+        max_length=2000,
+        widget=forms.Textarea(),
+        required=False
+    )
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
@@ -108,20 +115,29 @@ class RentForm(forms.ModelForm):
         self.fields['vehicle'].initial = search_str
         self.fields['vehicle'].choices = [(x.id, x) for x in v]
 
+        self.fields['renter'].choices = [(0, '-- nowy --')]
+        self.fields['renter'].choices.extend([(x.id, x) for x in Renter.objects.all()])
+
+    def clean(self):
+        cleaned_data = super(RentForm, self).clean()
+        to_date = cleaned_data.get('to_date')
+        vehicle = cleaned_data.get('vehicle')
+        renter = cleaned_data.get('renter')
+
+        new_renter = cleaned_data.get('new_renter')
+        new_renter_description = cleaned_data.get('new_renter_description')
+        if not renter and (new_renter == '' or not new_renter):
+            raise forms.ValidationError('You have to select or make new renter!')
+
 
 def show_rent_form(request):
-    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = RentForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
             return HttpResponseRedirect('/')
-
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = RentForm()
 

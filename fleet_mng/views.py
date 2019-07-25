@@ -135,10 +135,15 @@ class RentForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(RentForm, self).clean()
+
         to_date = cleaned_data.get('to_date')
         if to_date < timezone.now().date():
             raise forms.ValidationError('Date can\'t be in past!')
+
         vehicle = cleaned_data.get('vehicle')
+        if not Vehicle.objects.get(id=int(vehicle)).is_free():
+            raise forms.ValidationError('Occupied vehicle.')
+
         renter = cleaned_data.get('renter')
 
         new_renter = cleaned_data.get('new_renter')
@@ -155,16 +160,18 @@ def show_rent_form(request):
             renter = int(form.cleaned_data.get('renter'))
             new_renter = form.cleaned_data.get('new_renter')
             new_renter_description = form.cleaned_data.get('new_renter_description')
+
+            v = Vehicle.objects.get(id=int(form.cleaned_data.get('vehicle')))
+
             renter_db = None
             if renter == 0:
                 renter_db = Renter(name=new_renter, description=new_renter_description)
                 renter_db.save()
             else:
                 renter_db = Renter.objects.get(id=renter)
-            v = Vehicle.objects.get(id=int(form.cleaned_data.get('vehicle')))
+
             d = form.cleaned_data.get('to_date')
-            td = datetime.datetime.now()
-            naive = timezone.datetime(d.year, d.month, d.day, td.hour)
+            naive = timezone.datetime(d.year, d.month, d.day)
             t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
 
             rent_db = Rent(to_date=t,

@@ -30,7 +30,7 @@ class Vehicle(models.Model):
         return False
 
     def is_free(self):
-        return not Rent.objects.filter(vehicle=self, rented__exact=1).exist()
+        return not Rent.objects.filter(vehicle=self, rented__exact=1).exists()
 
 
 class Renter(models.Model):

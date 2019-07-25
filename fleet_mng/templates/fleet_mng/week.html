@@ -1,15 +1,6 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-In month:
-{% if rents_list %}
-<ul>
-    {% for rent in rents_list %}
-    <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No rents are available.</p>
-{% endif %}
+<a href="{% url 'fleet_mng:rent_form' %}">Nowe wypożyczenie</a>
 <table>
     <tr>
         <th>
@@ -45,7 +36,7 @@ In month:
     {% endfor %}
 
 </table>
-<a href="{%if prev_past %}{% url 'fleet_mng:week_nrel' prev_week %}{% else %}{% url 'fleet_mng:week_rel' prev_week %}{% endif %}">prev</a>
+<a href="{%if nav.prev.past %}{% url 'fleet_mng:week_nrel' nav.prev.week %}{% else %}{% url 'fleet_mng:week_rel' nav.prev.week %}{% endif %}">prev</a>
 ...
-<a href="{%if next_past %}{% url 'fleet_mng:week_nrel' next_week %}{% else %}{% url 'fleet_mng:week_rel' next_week %}{% endif %}">next</a>
+<a href="{%if nav.next.past %}{% url 'fleet_mng:week_nrel' nav.next.week %}{% else %}{% url 'fleet_mng:week_rel' nav.next.week %}{% endif %}">next</a>
 {% endblock %}

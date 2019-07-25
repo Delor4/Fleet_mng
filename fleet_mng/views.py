@@ -103,8 +103,10 @@ def show_week(request, week_rel=0):
     return render(request, 'fleet_mng/week.html',
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
                    'rents_table': tabl,
-                   'prev_past': (week_rel - 1) < 0, 'prev_week': abs(week_rel - 1),
-                   'next_past': (week_rel + 1) < 0, 'next_week': abs(week_rel + 1),
+                   'nav': {
+                       'prev': {'past': (week_rel - 1) < 0, 'week': abs(week_rel - 1)},
+                       'next': {'past': (week_rel + 1) < 0, 'week': abs(week_rel + 1)},
+                   },
                    })
 
 

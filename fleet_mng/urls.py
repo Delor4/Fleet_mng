@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('rents/', views.RentsView.as_view(), name='rents'),
     path('rent/<int:pk>/', views.RentView.as_view(), name='rent'),
-    path('rent/<int:pk>/bring_back/', views.rent_bring_back, name='rent_bring_back'),
+    path('rent/bring_back/<int:pk>/', views.rent_bring_back, name='rent_bring_back'),
 
     path('week/', views.show_week, name='week'),
     path('week/<int:week_rel>/', views.show_rel_week, name='week_rel'),

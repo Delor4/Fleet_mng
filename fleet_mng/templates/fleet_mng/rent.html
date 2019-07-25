@@ -3,8 +3,26 @@
 
 Od {{ rent.from_date }} do {{ rent.to_date }}<br>
 Pojazd: <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
-Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>{%if rent.rented == 1 %} (nie oddany){% endif %}<br>
+{%if rent.rented == 1 %} (nie oddany){% endif %}<br>
+Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter}}</a><br>
 Uwagi: {{ rent.description }}<br>
 
-<a href="{% url 'fleet_mng:rent_bring_back' rent.id %}">Zwróć</a>
+<script>
+function _delete(e,a) {
+    if(e)
+        e.preventDefault();
+    else
+        window.event.returnValue=false;
+    if(window.confirm('Potwierdź zwrot pojazdu.'))
+        document.forms.bring_back_form.confirm.value=1;
+        document.forms.bring_back_form.submit();
+}
+</script>
+<form method=post name="bring_back_form" action="{% url 'fleet_mng:rent_bring_back' rent.id %}" onsubmit="_delete(event,this);"/>
+{% csrf_token %}
+<input type=hidden name="confirm" value="0"/>
+<input type=submit value="Zwróć"/>
+</form>
+
+<a href="{% url 'fleet_mng:rent_bring_back' rent.id %}" onclick="return confirm_bring_back();">Zwróć</a>
 {% endblock %}

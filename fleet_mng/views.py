@@ -185,5 +185,11 @@ def show_rent_form(request):
 
     return render(request, 'fleet_mng/rent_form.html', {'form': form})
 
+
 def rent_bring_back(request, pk):
+    if request.method == 'POST' and int(request.POST['confirm']) == 1:
+        rent = Rent.objects.get(pk=pk)
+        rent.rented = 0
+        rent.to_date = timezone.now().date()
+        rent.save()
     return HttpResponseRedirect('/')

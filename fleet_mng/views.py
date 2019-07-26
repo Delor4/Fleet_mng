@@ -2,7 +2,8 @@ import datetime
 
 import pytz
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
@@ -58,17 +59,20 @@ def date_range(start_date, end_date):
         yield start_date + datetime.timedelta(n)
 
 
+@login_required
 def show_week_rel(request, week_rel=0):
     show_from = timezone.now() + datetime.timedelta(int(week_rel) * 7)
     return show_week(request, show_from)
 
 
+@login_required
 def show_week_date(request, year, month, day):
     naive = timezone.datetime(int(year), int(month), int(day))
     t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
     return show_week(request, t)
 
 
+@login_required
 def show_week(request, show_from=timezone.now()):
     show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
@@ -180,6 +184,7 @@ class RentForm(forms.Form):
             raise forms.ValidationError('You have to fill new renter\'s name!')
 
 
+@login_required
 def show_rent_form(request):
     if request.method == 'POST':
         form = RentForm(request.POST)
@@ -213,20 +218,13 @@ def show_rent_form(request):
     return render(request, 'fleet_mng/rent_form.html', {'form': form})
 
 
+@login_required
 def rent_bring_back(request, pk):
-    if request.method == 'POST' and int(request.POST['confirm']) == 1:
+    if request.user.has_perm('fleet_mng.can_mark_returned') and \
+            request.method == 'POST' and \
+            int(request.POST['confirm']) == 1:
         rent = Rent.objects.get(pk=pk)
         rent.rented = 0
         rent.to_date = timezone.now().date()
         rent.save()
     return HttpResponseRedirect('/')
-
-
-def show_users(request):
-    users = User.objects.all()
-    return render(request, 'fleet_mng/users.html', {'users_list': users})
-
-
-def show_user(request, pk):
-    user = User.objects.get(pk=pk)
-    return render(request, 'fleet_mng/user.html', {'user': user})

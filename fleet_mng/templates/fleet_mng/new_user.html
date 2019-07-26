@@ -1,0 +1,12 @@
+{% extends "fleet_mng/base.html" %}
+{% block content %}
+{% if perms.auth.add_user %}
+<form action="{% url 'fleet_mng:new_user' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+{% else %}
+{% include "fleet_mng/not_allowed.html" %}
+{% endif %}
+{% endblock %}

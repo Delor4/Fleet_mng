@@ -42,13 +42,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(blank=True)),
-                ('from_date', models.DateTimeField()),
-                ('to_date', models.DateTimeField()),
+                ('from_date', models.DateField(default=django.utils.timezone.now)),
+                ('to_date', models.DateField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted', models.BooleanField(default=False)),
                 ('renter', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='fleet_mng.Renter')),
                 ('vehicle', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='fleet_mng.Vehicle')),
+                ('rented', models.IntegerField(default=1)),
             ],
         ),
     ]

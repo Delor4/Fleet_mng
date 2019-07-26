@@ -1,6 +1,8 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
+{% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}">Nowe wypożyczenie</a>
+{% endif %}
 <table>
     <tr>
         <th>

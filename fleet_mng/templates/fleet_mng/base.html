@@ -21,7 +21,9 @@
         {% if perms.fleet_mng.view_rent %}
         <li><a href="{% url 'fleet_mng:rents' %}">Rents</a></li>
         {% endif %}
+        {% if perms.fleet_mng.can_show_week %}
         <li><a href="{% url 'fleet_mng:week' %}">Week table</a></li>
+        {% endif %}
     </ul>
     {% endblock %}
 </div>

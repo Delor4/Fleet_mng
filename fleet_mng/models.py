@@ -63,7 +63,9 @@ class Rent(models.Model):
                                                  self.renter)
 
     class Meta:
-        permissions = (("can_mark_returned", "Set vehicle as returned"),)
+        permissions = (("can_mark_returned", "Can mark rent as returned"),
+                       ("can_show_week", "Can show week view"),
+                       )
 
     def is_not_bring_back(self) -> bool:
         return self.to_date < timezone.now().date() and self.from_date < timezone.now().date() and self.rented == 1

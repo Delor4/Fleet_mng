@@ -36,7 +36,7 @@
     {% endfor %}
 
 </table>
-<a href="{%if nav.prev.past %}{% url 'fleet_mng:week_nrel' nav.prev.week %}{% else %}{% url 'fleet_mng:week_rel' nav.prev.week %}{% endif %}">prev</a>
+<a href="{% url 'fleet_mng:week_rel' nav.prev %}">prev</a>
 ...
-<a href="{%if nav.next.past %}{% url 'fleet_mng:week_nrel' nav.next.week %}{% else %}{% url 'fleet_mng:week_rel' nav.next.week %}{% endif %}">next</a>
+<a href="{% url 'fleet_mng:week_rel' nav.next %}">next</a>
 {% endblock %}

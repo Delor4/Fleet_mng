@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -15,8 +15,7 @@ urlpatterns = [
     path('rent/bring_back/<int:pk>/', views.rent_bring_back, name='rent_bring_back'),
 
     path('week/', views.show_week, name='week'),
-    path('week/<int:week_rel>/', views.show_rel_week, name='week_rel'),
-    path('week/-<int:week_rel>/', views.show_nrel_week, name='week_nrel'),
+    re_path(r'^week/(?P<week_rel>-?\d+)/$', views.show_rel_week, name='week_rel'),
 
     path('rent_form/', views.show_rent_form, name='rent_form'),
 ]

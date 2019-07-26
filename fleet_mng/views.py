@@ -57,15 +57,8 @@ def date_range(start_date, end_date):
         yield start_date + datetime.timedelta(n)
 
 
-def show_rel_week(request, week_rel):
-    return show_week(request, week_rel)
-
-
-def show_nrel_week(request, week_rel):
-    return show_week(request, -week_rel)
-
-
 def show_week(request, week_rel=0):
+    week_rel = int(week_rel)
     show_from = timezone.now() + datetime.timedelta(week_rel * 7)
     show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
@@ -104,8 +97,8 @@ def show_week(request, week_rel=0):
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
                    'rents_table': tabl,
                    'nav': {
-                       'prev': {'past': (week_rel - 1) < 0, 'week': abs(week_rel - 1)},
-                       'next': {'past': (week_rel + 1) < 0, 'week': abs(week_rel + 1)},
+                       'prev': week_rel - 1,
+                       'next': week_rel + 1,
                    },
                    })
 

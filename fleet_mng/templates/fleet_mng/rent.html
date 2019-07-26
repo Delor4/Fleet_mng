@@ -1,6 +1,5 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-{% if perms.fleet_mng.view_rent %}
     Od {{ rent.from_date }} do {{ rent.to_date }}<br>
     Pojazd: <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
     {%if rent.rented == 1 %} (nie oddany){% endif %}<br>
@@ -26,7 +25,4 @@
         <input type=submit value="Zwróć"/>
         </form>
     {% endif %}
-{% else %}
-    {% include "fleet_mng/not_allowed.html" %}
-{% endif %}
 {% endblock %}

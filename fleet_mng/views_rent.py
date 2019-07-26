@@ -1,6 +1,7 @@
 import pytz
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
@@ -9,14 +10,16 @@ from django.views import generic
 from fleet_mng.models import Vehicle, Renter, Rent
 
 
-class RentsView(generic.ListView):
+class RentsView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'fleet_mng.view_rent'
     template_name = 'fleet_mng/rents.html'
 
     def get_queryset(self):
         return Rent.objects.all()
 
 
-class RentView(generic.DetailView):
+class RentView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'fleet_mng.view_rent'
     model = Rent
     template_name = 'fleet_mng/rent.html'
 

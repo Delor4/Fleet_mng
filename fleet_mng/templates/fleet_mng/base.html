@@ -24,6 +24,9 @@
         {% if perms.fleet_mng.can_show_week %}
         <li><a href="{% url 'fleet_mng:week' %}">Week table</a></li>
         {% endif %}
+        {% if perms.auth.view_user %}
+        <li><a href="{% url 'fleet_mng:users' %}">Users</a></li>
+        {% endif %}
     </ul>
     {% endblock %}
 </div>

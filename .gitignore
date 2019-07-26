@@ -1,4 +1,5 @@
 .*
 venv/
+myvenv/
 *.sqlite3
 **/__pycache__/

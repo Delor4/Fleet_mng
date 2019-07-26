@@ -1,5 +1,6 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
+{% if perms.fleet_mng.add_rent %}
 <form action="{% url 'fleet_mng:rent_form' %}" method="post">
     {% csrf_token %}
     {{ form }}
@@ -27,4 +28,7 @@
 });
 });
 </script>
+{% else %}
+{% include "fleet_mng/not_allowed.html" %}
+{% endif %}
 {% endblock %}

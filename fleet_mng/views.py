@@ -4,39 +4,14 @@ import pytz
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 from django.utils import timezone
-from django.views import generic
 
-from fleet_mng.models import Vehicle, Renter, Rent
+from fleet_mng.models import Rent, Vehicle
 
 
 def index(request):
     sites = ['vehicles', 'renters', 'rents', 'week']
     sites_list = ['fleet_mng:' + x for x in sites]
     return render(request, 'fleet_mng/index.html', {'sites_list': sites_list})
-
-
-class VehiclesView(generic.ListView):
-    template_name = 'fleet_mng/vehicles.html'
-
-    def get_queryset(self):
-        return Vehicle.objects.all()
-
-
-class VehicleView(generic.DetailView):
-    model = Vehicle
-    template_name = 'fleet_mng/vehicle.html'
-
-
-class RentersView(generic.ListView):
-    template_name = 'fleet_mng/renters.html'
-
-    def get_queryset(self):
-        return Renter.objects.all()
-
-
-class RenterView(generic.DetailView):
-    model = Renter
-    template_name = 'fleet_mng/renter.html'
 
 
 def date_range(start_date, end_date):

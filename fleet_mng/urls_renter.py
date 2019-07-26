@@ -1,8 +1,8 @@
 from django.urls import path
 
-from . import views
+from . import views_renter
 
 urlpatterns = [
-    path('', views.RentersView.as_view(), name='renters'),
-    path('<int:pk>/', views.RenterView.as_view(), name='renter'),
+    path('', views_renter.RentersView.as_view(), name='renters'),
+    path('<int:pk>/', views_renter.RenterView.as_view(), name='renter'),
 ]

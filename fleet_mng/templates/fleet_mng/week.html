@@ -36,7 +36,9 @@
     {% endfor %}
 
 </table>
-<a href="{% url 'fleet_mng:week_rel' nav.prev %}">prev</a>
+<a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"><<</a>
+<a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}"><</a>
 ...
-<a href="{% url 'fleet_mng:week_rel' nav.next %}">next</a>
+<a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}">></a>
+<a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}">>></a>
 {% endblock %}

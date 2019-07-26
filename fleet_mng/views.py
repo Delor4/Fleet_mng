@@ -57,9 +57,18 @@ def date_range(start_date, end_date):
         yield start_date + datetime.timedelta(n)
 
 
-def show_week(request, week_rel=0):
-    week_rel = int(week_rel)
-    show_from = timezone.now() + datetime.timedelta(week_rel * 7)
+def show_week_rel(request, week_rel=0):
+    show_from = timezone.now() + datetime.timedelta(int(week_rel) * 7)
+    return show_week(request, show_from)
+
+
+def show_week_date(request, year, month, day):
+    naive = timezone.datetime(int(year), int(month), int(day))
+    t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
+    return show_week(request, t)
+
+
+def show_week(request, show_from=timezone.now()):
     show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
     to_range = show_to
@@ -81,7 +90,6 @@ def show_week(request, week_rel=0):
 
     # filling table
     for v in week:
-        print("*", v)
         tab_item = {'last': False}
         for i, d in enumerate(date_range(v.from_date, v.to_date)):
             print(i, d)
@@ -93,12 +101,36 @@ def show_week(request, week_rel=0):
                 tab_item = {'last': False}
         tab_item['last'] = True
 
+    # dates for nav
+    prev_date = show_from + datetime.timedelta(-1)
+    prev_week_date = show_from + datetime.timedelta(-7)
+    next_date = show_from + datetime.timedelta(+1)
+    next_week_date = show_from + datetime.timedelta(+7)
+
     return render(request, 'fleet_mng/week.html',
                   {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
                    'rents_table': tabl,
                    'nav': {
-                       'prev': week_rel - 1,
-                       'next': week_rel + 1,
+                       'prev': {
+                           'year': prev_date.year,
+                           'month': prev_date.month,
+                           'day': prev_date.day,
+                       },
+                       'prev_week': {
+                           'year': prev_week_date.year,
+                           'month': prev_week_date.month,
+                           'day': prev_week_date.day,
+                       },
+                       'next': {
+                           'year': next_date.year,
+                           'month': next_date.month,
+                           'day': next_date.day,
+                       },
+                       'next_week': {
+                           'year': next_week_date.year,
+                           'month': next_week_date.month,
+                           'day': next_week_date.day,
+                       },
                    },
                    })
 

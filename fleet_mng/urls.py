@@ -19,5 +19,7 @@ urlpatterns = [
     re_path(r'^week/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', views.show_week_date, name='week_date'),
 
     path('rent_form/', views.show_rent_form, name='rent_form'),
-]
 
+    path('users/', views.show_users, name='users'),
+    path('user/<int:pk>/', views.show_user, name='user'),
+]

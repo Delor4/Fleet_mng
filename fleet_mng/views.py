@@ -2,6 +2,7 @@ import datetime
 
 import pytz
 from django import forms
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
@@ -219,3 +220,13 @@ def rent_bring_back(request, pk):
         rent.to_date = timezone.now().date()
         rent.save()
     return HttpResponseRedirect('/')
+
+
+def show_users(request):
+    users = User.objects.all()
+    return render(request, 'fleet_mng/users.html', {'users_list': users})
+
+
+def show_user(request, pk):
+    user = User.objects.get(pk=pk)
+    return render(request, 'fleet_mng/user.html', {'user': user})

@@ -2,7 +2,7 @@ import datetime
 
 import pytz
 from django import forms
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
@@ -59,12 +59,14 @@ def date_range(start_date, end_date):
 
 
 @login_required
+@permission_required('fleet_mng.can_show_week')
 def show_week_rel(request, week_rel=0):
     show_from = timezone.now() + datetime.timedelta(int(week_rel) * 7)
     return show_week(request, show_from)
 
 
 @login_required
+@permission_required('fleet_mng.can_show_week')
 def show_week_date(request, year, month, day):
     naive = timezone.datetime(int(year), int(month), int(day))
     t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
@@ -72,6 +74,7 @@ def show_week_date(request, year, month, day):
 
 
 @login_required
+@permission_required('fleet_mng.can_show_week')
 def show_week(request, show_from=timezone.now()):
     show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
@@ -184,6 +187,7 @@ class RentForm(forms.Form):
 
 
 @login_required
+@permission_required('fleet_mng.add_rent')
 def show_rent_form(request):
     if request.method == 'POST':
         form = RentForm(request.POST)
@@ -218,9 +222,9 @@ def show_rent_form(request):
 
 
 @login_required
+@permission_required('fleet_mng.can_mark_returned')
 def rent_bring_back(request, pk):
-    if request.user.has_perm('fleet_mng.can_mark_returned') and \
-            request.method == 'POST' and \
+    if request.method == 'POST' and \
             int(request.POST['confirm']) == 1:
         rent = Rent.objects.get(pk=pk)
         rent.rented = 0

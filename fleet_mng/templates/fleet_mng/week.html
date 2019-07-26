@@ -29,9 +29,9 @@
         {% for h in d %}
         <td class="{%ifequal h.present 1 %}rent_bar{% else %}no_rent_bar{% endifequal %}">
             {%ifequal h.present 1 %}
-            <a href="{% url 'fleet_mng:rent' h.rent.id %}">{{ h.present }}</a>
+            <a href="{% url 'fleet_mng:rent' h.rent.id %}">+</a>
             {% else %}
-            {{ h.present }}
+            .
             {% endifequal %}
         </td>
         {% endfor %}

@@ -1,3 +1,4 @@
+{# Wyświetlenie formularza z dostarczonych danych #}
 <form action="{{ request.get_full_path }}" method="post">
     {% csrf_token %}
     {{ form }}

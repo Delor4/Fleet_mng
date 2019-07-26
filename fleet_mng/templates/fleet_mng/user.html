@@ -1,6 +1,5 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-{% if perms.fleet_mng.view_user %}
 
 {{ user.username }}<br>
 {{ user.first_name }}<br>
@@ -8,9 +7,6 @@
 {{ user.email }}<br>
 Groups:<br>
 {% for group in user.groups.all %}
-    {{ group }}
+{{ group }}
 {% endfor %}
-{% else %}
-{% include "fleet_mng/not_allowed.html" %}
-{% endif %}
 {% endblock %}

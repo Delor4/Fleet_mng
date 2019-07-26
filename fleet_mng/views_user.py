@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User, Group
 from django import forms
 from django.http import HttpResponseRedirect
@@ -41,18 +41,21 @@ class UserForm(forms.Form):
 
 
 @login_required
+@permission_required('auth.view_user')
 def show_users(request):
     users = User.objects.all()
     return render(request, 'fleet_mng/users.html', {'users_list': users})
 
 
 @login_required
+@permission_required('auth.view_user')
 def show_user(request, pk):
     user = User.objects.get(pk=pk)
     return render(request, 'fleet_mng/user.html', {'user': user})
 
 
 @login_required
+@permission_required('auth.add_user')
 def new_user(request):
     if request.user.has_perm('auth.add_user') and \
             request.method == 'POST':
@@ -61,6 +64,7 @@ def new_user(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             group = Group.objects.get(pk=int(form.cleaned_data.get('group')))
+            # TODO: adding group to user
             user = User.objects.create_user(username, None, password)
             user.save()
             return HttpResponseRedirect('/')

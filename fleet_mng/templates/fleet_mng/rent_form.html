@@ -1,10 +1,6 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-<form action="{% url 'fleet_mng:rent_form' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+{% include "fleet_mng/form_generic.html" %}
 <script>
     jQuery(document).ready(function($){
     $('select[name=renter]').change(function () {

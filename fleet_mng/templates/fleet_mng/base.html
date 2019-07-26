@@ -35,13 +35,7 @@
     {% endif %}
 </div>
 <div id="content">
-    {% block no_auth %}
-    {% if user.is_authenticated %}
     {% block content %}{% endblock %}
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-    {% endblock %}
 </div>
 </body>
 </html>

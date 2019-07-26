@@ -8,17 +8,22 @@ from django.utils import timezone
 from fleet_mng.models import Rent, Vehicle
 
 
+# strona główna
 def index(request):
     sites = ['vehicles', 'renters', 'rents', 'week']
     sites_list = ['fleet_mng:' + x for x in sites]
     return render(request, 'fleet_mng/index.html', {'sites_list': sites_list})
 
 
+# funkcja podaje wszystkie dni pomiędzy datami (włącznie z końcami)
 def date_range(start_date, end_date):
     for n in range(int((end_date - start_date).days) + 1):
         yield start_date + datetime.timedelta(n)
 
 
+# /week/<int> - pokazanie widoku od danego tygodnia relatywnie w stosunku do aktualnego
+# /week/3   - pokazanie od dnia za 3 tygodnie
+# /week/-2  - pokazanie od dnia sprzed 2 tygodni
 @login_required
 @permission_required('fleet_mng.can_show_week')
 def show_week_rel(request, week_rel=0):
@@ -26,6 +31,7 @@ def show_week_rel(request, week_rel=0):
     return show_week(request, show_from)
 
 
+# /week/<year>-<month>-<day>  - pokazanie widoku od podanej daty
 @login_required
 @permission_required('fleet_mng.can_show_week')
 def show_week_date(request, year, month, day):
@@ -34,6 +40,7 @@ def show_week_date(request, year, month, day):
     return show_week(request, t)
 
 
+# właściwe wywołanie widoku
 @login_required
 @permission_required('fleet_mng.can_show_week')
 def show_week(request, show_from=timezone.now()):

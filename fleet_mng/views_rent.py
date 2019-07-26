@@ -103,6 +103,7 @@ def show_rent_form(request):
     return render(request, 'fleet_mng/rent_form.html', {'form': form})
 
 
+
 @login_required
 @permission_required('fleet_mng.can_mark_returned')
 def rent_bring_back(request, pk):

@@ -40,6 +40,7 @@ class UserForm(forms.Form):
             raise forms.ValidationError('Select group!')
 
 
+# pokazuje listę użytkowników
 @login_required
 @permission_required('auth.view_user')
 def show_users(request):
@@ -47,6 +48,7 @@ def show_users(request):
     return render(request, 'fleet_mng/users.html', {'users_list': users})
 
 
+# pokazuje użytkownika
 @login_required
 @permission_required('auth.view_user')
 def show_user(request, pk):
@@ -54,6 +56,7 @@ def show_user(request, pk):
     return render(request, 'fleet_mng/user.html', {'user': user})
 
 
+# Obsługa formularza dodawania użytkownika
 @login_required
 @permission_required('auth.add_user')
 def new_user(request):

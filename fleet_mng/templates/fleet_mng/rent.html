@@ -1,13 +1,12 @@
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-{% if perms.fleet_mng.view_rent %}
     Od {{ rent.from_date }} do {{ rent.to_date }}<br>
     Pojazd: <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
     {%if rent.rented == 1 %} (nie oddany){% endif %}<br>
     Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter}}</a><br>
     Uwagi: {{ rent.description }}<br>
 
-    {% if perms.fleet_mng.can_mark_returned %}
+    {% if perms.fleet_mng.can_mark_returned and rent.rented == 1 %}
         <script>
         function _delete(e,a) {
             if(e)
@@ -25,10 +24,5 @@
         <input type=hidden name="confirm" value="0"/>
         <input type=submit value="Zwróć"/>
         </form>
-
-        <a href="{% url 'fleet_mng:rent_bring_back' rent.id %}" onclick="return confirm_bring_back();">Zwróć</a>
     {% endif %}
-{% else %}
-    {% include "fleet_mng/not_allowed.html" %}
-{% endif %}
 {% endblock %}

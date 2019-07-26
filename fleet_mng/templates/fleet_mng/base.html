@@ -24,6 +24,9 @@
         {% if perms.fleet_mng.can_show_week %}
         <li><a href="{% url 'fleet_mng:week' %}">Week table</a></li>
         {% endif %}
+        {% if perms.auth.view_user %}
+        <li><a href="{% url 'fleet_mng:users' %}">Users</a></li>
+        {% endif %}
     </ul>
     {% endblock %}
 </div>
@@ -35,13 +38,7 @@
     {% endif %}
 </div>
 <div id="content">
-    {% block no_auth %}
-    {% if user.is_authenticated %}
     {% block content %}{% endblock %}
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-    {% endblock %}
 </div>
 </body>
 </html>

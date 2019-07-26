@@ -1,11 +1,81 @@
+body {
+  margin: 0 auto;
+  /* text-align: center; */
+}
+/* ------------------------------------------ */
+/* NAV MENU LAYOUT */
+nav ul {
+  float: right;
+  width: 100%;
+  padding: 0;
+  margin: 0 50px 0 0;
+  list-style: none;
+}
+
+nav li a {
+  display: block;
+  float: right;
+  text-align: center;
+  font-size: 0.9em;
+  width: 70px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  padding: 10px 15px;
+  margin: 0px 1px 1px 0px;
+  border: 1px solid navy;
+  border-radius: 3px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 2px 3px gray;
+  -moz-box-shadow: 0px 2px 3px gray;
+  -webkit-box-shadow: 0px 2px 3px gray;
+}
+
+nav li a:hover {
+  color: #000;
+  background: #DCDCDC;
+  border: 1px solid #000;
+}
+/* ------------------------------------------ */
+
+/* USER BAR LAYOUT */
+#userbar  {
+  text-align: right;
+  margin: 0px 50px 0px 0px;
+}
+/* ------------------------------------------ */
 
 table, th, td {
-    border: 1px solid black;
+  margin: 0 auto;
+  border: 1px solid black;
+  text-align: center;
+}
+
+#newrentbt {
+  display: block;
+  float: left;
+  text-align: center;
+  font-size: 0.8em;
+  width: 130px;
+  /* height: auto; */
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  padding: 5px 5px;
+  margin: 0px 1px 1px 0px;
+  border: 1px solid navy;
+  border-radius: 3px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 2px 3px gray;
+  -moz-box-shadow: 0px 2px 3px gray;
+  -webkit-box-shadow: 0px 2px 3px gray;
 }
 
 .rented {
-    font-weight: bold;
+  font-weight: bold;
 }
 .not_bring_back {
-    background: red;
+  background: red;
 }

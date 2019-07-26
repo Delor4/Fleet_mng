@@ -5,11 +5,9 @@ from . import views
 app_name = 'fleet_mng'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('vehicles/', views.VehiclesView.as_view(), name='vehicles'),
-    path('vehicle/<int:pk>/', views.VehicleView.as_view(), name='vehicle'),
-    path('renters/', views.RentersView.as_view(), name='renters'),
-    path('renter/<int:pk>/', views.RenterView.as_view(), name='renter'),
 
+    path('vehicle/', include('fleet_mng.urls_vehicle')),
+    path('renter/', include('fleet_mng.urls_renter')),
     path('rent/', include('fleet_mng.urls_rent')),
 
     path('week/', views.show_week, name='week'),

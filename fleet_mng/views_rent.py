@@ -10,6 +10,7 @@ from django.views import generic
 from fleet_mng.models import Vehicle, Renter, Rent
 
 
+# /rent/    =>  rents.html
 class RentsView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'fleet_mng.view_rent'
     template_name = 'fleet_mng/rents.html'
@@ -18,6 +19,7 @@ class RentsView(PermissionRequiredMixin, generic.ListView):
         return Rent.objects.all()
 
 
+# /rent/<int:pk>    =>  rent.html
 class RentView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'fleet_mng.view_rent'
     model = Rent
@@ -68,6 +70,7 @@ class RentForm(forms.Form):
             raise forms.ValidationError('You have to fill new renter\'s name!')
 
 
+# /rent/new/    =>  rent_new.html
 @login_required
 @permission_required('fleet_mng.add_rent')
 def show_rent_form(request):
@@ -100,10 +103,10 @@ def show_rent_form(request):
     else:
         form = RentForm()
 
-    return render(request, 'fleet_mng/rent_form.html', {'form': form})
+    return render(request, 'fleet_mng/rent_new.html', {'form': form})
 
 
-
+# /rent/bring_back/<int:pk>/    =>  -
 @login_required
 @permission_required('fleet_mng.can_mark_returned')
 def rent_bring_back(request, pk):

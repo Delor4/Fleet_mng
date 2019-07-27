@@ -41,6 +41,7 @@ class UserForm(forms.Form):
 
 
 # pokazuje listę użytkowników
+# /user/
 @login_required
 @permission_required('auth.view_user')
 def show_users(request):
@@ -49,6 +50,7 @@ def show_users(request):
 
 
 # pokazuje użytkownika
+# /user/<int:pk>/
 @login_required
 @permission_required('auth.view_user')
 def show_user(request, pk):
@@ -57,6 +59,7 @@ def show_user(request, pk):
 
 
 # Obsługa formularza dodawania użytkownika
+# /user/new/
 @login_required
 @permission_required('auth.add_user')
 def new_user(request):

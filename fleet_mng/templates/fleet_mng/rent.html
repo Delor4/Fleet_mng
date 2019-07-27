@@ -4,7 +4,7 @@
     Od {{ rent.from_date }} do {{ rent.to_date }}<br>
     Pojazd: <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
     {%if rent.rented == 1 %} (nie oddany){% endif %}<br>
-    Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter}}</a><br>
+    {%include 'fleet_mng/_rented_by.html'%}<br>
     Uwagi: {{ rent.description }}<br>
 
     {% if perms.fleet_mng.can_mark_returned and rent.rented == 1 %}

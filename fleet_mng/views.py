@@ -11,9 +11,7 @@ from fleet_mng.models import Rent, Vehicle
 # strona główna
 # /     => index.html
 def index(request):
-    sites = ['vehicles', 'renters', 'rents', 'week']
-    sites_list = ['fleet_mng:' + x for x in sites]
-    return render(request, 'fleet_mng/index.html', {'sites_list': sites_list})
+    return render(request, 'fleet_mng/index.html')
 
 
 # pokazanie widoku od danego tygodnia (relatywnie w stosunku do aktualnego)

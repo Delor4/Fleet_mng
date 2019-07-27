@@ -3,4 +3,7 @@
 {% block content %}
 {{ renter.name }}<br>
 {{ renter.description }}<br>
+{% if perms.fleet_mng.change_renter %}
+<a href="{% url 'fleet_mng:renter_edit' renter.id%}">Edytuj</a>
+{% endif %}
 {% endblock %}

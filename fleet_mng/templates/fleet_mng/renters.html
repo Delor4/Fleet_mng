@@ -1,6 +1,9 @@
 {# Wyświetlenie listy wypożyczających #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+{% if perms.fleet_mng.add_renter %}
+<a href="{% url 'fleet_mng:renter_new' %}">Nowy wypożyczający</a>
+{% endif %}
 {% if renter_list %}
 <ul>
     {% for renter in renter_list %}

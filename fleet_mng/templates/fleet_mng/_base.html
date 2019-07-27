@@ -13,22 +13,22 @@
 <body>
 <nav>
     {% block sidebar %}
-    <ul>
-        <li><a href="/">Home</a></li>
+    <ul class="nav justify-content-end">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
         {% if perms.fleet_mng.view_vehicle %}
-        <li><a href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
         {% endif %}
         {% if perms.fleet_mng.view_renter %}
-        <li><a href="{% url 'fleet_mng:renters' %}">Renters</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
         {% endif %}
         {% if perms.fleet_mng.view_rent %}
-        <li><a href="{% url 'fleet_mng:rents' %}">Rents</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
         {% endif %}
         {% if perms.fleet_mng.can_show_week %}
-        <li><a href="{% url 'fleet_mng:week' %}">Week table</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
         {% endif %}
         {% if perms.auth.view_user %}
-        <li><a href="{% url 'fleet_mng:users' %}">Users</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
         {% endif %}
     </ul>
     {% endblock %}

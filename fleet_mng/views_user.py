@@ -74,7 +74,7 @@ def new_user(request):
             user.save()
             # adding user to group
             group.user_set.add(user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/user/')
     else:
         form = UserForm()
 

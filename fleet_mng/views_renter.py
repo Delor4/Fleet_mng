@@ -46,7 +46,7 @@ def renter_new(request):
                             description=form.cleaned_data.get('description'),
                             )
             renter.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/renter/')
     else:
         form = RenterForm()
 

@@ -49,7 +49,7 @@ def vehicle_new(request):
                               registration_number=form.cleaned_data.get('registration_number'),
                               )
             vehicle.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/vehicle/')
     else:
         form = VehicleForm()
 

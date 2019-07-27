@@ -106,7 +106,7 @@ def show_rent_form(request):
                            renter=renter_db)
             rent_db.save()
 
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/rent/')
     else:
         form = RentForm()
 
@@ -123,4 +123,4 @@ def rent_bring_back(request, pk):
         rent.rented = 0
         rent.to_date = timezone.now().date()
         rent.save()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/rent/')

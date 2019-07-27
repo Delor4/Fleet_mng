@@ -11,26 +11,32 @@
     <title>{% block title %}Vehicle Management{% endblock %}</title>
 </head>
 <body>
-<nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     {% block sidebar %}
-    <ul class="nav justify-content-end">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-        {% if perms.fleet_mng.view_vehicle %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
-        {% endif %}
-        {% if perms.fleet_mng.view_renter %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
-        {% endif %}
-        {% if perms.fleet_mng.view_rent %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
-        {% endif %}
-        {% if perms.fleet_mng.can_show_week %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
-        {% endif %}
-        {% if perms.auth.view_user %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
-        {% endif %}
-    </ul>
+    <a class="navbar-brand" href="/">Fleet mng</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav justify-content-end">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            {% if perms.fleet_mng.view_vehicle %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
+            {% endif %}
+            {% if perms.fleet_mng.view_renter %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
+            {% endif %}
+            {% if perms.fleet_mng.view_rent %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
+            {% endif %}
+            {% if perms.fleet_mng.can_show_week %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
+            {% endif %}
+            {% if perms.auth.view_user %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
+            {% endif %}
+        </ul>
+    </div>
     {% endblock %}
 </nav>
 

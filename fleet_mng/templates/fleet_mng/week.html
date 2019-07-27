@@ -9,8 +9,7 @@
         <th>
             Vehicle
         </th>
-        {% for w in weeks %}
-        <th colspan="7">{{ w }}</th>
+        {% for d in days %}{%if forloop.counter0|divisibleby:7 %}<th colspan="7">{{ d }}</th>{%endif%}
         {% endfor %}
     </tr>
     <tr>

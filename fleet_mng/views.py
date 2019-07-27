@@ -53,15 +53,12 @@ def show_week(request, show_from=timezone.now()):
     to_range = show_to
     week = Rent.objects.filter(from_date__lte=to_range).filter(to_date__gte=from_range)
 
-    weeks = []
     days = []
-    # fill weeks and days
+    # fill days
     for i, day in enumerate(date_range(from_range, to_range)):
         days.append(datetime.date(day.year, day.month, day.day))
-        if not (i % 7):
-            weeks.append(datetime.date(day.year, day.month, day.day))
-    tabl = {}
 
+    tabl = {}
     vehicles = Vehicle.objects.all()
     # initialize vehicles table
     for v in vehicles:
@@ -87,7 +84,7 @@ def show_week(request, show_from=timezone.now()):
     next_week_date = show_from + datetime.timedelta(+7)
 
     return render(request, 'fleet_mng/week.html',
-                  {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'weeks': weeks, 'days': days,
+                  {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'days': days,
                    'rents_table': tabl,
                    'nav': {
                        'prev': {

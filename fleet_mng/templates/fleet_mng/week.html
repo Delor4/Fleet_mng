@@ -18,7 +18,7 @@
         <td>{{d.day}}</td>
         {% endfor %}
     </tr>
-    {% for vehicle, d in rents_table.items %}
+    {% for vehicle, d in vehicles_table.items %}
     <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
         <td>
             <div class="{%if vehicle.is_rented %}rented{%endif%}">
@@ -29,6 +29,8 @@
         <td class="{%ifequal h.present 1 %}rent_bar{% else %}no_rent_bar{% endifequal %}">
             {%ifequal h.present 1 %}
             <a href="{% url 'fleet_mng:rent' h.rent.id %}">+</a>
+            {%if h.first%}F{%endif%}
+            {%if h.last%}L{%endif%}
             {% else %}
             .
             {% endifequal %}

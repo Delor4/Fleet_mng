@@ -49,30 +49,29 @@ def show_week(request, show_from=timezone.now()):
     show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
     to_range = show_to
-    week = Rent.objects.filter(from_date__lte=to_range).filter(to_date__gte=from_range)
+    rents = Rent.objects.filter(from_date__lte=to_range).filter(to_date__gte=from_range)
 
-    days = []
     # fill days
-    for i, day in enumerate(date_range(from_range, to_range)):
-        days.append(datetime.date(day.year, day.month, day.day))
+    days = [datetime.date(d.year, d.month, d.day) for d in date_range(from_range, to_range)]
 
     tabl = {}
     vehicles = Vehicle.objects.all()
     # initialize vehicles table
-    for v in vehicles:
-        tabl[v] = [{'present': 0, 'rent': None} for _ in range(len(days))]
+    for vehicle in vehicles:
+        tabl[vehicle] = [{'present': 0, 'rent': None} for _ in range(len(days))]
 
     # filling table
-    for v in week:
+    for rent in rents:
         tab_item = {'last': False}
-        for i, d in enumerate(date_range(v.from_date, v.to_date)):
-            print(i, d)
+        first = True
+        for i, d in enumerate(date_range(rent.from_date, rent.to_date)):
             da = datetime.date(d.year, d.month, d.day)
             if da in days:
-                tab_item = {'present': 1, 'rent': v, 'first': i == 0, 'last': False}
-                tabl[v.vehicle][days.index(datetime.date(d.year, d.month, d.day))] = tab_item
+                tab_item = {'present': 1, 'rent': rent, 'first': first, 'last': False}
+                tabl[rent.vehicle][days.index(da)] = tab_item
             else:
                 tab_item = {'last': False}
+            first = False
         tab_item['last'] = True
 
     # dates for nav
@@ -82,8 +81,8 @@ def show_week(request, show_from=timezone.now()):
     next_week_date = show_from + datetime.timedelta(+7)
 
     return render(request, 'fleet_mng/week.html',
-                  {'rents_list': week, 'show_from': show_from, 'show_to': show_to, 'days': days,
-                   'rents_table': tabl,
+                  {'rents_list': rents, 'show_from': show_from, 'show_to': show_to, 'days': days,
+                   'vehicles_table': tabl,
                    'nav': {
                        'prev': {
                            'year': prev_date.year,

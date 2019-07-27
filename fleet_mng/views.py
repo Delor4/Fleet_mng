@@ -74,7 +74,6 @@ def show_week(request, show_from=timezone.now()):
             else:
                 tab_item = {'last': False}
             first = False
-        print(d)
         tab_item['classes'].append('last_' + str(rent.id))
 
     # dates for nav

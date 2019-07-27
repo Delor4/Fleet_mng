@@ -9,4 +9,7 @@
 {%if vehicle.is_rented %}
 {% for rent in vehicle.rented_by_data %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}
 {% endif %}
+{% if perms.fleet_mng.change_vehicle %}
+<a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}">Edytuj</a>
+{% endif %}
 {% endblock %}

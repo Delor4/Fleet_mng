@@ -1,6 +1,9 @@
 {# Wyświetlenie listy pojazdów #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+{% if perms.fleet_mng.add_vehicle %}
+<a href="{% url 'fleet_mng:vehicle_new' %}">Nowy pojazd</a>
+{% endif %}
 {% if vehicle_list %}
 <ul>
     {% for vehicle in vehicle_list %}

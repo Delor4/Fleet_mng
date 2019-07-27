@@ -38,7 +38,8 @@ class Vehicle(models.Model):
     def is_free(self):
         return not self.is_rented()
 
-    def rented_by_data(self):
+    #zwraca aktualnych wypożyczających ten pojazd
+    def get_current_renters(self):
         return Rent.objects.filter(vehicle=self, rented__exact=1)
 
 

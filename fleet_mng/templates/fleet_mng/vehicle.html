@@ -6,4 +6,5 @@
 {{ vehicle.model }}<br>
 {{ vehicle.generation }}<br>
 {{ vehicle.registration_number }}<br>
+{%if vehicle.is_rented %}Wypożyczony{% endif %}
 {% endblock %}

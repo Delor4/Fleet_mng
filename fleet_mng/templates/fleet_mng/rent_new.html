@@ -1,7 +1,7 @@
 {# Dodawanie nowego wypozyczenia - wyświetlenie < form > #}
-{% extends "fleet_mng/base.html" %}
+{% extends "fleet_mng/_base.html" %}
 {% block content %}
-{% include "fleet_mng/form_generic.html" %}
+{% include "fleet_mng/_form_generic.html" %}
 <script>
     jQuery(document).ready(function($){
     $('select[name=renter]').change(function () {

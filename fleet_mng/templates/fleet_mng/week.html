@@ -1,5 +1,5 @@
 {# Wyświetlenie widoku tygodniowego #}
-{% extends "fleet_mng/base.html" %}
+{% extends "fleet_mng/_base.html" %}
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" id="newrentbt">Nowe wypożyczenie</a>

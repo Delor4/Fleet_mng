@@ -43,7 +43,13 @@ def vehicle_new(request):
     if request.method == "POST":
         form = VehicleForm(request.POST)
         if form.is_valid():
-            # TODO: save new vehicle
+            vehicle = Vehicle(name=form.cleaned_data.get('name'),
+                              brand=form.cleaned_data.get('brand'),
+                              model=form.cleaned_data.get('model'),
+                              generation=form.cleaned_data.get('generation'),
+                              registration_number=form.cleaned_data.get('registration_number'),
+                              )
+            vehicle.save()
             return HttpResponseRedirect('/')
     else:
         form = VehicleForm()

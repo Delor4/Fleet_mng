@@ -45,7 +45,7 @@ class UserForm(forms.Form):
 @login_required
 @permission_required('auth.view_user')
 def show_users(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_superuser=False)
     return render(request, 'fleet_mng/users.html', {'users_list': users})
 
 

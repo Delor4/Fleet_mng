@@ -1,5 +1,9 @@
 {# Wyświetlenie danych konkretnego pojazdu #}
 {% extends "fleet_mng/base.html" %}
 {% block content %}
-{{ vehicle }}
+{{ vehicle.name }}<br>
+{{ vehicle.brand }}<br>
+{{ vehicle.model }}<br>
+{{ vehicle.generation }}<br>
+{{ vehicle.registration_number }}<br>
 {% endblock %}

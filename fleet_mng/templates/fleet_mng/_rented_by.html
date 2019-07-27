@@ -1,1 +1,2 @@
-Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>{%if rent.rented %} do {{rent.to_date}}{% endif %}.
+Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>
+{%if rent.rented %} do {{rent.to_date}}{% endif %}.

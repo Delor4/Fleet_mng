@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 
-class UserForm(forms.Form):
+class NewUserForm(forms.Form):
     username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
     password = forms.CharField(label="Hasło:", widget=forms.PasswordInput())
     password_confirm = forms.CharField(label="Powtórz hasło:", widget=forms.PasswordInput())
@@ -20,7 +20,7 @@ class UserForm(forms.Form):
         self.fields['group'].choices.extend([(x.id, x) for x in groups])
 
     def clean(self):
-        cleaned_data = super(UserForm, self).clean()
+        cleaned_data = super(NewUserForm, self).clean()
 
         username = cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
@@ -65,7 +65,7 @@ def show_user(request, pk):
 def new_user(request):
     if request.user.has_perm('auth.add_user') and \
             request.method == 'POST':
-        form = UserForm(request.POST)
+        form = NewUserForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -76,6 +76,45 @@ def new_user(request):
             group.user_set.add(user)
             return HttpResponseRedirect('/user/')
     else:
-        form = UserForm()
+        form = NewUserForm()
+
+    return render(request, 'fleet_mng/user_new.html', {'form': form})
+
+
+class UserUpdatePassForm(forms.Form):
+    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput())
+    password_confirm = forms.CharField(label="Powtórz hasło:", widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(UserUpdatePassForm, self).clean()
+
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
+        if not password or password == '':
+            raise forms.ValidationError('Empty password!')
+
+        if not (password == password_confirm):
+            raise forms.ValidationError('Different passwords!')
+
+
+# Obsługa formularza ustawiania hasła użytkownika
+# /user/<int:pk>/pass/    => user_new.html
+@login_required
+@permission_required('auth.add_user')
+def change_user_pass(request, pk):
+    if request.user.has_perm('auth.change_user') and \
+            request.method == 'POST':
+        form = UserUpdatePassForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get('password')
+            user = User.objects.get(id=pk)
+            user.password = password
+            user.save()
+            return HttpResponseRedirect('/user/')
+    else:
+        form = UserUpdatePassForm()
 
     return render(request, 'fleet_mng/user_new.html', {'form': form})

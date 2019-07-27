@@ -8,6 +8,9 @@
 {{ user.email }}<br>
 Groups:<br>
 {% for group in user.groups.all %}
-{{ group }}
+{{ group }}<br>
 {% endfor %}
+{% if perms.auth.change_user %}
+<a href="{% url 'fleet_mng:user_pass' user.id%}">Hasło</a>
+{% endif %}
 {% endblock %}

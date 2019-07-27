@@ -6,5 +6,7 @@
 {{ vehicle.model }}<br>
 {{ vehicle.generation }}<br>
 {{ vehicle.registration_number }}<br>
-{%if vehicle.is_rented %}Wypożyczony{% endif %}
+{%if vehicle.is_rented %}
+{% for rent in vehicle.rented_by_data %}Wypożyczony przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter}}</a>{% endfor %}
+{% endif %}
 {% endblock %}

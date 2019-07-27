@@ -58,21 +58,24 @@ def show_week(request, show_from=timezone.now()):
     vehicles = Vehicle.objects.all()
     # initialize vehicles table
     for vehicle in vehicles:
-        tabl[vehicle] = [{'present': 0, 'rent': None} for _ in range(len(days))]
+        tabl[vehicle] = [{'present': 0, 'rents': [], 'classes': []} for _ in range(len(days))]
 
     # filling table
     for rent in rents:
         tab_item = {'last': False}
         first = True
-        for i, d in enumerate(date_range(rent.from_date, rent.to_date)):
-            da = datetime.date(d.year, d.month, d.day)
-            if da in days:
-                tab_item = {'present': 1, 'rent': rent, 'first': first, 'last': False}
-                tabl[rent.vehicle][days.index(da)] = tab_item
+        for d in date_range(rent.from_date, rent.to_date):
+            if d in days:
+                tab_item = tabl[rent.vehicle][days.index(d)]
+                tab_item['present'] = 1
+                tab_item['rents'].append(rent)
+                if first:
+                    tab_item['classes'].append('first_' + str(rent.id))
             else:
                 tab_item = {'last': False}
             first = False
-        tab_item['last'] = True
+        print(d)
+        tab_item['classes'].append('last_' + str(rent.id))
 
     # dates for nav
     prev_date = show_from + datetime.timedelta(-1)
@@ -81,8 +84,13 @@ def show_week(request, show_from=timezone.now()):
     next_week_date = show_from + datetime.timedelta(+7)
 
     return render(request, 'fleet_mng/week.html',
-                  {'rents_list': rents, 'show_from': show_from, 'show_to': show_to, 'days': days,
+                  {'days': days,
+                   'rents_list': rents,
                    'vehicles_table': tabl,
+                   'dates': {
+                       'from': show_from,
+                       'to': show_to,
+                   },
                    'nav': {
                        'prev': {
                            'year': prev_date.year,

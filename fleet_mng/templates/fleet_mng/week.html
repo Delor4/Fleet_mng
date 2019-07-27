@@ -4,40 +4,40 @@
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" id="newrentbt">Nowe wypożyczenie</a>
 {% endif %}
-<table>
-    <tr>
-        <th>
-            Vehicle
-        </th>
-        {% for d in days %}{%if forloop.counter0|divisibleby:7 %}<th colspan="7">{{ d }}</th>{%endif%}
-        {% endfor %}
-    </tr>
-    <tr>
-        <td></td>
-        {% for d in days %}
-        <td>{{d.day}}</td>
-        {% endfor %}
-    </tr>
-    {% for vehicle, d in vehicles_table.items %}
-    <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
-        <td>
-            <div class="{%if vehicle.is_rented %}rented{%endif%}">
-                {{vehicle}}
-            </div>
-        </td>
-        {% for h in d %}
-        <td class="{%ifequal h.present 1 %}rent_bar{% else %}no_rent_bar{% endifequal %}">
-            {%ifequal h.present 1 %}
-            <a href="{% url 'fleet_mng:rent' h.rent.id %}">+</a>
-            {%if h.first%}F{%endif%}
-            {%if h.last%}L{%endif%}
-            {% else %}
-            .
-            {% endifequal %}
-        </td>
-        {% endfor %}
-    </tr>
+<table id="week_table"
+<tr>
+    <th>
+        Vehicle
+    </th>
+    {% for d in days %}{%if forloop.counter0|divisibleby:7 %}
+    <th colspan="7">{{ d }}</th>
+    {%endif%}
     {% endfor %}
+</tr>
+<tr>
+    <td></td>
+    {% for d in days %}
+    <td>{{d.day}}</td>
+    {% endfor %}
+</tr>
+{% for vehicle, d in vehicles_table.items %}
+<tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
+    <td>
+        <div class="{%if vehicle.is_rented %}rented{%endif%}">
+            {{vehicle}}
+        </div>
+    </td>
+    {% for h in d %}
+    <td class="{%ifequal h.present 1 %}rent_bar{% else %}no_rent_bar{% endifequal %} {{ h.classes|join:' ' }}">
+        {%ifequal h.present 1 %}
+        <a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>
+        {% else %}
+        .
+        {% endifequal %}
+    </td>
+    {% endfor %}
+</tr>
+{% endfor %}
 
 </table>
 <a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"><<</a>

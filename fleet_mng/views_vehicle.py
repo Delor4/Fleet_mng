@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -57,7 +58,8 @@ def vehicle_new(request):
     return render(request, 'fleet_mng/vehicle_new.html', {'form': form})
 
 
-class VehicleUpdateView(UpdateView):
+class VehicleUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'fleet_mng.change_vehicle'
     model = Vehicle
     form_class = VehicleForm
     template_name = 'fleet_mng/vehicle_new.html'

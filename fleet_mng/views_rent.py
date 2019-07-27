@@ -1,7 +1,10 @@
+import datetime
+
 import pytz
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.forms import SelectDateWidget
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
@@ -27,7 +30,9 @@ class RentView(PermissionRequiredMixin, generic.DetailView):
 
 
 class RentForm(forms.Form):
-    to_date = forms.DateField(label="Przewidywana data zwrotu:")
+    to_date = forms.DateField(widget=SelectDateWidget,
+                              label="Przewidywana data zwrotu:",
+                              initial=timezone.now().date() + datetime.timedelta(+7))
     vehicle = forms.ChoiceField(label="Dostępne pojazdy:")
     renter = forms.ChoiceField(label="Wypożyczający:")
 
@@ -54,6 +59,8 @@ class RentForm(forms.Form):
         cleaned_data = super(RentForm, self).clean()
 
         to_date = cleaned_data.get('to_date')
+        if not to_date:
+            raise forms.ValidationError('Invalid date.')
         if to_date < timezone.now().date():
             raise forms.ValidationError('Date can\'t be in past!')
 

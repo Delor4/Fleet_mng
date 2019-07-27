@@ -135,9 +135,6 @@ class UserUpdateForm(forms.Form):
     def clean(self):
         cleaned_data = super(UserUpdateForm, self).clean()
 
-        username = cleaned_data.get('username')
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('Duplicated username!')
         group = int(cleaned_data.get('group'))
         groups_id = [x.id for x in Group.objects.filter(name__in=('viewer', 'user', 'admin'))]
 
@@ -155,13 +152,14 @@ def user_edit(request, pk):
         if form.is_valid():
             user = User.objects.get(id=pk)
             user.username = form.cleaned_data.get('username')
-            # removing all! old groups
-            user.groups.clear()
+            # removing from old groups
+            for user_group in Group.objects.filter(name__in=('viewer', 'user', 'admin')):
+                user_group.user_set.remove(user)
             group = Group.objects.get(pk=int(form.cleaned_data.get('group')))
             # adding user to group
             group.user_set.add(user)
             user.save()
-            return HttpResponseRedirect('/user/')
+        return HttpResponseRedirect('/user/')
     else:
         user = User.objects.get(id=pk)
         form = UserUpdateForm(initial={'username': user.username,

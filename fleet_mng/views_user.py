@@ -59,7 +59,7 @@ def show_user(request, pk):
 
 
 # Obsługa formularza dodawania użytkownika
-# /user/new/
+# /user/new/    => user_new.html
 @login_required
 @permission_required('auth.add_user')
 def new_user(request):
@@ -78,4 +78,4 @@ def new_user(request):
     else:
         form = UserForm()
 
-    return render(request, 'fleet_mng/new_user.html', {'form': form})
+    return render(request, 'fleet_mng/user_new.html', {'form': form})

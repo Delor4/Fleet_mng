@@ -1,6 +1,11 @@
 {# Wyświetlenie listy użyszkodników #}
 {% extends "fleet_mng/base.html" %}
 {% block content %}
+
+{% if perms.auth.add_user %}
+<a href="{% url 'fleet_mng:user_new' %}" >Nowy użytkownik</a>
+{% endif %}
+
 {% if users_list %}
 <ul>
     {% for user in users_list %}

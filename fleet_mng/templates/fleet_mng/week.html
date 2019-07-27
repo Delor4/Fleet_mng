@@ -4,27 +4,29 @@
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" id="newrentbt">Nowe wypożyczenie</a>
 {% endif %}
-<table>
-    <tr>
-        <th>
-            Vehicle
-        </th>
-        {% for d in days %}{%if forloop.counter0|divisibleby:7 %}<th colspan="7">{{ d }}</th>{%endif%}
-        {% endfor %}
-    </tr>
-    <tr>
-        <td></td>
-        {% for d in days %}
-        <td>{{d.day}}</td>
-        {% endfor %}
-    </tr>
+<table class="table table-striped table-hover table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">
+                Vehicle
+            </th>
+            {% for d in days %}{%if forloop.counter0|divisibleby:7 %}<th colspan="7" scope="col">{{ d }}</th>{%endif%}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th></th>
+            {% for d in days %}
+            <th>{{d.day}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
     {% for vehicle, d in rents_table.items %}
-    <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
-        <td>
+    <tr class="{%if vehicle.is_not_bring_back %}not_bring_back table-danger{%endif%}">
+        <th scope="row" class="{%if vehicle.is_rented %}table-info{%endif%}">
             <div class="{%if vehicle.is_rented %}rented{%endif%}">
                 {{vehicle}}
             </div>
-        </td>
+        </th>
         {% for h in d %}
         <td class="{%ifequal h.present 1 %}rent_bar{% else %}no_rent_bar{% endifequal %}">
             {%ifequal h.present 1 %}

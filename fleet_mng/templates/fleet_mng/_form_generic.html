@@ -1,6 +1,7 @@
 {# Wyświetlenie formularza z dostarczonych danych #}
-<form action="{{ request.get_full_path }}" method="post">
+{% load crispy_forms_tags %}
+<form method="post" novalidate>
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save person</button>
 </form>

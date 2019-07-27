@@ -11,6 +11,7 @@ Groups:<br>
 {{ group }}<br>
 {% endfor %}
 {% if perms.auth.change_user %}
-<a href="{% url 'fleet_mng:user_pass' user.id%}">Hasło</a>
+<a href="{% url 'fleet_mng:user_pass' user.id%}">Hasło</a><br>
+<a href="{% url 'fleet_mng:user_edit' user.id%}">Edycja</a>
 {% endif %}
 {% endblock %}

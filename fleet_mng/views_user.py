@@ -103,7 +103,7 @@ class UserUpdatePassForm(forms.Form):
 # Obsługa formularza ustawiania hasła użytkownika
 # /user/<int:pk>/pass/    => user_new.html
 @login_required
-@permission_required('auth.add_user')
+@permission_required('auth.change_user')
 def change_user_pass(request, pk):
     if request.user.has_perm('auth.change_user') and \
             request.method == 'POST':
@@ -118,3 +118,54 @@ def change_user_pass(request, pk):
         form = UserUpdatePassForm()
 
     return render(request, 'fleet_mng/user_new.html', {'form': form})
+
+
+class UserUpdateForm(forms.Form):
+    username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
+    group = forms.ChoiceField(label="Group:")
+
+    def __init__(self, *args, **kwargs):
+        search_str = kwargs.pop('search_str', None)
+        super().__init__(*args, **kwargs)
+        groups = Group.objects.filter(name__in=('viewer', 'user', 'admin'))
+        self.fields['group'].initial = search_str
+        self.fields['group'].choices = [(None, '---------')]
+        self.fields['group'].choices.extend([(x.id, x) for x in groups])
+
+    def clean(self):
+        cleaned_data = super(UserUpdateForm, self).clean()
+
+        username = cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Duplicated username!')
+        group = int(cleaned_data.get('group'))
+        groups_id = [x.id for x in Group.objects.filter(name__in=('viewer', 'user', 'admin'))]
+
+        if group not in groups_id:
+            raise forms.ValidationError('Select group!')
+
+
+# Obsługa formularza zmiany danych użytkownika
+# /user/<int:pk>/edit/    => user_new.html
+@login_required
+@permission_required('auth.change_user')
+def user_edit(request, pk):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(id=pk)
+            user.username = form.cleaned_data.get('username')
+            # removing all! old groups
+            user.groups.clear()
+            group = Group.objects.get(pk=int(form.cleaned_data.get('group')))
+            # adding user to group
+            group.user_set.add(user)
+            user.save()
+            return HttpResponseRedirect('/user/')
+    else:
+        user = User.objects.get(id=pk)
+        form = UserUpdateForm(initial={'username': user.username,
+                                       'group': user.groups.all()[0].id,
+                                       })
+
+        return render(request, 'fleet_mng/user_new.html', {'form': form})

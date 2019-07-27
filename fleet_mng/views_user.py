@@ -70,9 +70,10 @@ def new_user(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             group = Group.objects.get(pk=int(form.cleaned_data.get('group')))
-            # TODO: adding group to user
             user = User.objects.create_user(username, None, password)
             user.save()
+            # adding user to group
+            group.user_set.add(user)
             return HttpResponseRedirect('/')
     else:
         form = UserForm()

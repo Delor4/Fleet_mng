@@ -48,10 +48,10 @@
             firsts=[]
             lasts=[]
              for (let i=0; i<data.length; i++) {
-                if(data[i].substr(0,5)=='last_'){
-                    lasts.push(data[i].substr(5))
-                }else  if(data[i].substr(0,6)=='first_'){
-                    firsts.push(data[i].substr(6))
+                if(data[i].substr(0,2)=='l_'){
+                    lasts.push(data[i].substr(2))
+                }else  if(data[i].substr(0,2)=='f_'){
+                    firsts.push(data[i].substr(2))
                 }
              }
             shared=[]

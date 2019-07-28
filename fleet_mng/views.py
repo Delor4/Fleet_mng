@@ -62,20 +62,18 @@ def show_week(request, show_from=timezone.now()):
 
     # filling table
     for rent in rents:
-        tab_item = {'last': False}
+        tab_item = {}
         first = True
         for d in date_range(rent.from_date, rent.to_date):
             if d in days:
                 tab_item = tabl[rent.vehicle][days.index(d)]
                 tab_item['present'] = 1
                 tab_item['rents'].append(rent)
-                tab_item['classes'].append('mid_' + str(rent.id))
+                tab_item['classes'].append('m_' + str(rent.id))
                 if first:
-                    tab_item['classes'].append('first_' + str(rent.id))
-            else:
-                tab_item = {'last': False}
+                    tab_item['classes'].append('f_' + str(rent.id))
             first = False
-        tab_item['classes'].append('last_' + str(rent.id))
+        tab_item['classes'].append('l_' + str(rent.id))
 
     # dates for nav
     prev_date = show_from + datetime.timedelta(-1)

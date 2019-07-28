@@ -7,7 +7,7 @@
 </a>
 {% endif %}
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table class="table table-bordered" id="week_table">
       <thead>
         <tr>
             <th rowspan="2">
@@ -19,8 +19,8 @@
             {% endfor %}
         </tr>
         <tr>
-            {% for d in days %}
-            <th>{{d.day}}</th>
+            {% for d in week_days %}
+            <th>{{d}}</th>
             {% endfor %}
         </tr>
         {% for vehicle, d in vehicles_table.items %}

@@ -81,7 +81,9 @@ table, th, td {
     vertical-align: middle;
     border: 0;
 }
-
+#week_table td:nth-child(2n) {
+	background-color: #e8e8e8;
+}
 .rented {
   font-weight: bold;
 }

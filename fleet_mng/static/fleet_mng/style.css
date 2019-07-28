@@ -46,10 +46,13 @@ nav li a:hover {
 }
 /* ------------------------------------------ */
 
-table, th, td {
+table, th {
   margin: 0 auto;
   border: 1px solid black;
   text-align: center;
+}
+td {
+
 }
 
 #newrentbt {
@@ -78,4 +81,42 @@ table, th, td {
 }
 .not_bring_back {
   background: red;
+}
+
+.start_rent {
+    display: inline-block;
+    height: 15px;
+    background: blue;
+    border-radius: 2px 0px 0px 2px;
+    border: 1px solid #000000;
+    border-right: 0px;
+}
+.end_rent {
+    display: inline-block;
+    height: 15px;
+    background: blue;
+    border-radius: 0px 2px 2px 0px;
+    border: 1px solid #000000;
+    border-left: 0px;
+}
+.start_end_rent {
+    display: inline-block;
+    height: 15px;
+    width: 5px;
+    background: blue;
+    border-radius: 2px;
+    border: 1px solid #000000;
+}
+.mid_rent {
+    display: inline-block;
+    height: 15px;
+    width: 100%;
+    background: blue;
+    border-radius: 0px;
+    border: 1px solid #000000;
+    border-right: 0px;
+    border-left: 0px;
+}
+.rent_bar {
+    white-space: nowrap
 }

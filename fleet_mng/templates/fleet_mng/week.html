@@ -6,7 +6,7 @@
 {% endif %}
 <table id="week_table">
     <tr>
-        <th>
+        <th rowspan="2">
             Vehicle
         </th>
         {% for d in days %}{%if forloop.counter0|divisibleby:7 %}
@@ -15,21 +15,21 @@
         {% endfor %}
     </tr>
     <tr>
-        <td></td>
+
         {% for d in days %}
-        <td>{{d.day}}</td>
+        <th>{{d.day}}</th>
         {% endfor %}
     </tr>
     {% for vehicle, d in vehicles_table.items %}
     <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
-        <td>
+        <th>
             <div class="{%if vehicle.is_rented %}rented{%endif%}">
                 {{vehicle}}
             </div>
-        </td>
+        </th>
         {% for h in d %}
         <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data="{{ h.classes|join:' ' }}">
-            {%if h.present %}<a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>{% endif %}
+            {#{%if h.present %}<a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>{% endif %}#}
         </td>
         {% endfor %}
     </tr>
@@ -59,17 +59,17 @@
                 };
             }
             for (let i=0; i<lasts.length; i++) {
-                $( this ).append('<div class="end_rent"></div>');
+                $( this ).append('<a class="end_rent" href="/rent/'+lasts[i]+'/">&nbsp;</a>');
             }
             for (let i=0; i<shared.length; i++) {
-                $( this ).append('<div class="start_end_rent"></div>');
+                $( this ).append('<a class="start_end_rent" href="/rent/'+shared[i]+'/">&nbsp;</a>');
             }
             for (let i=0; i<firsts.length; i++) {
-                $( this ).append('<div class="start_rent"></div>');
+                $( this ).append('<a class="start_rent" href="/rent/'+firsts[i]+'/">&nbsp;</a>');
             }
             console.log(data, firsts, lasts, shared)
             if(data.length==1){
-                $( this ).append('<div class="mid_rent"></div>');
+                $( this ).append('<a class="mid_rent" href="/rent/'+data[0].substr(2)+'/">&nbsp;</a>');
             }
         });
     })

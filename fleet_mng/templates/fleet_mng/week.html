@@ -64,17 +64,17 @@
                 };
             }
             for (let i=0; i<lasts.length; i++) {
-                $( this ).append('<div class="end_rent">E</div>');
+                $( this ).append('<div class="end_rent"></div>');
             }
             for (let i=0; i<shared.length; i++) {
-                $( this ).append('<div class="start_end_rent">O</div>');
+                $( this ).append('<div class="start_end_rent"></div>');
             }
             for (let i=0; i<firsts.length; i++) {
-                $( this ).append('<div class="start_rent">S</div>');
+                $( this ).append('<div class="start_rent"></div>');
             }
             console.log(data, firsts, lasts, shared)
             if(data.length==1){
-                $( this ).append('<div class="mid_rent">M</div>');
+                $( this ).append('<div class="mid_rent"></div>');
             }
         });
     })

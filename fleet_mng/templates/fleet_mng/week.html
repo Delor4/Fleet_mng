@@ -72,8 +72,13 @@
             for (let i=0; i<firsts.length; i++) {
                 $( this ).append('<div class="start_rent">S</div>');
             }
+            console.log(data, firsts, lasts, shared)
+            if(data.length==1){
+                $( this ).append('<div class="mid_rent">M</div>');
+            }
         });
     })
+
 
 </script>
 <a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"><<</a>

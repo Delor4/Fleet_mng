@@ -69,6 +69,7 @@ def show_week(request, show_from=timezone.now()):
                 tab_item = tabl[rent.vehicle][days.index(d)]
                 tab_item['present'] = 1
                 tab_item['rents'].append(rent)
+                tab_item['classes'].append('mid_' + str(rent.id))
                 if first:
                     tab_item['classes'].append('first_' + str(rent.id))
             else:

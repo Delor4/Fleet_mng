@@ -39,6 +39,17 @@
     Array.prototype.diff = function(a) {
         return this.filter(function(i) {return a.indexOf(i) < 0;});
     };
+    function create_links(wrapper,tab,class_str){
+        for (let i=0; i<tab.length; i++) {
+            wrapper.append('<a class="'+
+                class_str+
+                (rented.indexOf(tab[i])>=0?' rented':'')+
+                (back.indexOf(tab[i])>=0?' not_back':'')+
+                '" href="/rent/'+
+                tab[i]+
+                '/"></a>');
+        }
+    };
     jQuery(document).ready(function($){
         $('#week_table').find( ".rent_bar" ).each(function() {
             data=$( this ).attr('data-bar').split(/\s+/);
@@ -47,6 +58,7 @@
             mids = []
             rented=[]
             back=[]
+            //
              for (let i=0; i<data.length; i++) {
                 if(data[i].substr(0,2)=='l_'){
                     lasts.push(data[i].substr(2))
@@ -60,6 +72,7 @@
                     back.push(data[i].substr(2))
                 }
              }
+             //
             shared=[]
             for (let i=0; i<lasts.length; i++) {
                 if(firsts.indexOf(lasts[i])!=-1){
@@ -69,39 +82,18 @@
                     i--
                 };
             }
+            //
             mids = mids.diff(firsts)
             mids = mids.diff(lasts)
             mids = mids.diff(shared)
+            //
             $(this).append('<div class="rent_wrapper"></div>')
             wrapper=$(this).find(".rent_wrapper")
-            console.log(wrapper)
-            for (let i=0; i<lasts.length; i++) {
-                wrapper.append('<a class="end_rent'+
-                    (rented.indexOf(lasts[i])>=0?' rented':'')+
-                    (back.indexOf(lasts[i])>=0?' not_back':'')+
-                    '" href="/rent/'+
-                    lasts[i]+
-                    '/"></a>');
-            }
-            for (let i=0; i<shared.length; i++) {
-                wrapper.append('<a class="start_end_rent'+
-                    (rented.indexOf(shared[i])>=0?' rented':'')+
-                    (back.indexOf(shared[i])>=0?' not_back':'')+
-                    '" href="/rent/'+shared[i]+'/"></a>');
-            }
-            for (let i=0; i<firsts.length; i++) {
-                wrapper.append('<a class="start_rent'+
-                    (rented.indexOf(firsts[i])>=0?' rented':'')+
-                    (back.indexOf(firsts[i])>=0?' not_back':'')+
-                    '" href="/rent/'+firsts[i]+'/"></a>');
-            }
-            console.log(data, firsts, lasts, shared, mids)
-            if(mids.length==1){
-                wrapper.append('<a class="mid_rent'+
-                    (rented.indexOf(mids[0])>=0?' rented':'')+
-                    (back.indexOf(mids[0])>=0?' not_back':'')+
-                    '" href="/rent/'+mids[0]+'/"></a>');
-            }
+            //
+            create_links(wrapper, lasts, "end_rent")
+            create_links(wrapper, shared, "start_end_rent")
+            create_links(wrapper, firsts, "start_rent")
+            create_links(wrapper, mids, "mid_rent")
         });
     })
 

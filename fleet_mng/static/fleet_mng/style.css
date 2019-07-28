@@ -85,7 +85,7 @@ table, th, td {
 	background-color: #e8e8e8;
 }
 .rented {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .rent_wrapper{

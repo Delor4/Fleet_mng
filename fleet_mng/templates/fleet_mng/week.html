@@ -29,12 +29,7 @@
         </td>
         {% for h in d %}
         <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data="{{ h.classes|join:' ' }}">
-
-            {%ifequal h.present 1 %}
-            <a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>
-            {% else %}
-
-            {% endifequal %}
+            {%if h.present %}<a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>{% endif %}
         </td>
         {% endfor %}
     </tr>

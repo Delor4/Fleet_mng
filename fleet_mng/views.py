@@ -42,6 +42,8 @@ def date_range(start_date, end_date):
         yield start_date + datetime.timedelta(n)
 
 
+days_names = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd']
+
 # właściwe wywołanie widoku
 @login_required
 @permission_required('fleet_mng.can_show_week')
@@ -53,6 +55,7 @@ def show_week(request, show_from=timezone.now()):
 
     # fill days
     days = [datetime.date(d.year, d.month, d.day) for d in date_range(from_range, to_range)]
+    week_days = [days_names[d.weekday()] for d in days]
 
     tabl = {}
     vehicles = Vehicle.objects.all()
@@ -87,6 +90,7 @@ def show_week(request, show_from=timezone.now()):
 
     return render(request, 'fleet_mng/week.html',
                   {'days': days,
+                   'week_days': week_days,
                    'rents_list': rents,
                    'vehicles_table': tabl,
                    'dates': {

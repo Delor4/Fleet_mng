@@ -88,10 +88,6 @@ table, th, td {
   font-weight: bold;
 }
 
-.not_bring_back {
-  background: red;
-}
-
 .rent_wrapper{
     display: inline-flex;
     width: 100%;
@@ -135,5 +131,8 @@ table, th, td {
 
 .rent_wrapper .rented{
     background: #d5f4fd;
-    /*background: #ff212a;*/
+}
+
+.rent_wrapper .not_back{
+    background: #ff212a;
 }

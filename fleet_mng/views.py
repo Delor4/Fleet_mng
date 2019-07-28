@@ -72,6 +72,8 @@ def show_week(request, show_from=timezone.now()):
                 tab_item['classes'].append('m_' + str(rent.id))
                 if rent.rented:
                     tab_item['classes'].append('r_' + str(rent.id))
+                if rent.is_not_bring_back():
+                    tab_item['classes'].append('b_' + str(rent.id))
                 if first:
                     tab_item['classes'].append('f_' + str(rent.id))
             first = False

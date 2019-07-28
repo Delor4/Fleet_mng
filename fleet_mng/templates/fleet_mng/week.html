@@ -28,7 +28,7 @@
             </div>
         </th>
         {% for h in d %}
-        <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data="{{ h.classes|join:' ' }}">
+        <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
             {#{%if h.present %}<a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>{% endif %}#}
         </td>
         {% endfor %}
@@ -39,7 +39,7 @@
 <script>
     jQuery(document).ready(function($){
         $('#week_table').find( ".rent_bar" ).each(function() {
-            data=$( this ).attr('data').split(/\s+/);
+            data=$( this ).attr('data-bar').split(/\s+/);
             firsts=[]
             lasts=[]
              for (let i=0; i<data.length; i++) {

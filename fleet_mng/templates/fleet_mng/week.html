@@ -60,16 +60,18 @@
             back=[]
             //
              for (let i=0; i<data.length; i++) {
-                if(data[i].substr(0,2)=='l_'){
-                    lasts.push(data[i].substr(2))
-                }else  if(data[i].substr(0,2)=='f_'){
-                    firsts.push(data[i].substr(2))
-                }else  if(data[i].substr(0,2)=='m_'){
-                    mids.push(data[i].substr(2))
-                }else  if(data[i].substr(0,2)=='r_'){
-                    rented.push(data[i].substr(2))
-                }else  if(data[i].substr(0,2)=='b_'){
-                    back.push(data[i].substr(2))
+                beg = data[i].substr(0,2)
+                nr = data[i].substr(2)
+                if(beg=='l_'){
+                    lasts.push(nr)
+                }else  if(beg=='f_'){
+                    firsts.push(nr)
+                }else  if(beg=='m_'){
+                    mids.push(nr)
+                }else  if(beg=='r_'){
+                    rented.push(nr)
+                }else  if(beg=='b_'){
+                    back.push(nr)
                 }
              }
              //

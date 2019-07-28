@@ -7,7 +7,7 @@
 {% if rent_list %}
 <ul>
     {% for rent in rent_list %}
-    <li><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
+    <li class="list-group-item list-group-item-action"><a href="{% url 'fleet_mng:rent' rent.id %}">{{ rent }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

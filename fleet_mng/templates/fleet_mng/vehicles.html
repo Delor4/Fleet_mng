@@ -7,7 +7,7 @@
 {% if vehicle_list %}
 <ul>
     {% for vehicle in vehicle_list %}
-    <li><a href="{% url 'fleet_mng:vehicle' vehicle.id %}">{{ vehicle }}</a></li>
+    <li class="list-group-item list-group-item-action"><a href="{% url 'fleet_mng:vehicle' vehicle.id %}">{{ vehicle }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

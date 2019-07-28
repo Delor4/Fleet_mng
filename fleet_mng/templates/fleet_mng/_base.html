@@ -2,34 +2,42 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% load static %}
     <link rel="shortcut icon" href="{% static 'fleet_mng/favicon-32x32.png' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/style.css' %}">
     <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
     <title>{% block title %}Vehicle Management{% endblock %}</title>
 </head>
 <body>
-<nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     {% block sidebar %}
-    <ul>
-        <li><a href="/">Home</a></li>
-        {% if perms.fleet_mng.view_vehicle %}
-        <li><a href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
-        {% endif %}
-        {% if perms.fleet_mng.view_renter %}
-        <li><a href="{% url 'fleet_mng:renters' %}">Renters</a></li>
-        {% endif %}
-        {% if perms.fleet_mng.view_rent %}
-        <li><a href="{% url 'fleet_mng:rents' %}">Rents</a></li>
-        {% endif %}
-        {% if perms.fleet_mng.can_show_week %}
-        <li><a href="{% url 'fleet_mng:week' %}">Week table</a></li>
-        {% endif %}
-        {% if perms.auth.view_user %}
-        <li><a href="{% url 'fleet_mng:users' %}">Users</a></li>
-        {% endif %}
-    </ul>
+    <a class="navbar-brand" href="/">Fleet mng</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav justify-content-end">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            {% if perms.fleet_mng.view_vehicle %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a></li>
+            {% endif %}
+            {% if perms.fleet_mng.view_renter %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
+            {% endif %}
+            {% if perms.fleet_mng.view_rent %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
+            {% endif %}
+            {% if perms.fleet_mng.can_show_week %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
+            {% endif %}
+            {% if perms.auth.view_user %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
+            {% endif %}
+        </ul>
+    </div>
     {% endblock %}
 </nav>
 
@@ -44,6 +52,7 @@
 <div id="content">
     {% block content %}{% endblock %}
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

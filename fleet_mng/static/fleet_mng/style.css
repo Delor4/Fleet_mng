@@ -98,55 +98,42 @@ table, th, td {
     height: 25px;
     align-content: center;
 }
-.start_rent {
+.rent_wrapper a {
     display: inline-flex;
     flex-grow: 1;
     height: 15px;
-    background: #d5f4fd;
+    background: #a9ffb0;
+    border: 1px solid #000000;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.rent_wrapper .start_rent {
     border-radius: 3px 0px 0px 3px;
-    border: 1px solid #000000;
     border-right: 0px;
     margin-left: 1px;
-    margin-top: auto;
-    margin-bottom: auto;
 }
-.end_rent {
-    display: inline-flex;
-    flex-grow: 1;
-    height: 15px;
-    background: #d5f4fd;
+.rent_wrapper .end_rent {
     border-radius: 0px 3px 3px 0px;
-    border: 1px solid #000000;
     border-left: 0px;
     margin-right: 1px;
-    margin-top: auto;
-    margin-bottom: auto;
 }
-.start_end_rent {
-    display: inline-flex;
-    flex-grow: 1;
-    height: 15px;
-    background: #d5f4fd;
+.rent_wrapper .start_end_rent {
     border-radius: 3px;
-    border: 1px solid #000000;
     margin-left: 1px;
     margin-right: 1px;
-    margin-top: auto;
-    margin-bottom: auto;
 }
-.mid_rent {
-    display: inline-flex;
-    flex-grow: 1;
-    height: 15px;
-    background: #d5f4fd;
+.rent_wrapper .mid_rent {
     border-radius: 0px;
-    border: 1px solid #000000;
     border-right: 0px;
     border-left: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
 }
 .rent_bar {
     white-space: nowrap;
     justify-items: stretch;
+}
+
+.rent_wrapper .rented{
+    background: #d5f4fd;
+    /*background: #ff212a;*/
 }

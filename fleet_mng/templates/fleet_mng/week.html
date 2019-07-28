@@ -28,8 +28,7 @@
             </div>
         </th>
         {% for h in d %}
-        <td class="{%if h.present %}rent_bar{% for r in h.rents %}{% if r.rented %} rented_{{r.id}}{%endif%}{% endfor %}{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
-            {#{%if h.present %}<a href="{% url 'fleet_mng:rent' h.rents.0.id %}">+</a>{% endif %}#}
+        <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
         </td>
         {% endfor %}
     </tr>

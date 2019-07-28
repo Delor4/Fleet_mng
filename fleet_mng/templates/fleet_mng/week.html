@@ -83,9 +83,7 @@
                 };
             }
             //
-            mids = mids.diff(firsts)
-            mids = mids.diff(lasts)
-            mids = mids.diff(shared)
+            mids = mids.diff(firsts).diff(lasts).diff(shared)
             //
             $(this).append('<div class="rent_wrapper"></div>')
             wrapper=$(this).find(".rent_wrapper")

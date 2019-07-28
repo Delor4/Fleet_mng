@@ -2,39 +2,46 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
-<a href="{% url 'fleet_mng:rent_form' %}" id="newrentbt">Nowe wypożyczenie</a>
+<a href="{% url 'fleet_mng:rent_form' %}" class="btn">
+  <button class="btn btn-primary btn-xs" type="button">Nowe wypożyczenie</button>
+</a>
 {% endif %}
-<table id="week_table">
-    <tr>
-        <th rowspan="2">
-            Vehicle
-        </th>
-        {% for d in days %}{%if forloop.counter0|divisibleby:7 %}
-        <th colspan="7">{{ d }}</th>
-        {%endif%}
+<div class="table-responsive">
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+            <th rowspan="2">
+                Vehicle
+            </th>
+            {% for d in days %}{%if forloop.counter0|divisibleby:7 %}
+            <th colspan="7">{{ d }}</th>
+            {%endif%}
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for d in days %}
+            <th>{{d.day}}</th>
+            {% endfor %}
+        </tr>
+        {% for vehicle, d in vehicles_table.items %}
+      </thead>
+      
+      <tbody>
+        <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
+            <th>
+                <div class="{%if vehicle.is_rented %}rented{%endif%}">
+                    {{vehicle}}
+                </div>
+            </th>
+            {% for h in d %}
+            <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
+            </td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
-    <tr>
-
-        {% for d in days %}
-        <th>{{d.day}}</th>
-        {% endfor %}
-    </tr>
-    {% for vehicle, d in vehicles_table.items %}
-    <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
-        <th>
-            <div class="{%if vehicle.is_rented %}rented{%endif%}">
-                {{vehicle}}
-            </div>
-        </th>
-        {% for h in d %}
-        <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
-        </td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-
-</table>
+      </tbody>
+  </table>
+</div>
 <script>
     Array.prototype.diff = function(a) {
         return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -99,9 +106,17 @@
 
 
 </script>
-<a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"><<</a>
-<a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}"><</a>
+<a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}" class="btn">
+  <button type="button" class="btn btn-primary btn-xs"><<</button>
+</a>
+<a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}" class="btn">
+  <button type="button" class="btn btn-primary btn-xs"><</button>
+</a>
 ...
-<a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}">></a>
-<a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}">>></a>
+<a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}" class="btn">
+  <button type="button" class="btn btn-primary btn-xs">></button>
+</a>
+<a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}" class="btn">
+  <button type="button" class="btn btn-primary btn-xs">>></button>
+</a>
 {% endblock %}

@@ -62,7 +62,7 @@ def show_week(request, show_from=timezone.now()):
 
     # filling table
     for rent in rents:
-        tab_item = {}
+        tab_item = {'classes': []}
         first = True
         for d in date_range(rent.from_date, rent.to_date):
             if d in days:

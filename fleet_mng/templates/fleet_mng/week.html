@@ -58,18 +58,21 @@
                     i--
                 };
             }
+            $(this).append('<div class="rent_wrapper"></div>')
+            wrapper=$(this).find(".rent_wrapper")
+            console.log(wrapper)
             for (let i=0; i<lasts.length; i++) {
-                $( this ).append('<a class="end_rent" href="/rent/'+lasts[i]+'/">&nbsp;</a>');
+                wrapper.append('<a class="end_rent" href="/rent/'+lasts[i]+'/"></a>');
             }
             for (let i=0; i<shared.length; i++) {
-                $( this ).append('<a class="start_end_rent" href="/rent/'+shared[i]+'/">&nbsp;</a>');
+                wrapper.append('<a class="start_end_rent" href="/rent/'+shared[i]+'/"></a>');
             }
             for (let i=0; i<firsts.length; i++) {
-                $( this ).append('<a class="start_rent" href="/rent/'+firsts[i]+'/">&nbsp;</a>');
+                wrapper.append('<a class="start_rent" href="/rent/'+firsts[i]+'/"></a>');
             }
             console.log(data, firsts, lasts, shared)
             if(data.length==1){
-                $( this ).append('<a class="mid_rent" href="/rent/'+data[0].substr(2)+'/">&nbsp;</a>');
+                wrapper.append('<a class="mid_rent" href="/rent/'+data[0].substr(2)+'/"></a>');
             }
         });
     })

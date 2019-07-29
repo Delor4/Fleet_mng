@@ -114,8 +114,10 @@
             create_links(wrapper, firsts, "start_rent", mids_tt, tt)
             create_links(wrapper, mids, "mid_rent", mids_tt, tt)
         });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
     })
-
 
 </script>
 <a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}" class="btn">

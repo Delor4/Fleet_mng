@@ -3,25 +3,29 @@
 {% block content %}
 {% include "fleet_mng/_form_generic.html" %}
 <script>
+    function update_form() {
+        // hide all optional elements
+        $('#id_new_renter').hide();
+        $('label[for=id_new_renter]').hide()
+        $('#id_new_renter_description').hide();
+        $('label[for=id_new_renter_description]').hide()
+
+        //show elements
+        $("select[name=renter] option:selected").each(function () {
+            var value = $(this).val();
+            if(value == 0) {
+                $('#id_new_renter').show();
+                $('label[for=id_new_renter]').show()
+                $('#id_new_renter_description').show();
+                $('label[for=id_new_renter_description]').show()
+            }
+        });
+    }
     jQuery(document).ready(function($){
-    $('select[name=renter]').change(function () {
-    // hide all optional elements
-    $('#id_new_renter').hide();
-    $('label[for=id_new_renter]').hide()
-    $('#id_new_renter_description').hide();
-    $('label[for=id_new_renter_description]').hide()
-
-    $("select[name=renter] option:selected").each(function () {
-        var value = $(this).val();
-        if(value == 0) {
-            $('#id_new_renter').show();
-            $('label[for=id_new_renter]').show()
-            $('#id_new_renter_description').show();
-            $('label[for=id_new_renter_description]').show()
-        }
-
+        update_form();
+        $('select[name=renter]').change(function () {
+            update_form();
+        });
     });
-});
-});
 </script>
 {% endblock %}

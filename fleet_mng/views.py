@@ -66,9 +66,7 @@ def show_week(request, show_from=timezone.now()):
 
     # filling table
     for rent in rents:
-        tab_item = {'classes': []}
-        one = False
-        last = False
+        last = int((rent.to_date - rent.from_date).days)
         for i, d in enumerate(date_range(rent.from_date, rent.to_date)):
             if d in days:
                 tab_item = vehicles_data[rent.vehicle][days.index(d)]
@@ -81,12 +79,8 @@ def show_week(request, show_from=timezone.now()):
                     tab_item['classes'].append('b_' + str(rent.id))
                 if i == 0:
                     tab_item['classes'].append('f_' + str(rent.id))
-                one = True
-            else:
-                if one:
-                    last = True
-        if not last:
-            tab_item['classes'].append('l_' + str(rent.id))
+                if i == last:
+                    tab_item['classes'].append('l_' + str(rent.id))
 
     # dates for nav
     prev_date = show_from + datetime.timedelta(-1)

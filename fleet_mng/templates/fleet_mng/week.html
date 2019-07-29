@@ -13,19 +13,18 @@
             <th rowspan="2">
                 Vehicle
             </th>
-            {% for d in days %}{%if forloop.counter0|divisibleby:7 %}
-            <th colspan="7">{{ d }}</th>
+            {% for day in days %}{%if forloop.counter0|divisibleby:7 %}
+            <th colspan="7">{{ day }}</th>
             {%endif%}
             {% endfor %}
         </tr>
         <tr>
-            {% for d in week_days %}
-            <th>{{d}}</th>
+            {% for week_day in week_days %}
+            <th>{{week_day}}</th>
             {% endfor %}
         </tr>
-        {% for vehicle, d in vehicles_table.items %}
       </thead>
-      
+      {% for vehicle, days_data in vehicles_table.items %}
       <tbody>
         <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
             <th>
@@ -33,13 +32,18 @@
                     {{vehicle}}
                 </div>
             </th>
-            {% for h in d %}
-            <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
+            {% for day_d in days_data %}
+            <td class="{%if day_d.present %}rent_bar{% else %}no_rent_bar{% endif %}"
+                data-bar="{{ day_d.classes|join:' ' }}"
+                {% for rent in day_d.rents %}
+                data-bar_tooltip_{{rent.id}}="{{ rent }}"
+                {% endfor %}
+            >
             </td>
             {% endfor %}
         </tr>
-        {% endfor %}
       </tbody>
+      {% endfor %}
   </table>
 </div>
 <script>

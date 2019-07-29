@@ -44,6 +44,7 @@ def date_range(start_date, end_date):
 
 days_names = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd']
 
+
 # właściwe wywołanie widoku
 @login_required
 @permission_required('fleet_mng.can_show_week')
@@ -66,9 +67,9 @@ def show_week(request, show_from=timezone.now()):
     # filling table
     for rent in rents:
         tab_item = {'classes': []}
-        first = True
+        one = False
         last = False
-        for d in date_range(rent.from_date, rent.to_date):
+        for i, d in enumerate(date_range(rent.from_date, rent.to_date)):
             if d in days:
                 tab_item = vehicles_data[rent.vehicle][days.index(d)]
                 tab_item['present'] = 1
@@ -78,11 +79,12 @@ def show_week(request, show_from=timezone.now()):
                     tab_item['classes'].append('r_' + str(rent.id))
                 if rent.is_not_bring_back():
                     tab_item['classes'].append('b_' + str(rent.id))
-                if first:
+                if i == 0:
                     tab_item['classes'].append('f_' + str(rent.id))
+                one = True
             else:
-                last = True
-            first = False
+                if one:
+                    last = True
         if not last:
             tab_item['classes'].append('l_' + str(rent.id))
 

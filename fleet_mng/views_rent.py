@@ -124,3 +124,76 @@ def rent_bring_back(request, pk):
         rent.to_date = timezone.now().date()
         rent.save()
     return HttpResponseRedirect('/rent/')
+
+
+class RentUpdateForm(forms.Form):
+    to_date = forms.DateField(widget=SelectDateWidget,
+                              label="Przewidywana data zwrotu:",
+                              initial=timezone.now().date() + datetime.timedelta(+7))
+    renter = forms.ChoiceField(label="Wypożyczający:")
+
+    new_renter = forms.CharField(max_length=191, required=False)
+    new_renter_description = forms.CharField(
+        max_length=2000,
+        widget=forms.Textarea(),
+        required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        search_str = kwargs.pop('search_str', None)
+        super().__init__(*args, **kwargs)
+
+        self.fields['renter'].choices = [(0, '-- nowy --')]
+        self.fields['renter'].choices.extend([(x.id, x) for x in Renter.objects.all()])
+
+    def clean(self):
+        cleaned_data = super(RentUpdateForm, self).clean()
+
+        to_date = cleaned_data.get('to_date')
+        if not to_date:
+            raise forms.ValidationError('Invalid date.')
+        if to_date < timezone.now().date():
+            raise forms.ValidationError('Date can\'t be in past!')
+
+        renter = cleaned_data.get('renter')
+
+        new_renter = cleaned_data.get('new_renter')
+        new_renter_description = cleaned_data.get('new_renter_description')
+
+        if (not renter or int(renter) == 0) and (not new_renter or new_renter == ''):
+            raise forms.ValidationError('You have to fill new renter\'s name!')
+
+
+# /rent/<int>/edit/    =>  rent_new.html
+@login_required
+@permission_required('fleet_mng.change_rent')
+def show_rent_update_form(request, pk):
+    if request.method == 'POST':
+        form = RentUpdateForm(request.POST)
+        if form.is_valid():
+            renter = int(form.cleaned_data.get('renter'))
+            new_renter = form.cleaned_data.get('new_renter')
+            new_renter_description = form.cleaned_data.get('new_renter_description')
+
+            renter_db = None
+            if renter == 0:
+                renter_db = Renter(name=new_renter, description=new_renter_description)
+                renter_db.save()
+            else:
+                renter_db = Renter.objects.get(id=renter)
+
+            d = form.cleaned_data.get('to_date')
+            naive = timezone.datetime(d.year, d.month, d.day)
+            t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
+
+            rent_db = Rent.objects.get(id=pk)
+            rent_db.to_date = t
+            rent_db.renter = renter_db
+            rent_db.save()
+
+            return HttpResponseRedirect('/rent/')
+    else:
+        rent = Rent.objects.get(id=pk)
+        form = RentUpdateForm(initial={'to_date': rent.to_date, 'renter': rent.renter.id})
+
+    return render(request, 'fleet_mng/rent_new.html', {'form': form})

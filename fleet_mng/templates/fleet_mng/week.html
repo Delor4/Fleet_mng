@@ -19,8 +19,9 @@
             {% endfor %}
         </tr>
         <tr>
+            {% load index %}
             {% for week_day in week_days %}
-            <th>{{week_day}}</th>
+            <th data-toggle="tooltip" title="{{days|index:forloop.counter0}}">{{week_day}}</th>
             {% endfor %}
         </tr>
       </thead>

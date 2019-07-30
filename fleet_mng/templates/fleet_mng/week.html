@@ -13,19 +13,18 @@
             <th rowspan="2">
                 Vehicle
             </th>
-            {% for d in days %}{%if forloop.counter0|divisibleby:7 %}
-            <th colspan="7">{{ d }}</th>
+            {% for day in days %}{%if forloop.counter0|divisibleby:7 %}
+            <th colspan="7">{{ day }}</th>
             {%endif%}
             {% endfor %}
         </tr>
         <tr>
-            {% for d in week_days %}
-            <th>{{d}}</th>
+            {% for week_day in week_days %}
+            <th>{{week_day}}</th>
             {% endfor %}
         </tr>
-        {% for vehicle, d in vehicles_table.items %}
       </thead>
-      
+      {% for vehicle, days_data in vehicles_table.items %}
       <tbody>
         <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
             <th>
@@ -33,20 +32,25 @@
                     {{vehicle}}
                 </div>
             </th>
-            {% for h in d %}
-            <td class="{%if h.present %}rent_bar{% else %}no_rent_bar{% endif %}" data-bar="{{ h.classes|join:' ' }}">
+            {% for day_d in days_data %}
+            <td class="{%if day_d.present %}rent_bar{% else %}no_rent_bar{% endif %}"
+                data-bar="{{ day_d.classes|join:' ' }}"
+                {% for rent in day_d.rents %}
+                data-bar_tooltip_{{rent.id}}="{{ rent }}"
+                {% endfor %}
+            >
             </td>
             {% endfor %}
         </tr>
-        {% endfor %}
       </tbody>
+      {% endfor %}
   </table>
 </div>
 <script>
     Array.prototype.diff = function(a) {
         return this.filter(function(i) {return a.indexOf(i) < 0;});
     };
-    function create_links(wrapper,tab,class_str){
+    function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts){
         for (let i=0; i<tab.length; i++) {
             wrapper.append('<a class="'+
                 class_str+
@@ -54,7 +58,11 @@
                 (back.indexOf(tab[i])>=0?' not_back':'')+
                 '" href="/rent/'+
                 tab[i]+
-                '/"></a>');
+                '/"'+
+                ' data-toggle="tooltip" title="'+
+                tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
+                '"'+
+                '></a>');
         }
     };
     jQuery(document).ready(function($){
@@ -63,6 +71,8 @@
             firsts=[]
             lasts=[]
             mids = []
+            mids_tt = []
+            tt = []
             rented=[]
             back=[]
             //
@@ -75,6 +85,8 @@
                     firsts.push(nr)
                 }else  if(beg=='m_'){
                     mids.push(nr)
+                    mids_tt.push(nr)
+                    tt.push($( this ).attr('data-bar_tooltip_'+nr))
                 }else  if(beg=='r_'){
                     rented.push(nr)
                 }else  if(beg=='b_'){
@@ -97,13 +109,15 @@
             $(this).append('<div class="rent_wrapper"></div>')
             wrapper=$(this).find(".rent_wrapper")
             //
-            create_links(wrapper, lasts, "end_rent")
-            create_links(wrapper, shared, "start_end_rent")
-            create_links(wrapper, firsts, "start_rent")
-            create_links(wrapper, mids, "mid_rent")
+            create_links(wrapper, lasts, "end_rent", mids_tt, tt)
+            create_links(wrapper, shared, "start_end_rent", mids_tt, tt)
+            create_links(wrapper, firsts, "start_rent", mids_tt, tt)
+            create_links(wrapper, mids, "mid_rent", mids_tt, tt)
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
         });
     })
-
 
 </script>
 <a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}" class="btn">

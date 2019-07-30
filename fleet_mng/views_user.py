@@ -9,7 +9,7 @@ class NewUserForm(forms.Form):
     username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
     password = forms.CharField(label="Hasło:", widget=forms.PasswordInput())
     password_confirm = forms.CharField(label="Powtórz hasło:", widget=forms.PasswordInput())
-    group = forms.ChoiceField(label="Group:")
+    group = forms.ChoiceField(label="Typ:")
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
@@ -122,7 +122,7 @@ def change_user_pass(request, pk):
 
 class UserUpdateForm(forms.Form):
     username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
-    group = forms.ChoiceField(label="Group:")
+    group = forms.ChoiceField(label="Typ:")
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)

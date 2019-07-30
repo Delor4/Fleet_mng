@@ -56,7 +56,10 @@ class Renter(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return "{}".format(self.last_name, self.first_name)
+        tmp = self.first_name
+        if not tmp == "":
+            tmp = ", " + tmp
+        return "{0}{1}".format(self.last_name, tmp)
 
 
 # obiekt wypożyczenia

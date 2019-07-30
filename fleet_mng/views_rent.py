@@ -42,6 +42,12 @@ class RentForm(forms.Form):
         widget=forms.Textarea(),
         required=False
     )
+    description = forms.CharField(
+        label='Uwagi:',
+        max_length=2000,
+        widget=forms.Textarea(),
+        required=False
+    )
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
@@ -101,9 +107,11 @@ def show_rent_form(request):
             naive = timezone.datetime(d.year, d.month, d.day)
             t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
 
+            description = form.cleaned_data.get('description')
             rent_db = Rent(to_date=t,
                            vehicle=v,
-                           renter=renter_db)
+                           renter=renter_db,
+                           description=description)
             rent_db.save()
 
             return HttpResponseRedirect('/rent/')
@@ -134,6 +142,12 @@ class RentUpdateForm(forms.Form):
 
     new_renter = forms.CharField(max_length=191, required=False)
     new_renter_description = forms.CharField(
+        max_length=2000,
+        widget=forms.Textarea(),
+        required=False
+    )
+    description = forms.CharField(
+        label='Uwagi:',
         max_length=2000,
         widget=forms.Textarea(),
         required=False
@@ -189,11 +203,13 @@ def show_rent_update_form(request, pk):
             rent_db = Rent.objects.get(id=pk)
             rent_db.to_date = t
             rent_db.renter = renter_db
+            rent_db.description = form.cleaned_data.get('description')
             rent_db.save()
 
             return HttpResponseRedirect('/rent/')
     else:
         rent = Rent.objects.get(id=pk)
-        form = RentUpdateForm(initial={'to_date': rent.to_date, 'renter': rent.renter.id})
+        form = RentUpdateForm(
+            initial={'to_date': rent.to_date, 'renter': rent.renter.id, 'description': rent.description})
 
     return render(request, 'fleet_mng/rent_new.html', {'form': form})

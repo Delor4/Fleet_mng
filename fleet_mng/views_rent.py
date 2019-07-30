@@ -36,10 +36,11 @@ class RentForm(forms.Form):
     vehicle = forms.ChoiceField(label="Dostępne pojazdy:")
     renter = forms.ChoiceField(label="Wypożyczający:")
 
-    new_renter = forms.CharField(max_length=191, required=False)
+    new_renter = forms.CharField(max_length=191, required=False, label="Nowy wypożyczający, nazwisko:")
     new_renter_description = forms.CharField(
         max_length=2000,
         widget=forms.Textarea(),
+        label="Nowy wypożyczający, uwagi:",
         required=False
     )
     description = forms.CharField(
@@ -98,7 +99,7 @@ def show_rent_form(request):
 
             renter_db = None
             if renter == 0:
-                renter_db = Renter(name=new_renter, description=new_renter_description)
+                renter_db = Renter(last_name=new_renter, description=new_renter_description)
                 renter_db.save()
             else:
                 renter_db = Renter.objects.get(id=renter)
@@ -140,10 +141,11 @@ class RentUpdateForm(forms.Form):
                               initial=timezone.now().date() + datetime.timedelta(+7))
     renter = forms.ChoiceField(label="Wypożyczający:")
 
-    new_renter = forms.CharField(max_length=191, required=False)
+    new_renter = forms.CharField(max_length=191, required=False, label="Nowy wypożyczający, nazwisko:")
     new_renter_description = forms.CharField(
         max_length=2000,
         widget=forms.Textarea(),
+        label="Nowy wypożyczający, uwagi:",
         required=False
     )
     description = forms.CharField(
@@ -191,7 +193,7 @@ def show_rent_update_form(request, pk):
 
             renter_db = None
             if renter == 0:
-                renter_db = Renter(name=new_renter, description=new_renter_description)
+                renter_db = Renter(last_name=new_renter, description=new_renter_description)
                 renter_db.save()
             else:
                 renter_db = Renter.objects.get(id=renter)

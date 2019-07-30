@@ -30,7 +30,7 @@ class RenterView(PermissionRequiredMixin, generic.DetailView):
 class RenterForm(forms.ModelForm):
     class Meta:
         model = Renter
-        fields = ('name', 'description')
+        fields = ('last_name', 'first_name', 'description')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +42,8 @@ def renter_new(request):
     if request.method == "POST":
         form = RenterForm(request.POST)
         if form.is_valid():
-            renter = Renter(name=form.cleaned_data.get('name'),
+            renter = Renter(last_name=form.cleaned_data.get('last_name'),
+                            first_name=form.cleaned_data.get('first_name'),
                             description=form.cleaned_data.get('description'),
                             )
             renter.save()

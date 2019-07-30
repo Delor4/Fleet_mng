@@ -38,7 +38,7 @@ class Vehicle(models.Model):
     def is_free(self):
         return not self.is_rented()
 
-    #zwraca aktualnych wypożyczających ten pojazd
+    # zwraca aktualnych wypożyczających ten pojazd
     def get_current_renters(self):
         return Rent.objects.filter(vehicle=self, rented__exact=1)
 
@@ -46,7 +46,8 @@ class Vehicle(models.Model):
 # Wypożyczający
 class Renter(models.Model):
     # krótka nazwa
-    name = models.CharField(max_length=193, db_index=True)
+    last_name = models.CharField(max_length=193)
+    first_name = models.CharField(max_length=193, blank=True)
     # dłuższy opis
     description = models.TextField(blank=True)
 
@@ -55,7 +56,7 @@ class Renter(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return "{}".format(self.name)
+        return "{}".format(self.last_name, self.first_name)
 
 
 # obiekt wypożyczenia

@@ -2,7 +2,9 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
-<a href="{% url 'fleet_mng:rent_form' %}" id="newrentbt">Nowe wypożyczenie</a>
+<a href="{% url 'fleet_mng:rent_form' %}" class="btn">
+  <button class="btn btn-primary btn-xs" type="button">Nowe wypożyczenie</button>
+</a>
 {% endif %}
 {% if rent_list %}
 <ul>

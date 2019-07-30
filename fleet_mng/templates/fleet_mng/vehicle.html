@@ -10,6 +10,8 @@
 {% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}
 {% endif %}
 {% if perms.fleet_mng.change_vehicle %}
-<a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}">Edytuj</a>
+<a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">
+  <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
+</a>
 {% endif %}
 {% endblock %}

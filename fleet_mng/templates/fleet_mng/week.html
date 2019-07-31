@@ -29,7 +29,10 @@
       <tbody>
         <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
             <th>
-                <a href="{% url 'fleet_mng:vehicle' vehicle.id %}">
+                <a href="{% url 'fleet_mng:vehicle' vehicle.id %}"
+                   data-toggle="tooltip" data-html="true"
+                   title="{{vehicle.name}}<br>{{vehicle.brand}} {{vehicle.model}}{% if vehicle.generation %}<br>
+                        {{vehicle.generation}}{% endif %}<br>{{vehicle.registration_number}}<br>{{vehicle.description}}" >
                     <div class="{%if vehicle.is_rented %}rented{%endif%}">
                     {{vehicle.name}}
                     </div>

@@ -2,7 +2,9 @@ import datetime
 
 import pytz
 from django.contrib.auth.decorators import login_required, permission_required
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
 
 from fleet_mng.models import Rent, Vehicle
@@ -36,12 +38,31 @@ def show_week_date(request, year, month, day):
     return show_week(request, t)
 
 
+def make_links_for_nav(nav):
+    nav['link'] = reverse('fleet_mng:week_date',
+                          args=(nav['year'], nav['month'], nav['day'])
+                          )
+    nav['ajax_link'] = reverse('fleet_mng:ajax_week_date',
+                               args=(nav['year'], nav['month'], nav['day'])
+                               )
+
+
 @login_required
 @permission_required('fleet_mng.can_show_week')
 def ajax_show_week_date(request, year, month, day):
     naive = timezone.datetime(int(year), int(month), int(day))
     t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
-    return show_week(request, t, 'fleet_mng/_week_table.html')
+    nav = get_nav_from_date(t)
+    make_links_for_nav(nav['prev'])
+    make_links_for_nav(nav['prev_week'])
+    make_links_for_nav(nav['next'])
+    make_links_for_nav(nav['next_week'])
+    return JsonResponse(
+        {
+            'table_html': show_week(request, t, 'fleet_mng/_week_table.html').content.decode('utf-8'),
+            'nav': nav
+        }
+    )
 
 
 # funkcja podaje wszystkie dni pomiędzy datami (włącznie z końcami)
@@ -51,6 +72,35 @@ def date_range(start_date, end_date):
 
 
 days_names = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd']
+
+
+def get_nav_from_date(s_date):
+    prev_date = s_date + datetime.timedelta(-1)
+    prev_week_date = s_date + datetime.timedelta(-7)
+    next_date = s_date + datetime.timedelta(+1)
+    next_week_date = s_date + datetime.timedelta(+7)
+    return {
+        'prev': {
+            'year': prev_date.year,
+            'month': prev_date.month,
+            'day': prev_date.day,
+        },
+        'prev_week': {
+            'year': prev_week_date.year,
+            'month': prev_week_date.month,
+            'day': prev_week_date.day,
+        },
+        'next': {
+            'year': next_date.year,
+            'month': next_date.month,
+            'day': next_date.day,
+        },
+        'next_week': {
+            'year': next_week_date.year,
+            'month': next_week_date.month,
+            'day': next_week_date.day,
+        }
+    }
 
 
 # właściwe wywołanie widoku
@@ -90,12 +140,6 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
                 if i == last:
                     tab_item['classes'].append('l_' + str(rent.id))
 
-    # dates for nav
-    prev_date = show_from + datetime.timedelta(-1)
-    prev_week_date = show_from + datetime.timedelta(-7)
-    next_date = show_from + datetime.timedelta(+1)
-    next_week_date = show_from + datetime.timedelta(+7)
-
     return render(request, template,
                   {'days': days,
                    'week_days': week_days,
@@ -105,26 +149,5 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
                        'from': show_from,
                        'to': show_to,
                    },
-                   'nav': {
-                       'prev': {
-                           'year': prev_date.year,
-                           'month': prev_date.month,
-                           'day': prev_date.day,
-                       },
-                       'prev_week': {
-                           'year': prev_week_date.year,
-                           'month': prev_week_date.month,
-                           'day': prev_week_date.day,
-                       },
-                       'next': {
-                           'year': next_date.year,
-                           'month': next_date.month,
-                           'day': next_date.day,
-                       },
-                       'next_week': {
-                           'year': next_week_date.year,
-                           'month': next_week_date.month,
-                           'day': next_week_date.day,
-                       },
-                   },
+                   'nav': get_nav_from_date(show_from)
                    })

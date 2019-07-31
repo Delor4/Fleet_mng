@@ -3,13 +3,13 @@
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" class="btn">
-  <button class="btn btn-primary btn-xs" type="button">Nowe wypożyczenie</button>
+    <button class="btn btn-primary btn-xs" type="button">Nowe wypożyczenie</button>
 </a>
 {% endif %}
 <div class="table-responsive">
-  <table class="table table-bordered" id="week_table">
-{% include "fleet_mng/_week_table.html"%}
-  </table>
+    <table class="table table-bordered" id="week_table">
+        {% include "fleet_mng/_week_table.html"%}
+    </table>
 </div>
 <script>
     Array.prototype.diff = function(a) {
@@ -30,7 +30,7 @@
                 '></a>');
         }
     };
-    jQuery(document).ready(function($){
+    function create_bars_in_table(){
         $('#week_table').find( ".rent_bar" ).each(function() {
             data=$( this ).attr('data-bar').split(/\s+/);
             firsts=[]
@@ -82,20 +82,44 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         });
+    }
+    jQuery(document).ready(function($){
+        create_bars_in_table()
+    })
+
+
+</script>
+<a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}" class="btn week_nav"
+   class="btn week_nav"
+   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}">
+    <button type="button" class="btn btn-primary btn-xs"><<</button>
+</a>
+<a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}" class="btn week_nav"
+   class="btn week_nav"
+   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev.year nav.prev.month nav.prev.day %}">
+    <button type="button" class="btn btn-primary btn-xs"><</button>
+</a>
+...
+<a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}"
+   class="btn week_nav"
+   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next.year nav.next.month nav.next.day %}">
+    <button type="button" class="btn btn-primary btn-xs">></button>
+</a>
+<a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}" class="btn week_nav"
+   class="btn week_nav"
+   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}">
+    <button type="button" class="btn btn-primary btn-xs">>></button>
+</a>
+<script>
+    jQuery(document).ready(function($){
+        $('body').find( "a.week_nav" ).click(function(event) {
+            event.preventDefault();
+            $.get( $(this).attr('data-nav_target'), function( data ) {
+              $('#week_table').html( data.table_html );
+              create_bars_in_table()
+            });
+        })
     })
 
 </script>
-<a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}" class="btn">
-  <button type="button" class="btn btn-primary btn-xs"><<</button>
-</a>
-<a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}" class="btn">
-  <button type="button" class="btn btn-primary btn-xs"><</button>
-</a>
-...
-<a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}" class="btn">
-  <button type="button" class="btn btn-primary btn-xs">></button>
-</a>
-<a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}" class="btn">
-  <button type="button" class="btn btn-primary btn-xs">>></button>
-</a>
 {% endblock %}

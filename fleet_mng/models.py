@@ -20,7 +20,7 @@ class Vehicle(models.Model):
 
     # ciąg znaków opisujący obiekt
     def __str__(self) -> str:
-        return "{0} [{1} {2}]".format(self.name, self.brand, self.model)
+        return "{0}".format(self.name, self.brand, self.model)
 
     # zwraca True gdy pojazd jest wynajęty
     def is_rented(self) -> bool:

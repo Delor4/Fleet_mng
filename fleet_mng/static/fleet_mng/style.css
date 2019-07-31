@@ -6,7 +6,7 @@ body {
 /* NAV MENU LAYOUT */
 .nav-side-menu {
   overflow: auto;
-  font-family: verdana;
+  font-family: verdana, roboto;
   font-size: 12px;
   font-weight: 200;
   background-color: #2e353d;
@@ -243,4 +243,11 @@ body {
 
 .rent_wrapper .not_back{
     background: #ff212a;
+}
+
+.content-display{
+  overflow: auto;
+  height: 100%;
+  float: right;
+  clear: both;
 }

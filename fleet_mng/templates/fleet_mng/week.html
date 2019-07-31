@@ -42,7 +42,7 @@
             <td class="{%if day_d.present %}rent_bar{% else %}no_rent_bar{% endif %}"
                 data-bar="{{ day_d.classes|join:' ' }}"
                 {% for rent in day_d.rents %}
-                data-bar_tooltip_{{rent.id}}="{{ rent }}"
+                data-bar_tooltip_{{rent.id}}="{{ rent.from_date }} - {{ rent.to_date }}<br>{{rent.vehicle}}<br>{{rent.renter}}"
                 {% endfor %}
             >
             </td>
@@ -65,7 +65,7 @@
                 '" href="/rent/'+
                 tab[i]+
                 '/"'+
-                ' data-toggle="tooltip" title="'+
+                ' data-toggle="tooltip" data-html="true" title="'+
                 tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
                 '"'+
                 '></a>');

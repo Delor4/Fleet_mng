@@ -62,7 +62,7 @@
                 class_str+
                 (rented.indexOf(tab[i])>=0?' rented':'')+
                 (back.indexOf(tab[i])>=0?' not_back':'')+
-                '" href="/rent/'+
+                '" href="{% url 'fleet_mng:rents' %}'+
                 tab[i]+
                 '/"'+
                 ' data-toggle="tooltip" data-html="true" title="'+

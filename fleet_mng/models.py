@@ -82,7 +82,7 @@ class Rent(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return "{3}, {4}: {0} - {1}: {2}".format(self.from_date,
+        return "{0} - {1}: {3}, {4}. {2}".format(self.from_date,
                                                  self.to_date,
                                                  self.description,
                                                  self.vehicle,

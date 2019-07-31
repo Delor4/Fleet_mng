@@ -36,6 +36,14 @@ def show_week_date(request, year, month, day):
     return show_week(request, t)
 
 
+@login_required
+@permission_required('fleet_mng.can_show_week')
+def ajax_show_week_date(request, year, month, day):
+    naive = timezone.datetime(int(year), int(month), int(day))
+    t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
+    return show_week(request, t, 'fleet_mng/_week_table.html')
+
+
 # funkcja podaje wszystkie dni pomiędzy datami (włącznie z końcami)
 def date_range(start_date, end_date):
     for n in range(int((end_date - start_date).days) + 1):
@@ -48,7 +56,7 @@ days_names = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd']
 # właściwe wywołanie widoku
 @login_required
 @permission_required('fleet_mng.can_show_week')
-def show_week(request, show_from=timezone.now()):
+def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html'):
     show_to = show_from + datetime.timedelta((4 * 7) - 1)
     from_range = show_from
     to_range = show_to
@@ -88,7 +96,7 @@ def show_week(request, show_from=timezone.now()):
     next_date = show_from + datetime.timedelta(+1)
     next_week_date = show_from + datetime.timedelta(+7)
 
-    return render(request, 'fleet_mng/week.html',
+    return render(request, template,
                   {'days': days,
                    'week_days': week_days,
                    'rents_list': rents,

@@ -20,7 +20,7 @@ class Vehicle(models.Model):
 
     # ciąg znaków opisujący obiekt
     def __str__(self) -> str:
-        return "{0} [{1} {2}]".format(self.name, self.brand, self.model)
+        return "{0}".format(self.name, self.brand, self.model)
 
     # zwraca True gdy pojazd jest wynajęty
     def is_rented(self) -> bool:
@@ -82,7 +82,7 @@ class Rent(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return "{3}, {4}: {0} - {1}: {2}".format(self.from_date,
+        return "{0} - {1}: {3}, {4}.".format(self.from_date,
                                                  self.to_date,
                                                  self.description,
                                                  self.vehicle,

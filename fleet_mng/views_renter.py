@@ -31,6 +31,11 @@ class RenterForm(forms.ModelForm):
     class Meta:
         model = Renter
         fields = ('last_name', 'first_name', 'description')
+        labels = {
+            'last_name': 'Nazwisko',
+            'first_name': 'Imię',
+            'description': 'Uwagi'
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

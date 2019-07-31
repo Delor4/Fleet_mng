@@ -31,6 +31,13 @@ class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
         fields = ('name', 'brand', 'model', 'generation', 'registration_number')
+        labels = {
+            'name':'Nazwa',
+                     'brand':'Marka',
+                 'model':'Model',
+                 'generation':'Typ',
+                 'registration_number':'Nr rejestracyjny',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

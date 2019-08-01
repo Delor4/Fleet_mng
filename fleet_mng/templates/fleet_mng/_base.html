@@ -13,117 +13,123 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="row" style="border:1px solid black;">
-      <div class="col-md-12" style="background: orange;">MENU GÓRNE
-        <div class="row" style="border:1px solid black;">
-          <div class="col-md-3" style="overflow: auto; display: flex;">
-            <!--- Include the above in your HEAD tag ---------->
-            <nav class="nav-side-menu">
-              <div class="brand">System Zarządzania Flotą MAGMA</div>
 
-              <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-                <div class="menu-list">
-                  <ul id="menu-content" class="menu-content collapse out">
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-dashboard fa-lg"></i> Panel
-                      </a>
-                    </li>
-                            <!-- <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                              <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="products">
-                                <li class="active"><a href="#">CSS3 Animation</a></li>
-                                <li><a href="#">General</a></li>
-                                <li><a href="#">Buttons</a></li>
-                                <li><a href="#">Tabs & Accordions</a></li>
-                                <li><a href="#">Typography</a></li>
-                                <li><a href="#">FontAwesome</a></li>
-                                <li><a href="#">Slider</a></li>
-                                <li><a href="#">Panels</a></li>
-                                <li><a href="#">Widgets</a></li>
-                                <li><a href="#">Bootstrap Model</a></li>
-                            </ul> -->
+    <nav class="nav-side-menu">
+      <div class="brand">System Zarządzania Flotą MAGMA</div>
 
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-user fa-lg"></i> Konta
-                      </a>
-                    </li>
+      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+        <div class="menu-list">
+          <ul id="menu-content" class="menu-content collapse out">
+            <li>
+              <a href="#"><i class="fa fa-dashboard fa-lg"></i> Panel</a>
+            </li>
 
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-users fa-lg"></i> Użytkownicy
-                      </a>
-                    </li>
+            <li>
+              <a href="#"><i class="fa fa-user fa-lg"></i> Konta</a>
+            </li>
 
-                    <li data-toggle="collapse" data-target="#service" class="collapsed">
-                      <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
-                    </li>
+            <li>
+              <a href="#"><i class="fa fa-users fa-lg"></i> Użytkownicy</a>
+            </li>
 
-                    <ul class="sub-menu collapse" id="service">
-                      <li>New Service 1</li>
-                      <li>New Service 2</li>
-                      <li>New Service 3</li>
-                    </ul>
+            <li data-toggle="collapse" data-target="#service" class="collapsed">
+              <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
+            </li>
 
-                    <li data-toggle="collapse" data-target="#new" class="collapsed">
-                      <a href="{% url 'fleet_mng:vehicles' %}"><i class="fa fa-car fa-lg"></i> Pojazdy <span class="arrow"></span></a>
-                    </li>
-                    <!-- <ul class="sub-menu collapse" id="service">
-                      <li>New Service 1</li>
-                      <li>New Service 2</li>
-                      <li>New Service 3</li>
-                    </ul> -->
-                  </ul>
-               </div>
-            </nav>
-                        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                            {% block sidebar %}
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="nav justify-content-end">
-                                    <li class="nav-item">
-                                      <a class="nav-link" href="/">Home</a>
-                                    </li>
-                                    {% if perms.fleet_mng.view_vehicle %}
-                                    <li class="nav-item">
-                                      <a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a>
-                                    </li>
-                                    {% endif %}
-                                    {% if perms.fleet_mng.view_renter %}
-                                    <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
-                                    {% endif %}
-                                    {% if perms.fleet_mng.view_rent %}
-                                    <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
-                                    {% endif %}
-                                    {% if perms.fleet_mng.can_show_week %}
-                                    <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
-                                    {% endif %}
-                                    {% if perms.auth.view_user %}
-                                    <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-                            {% endblock %}
-                        </nav>-->
-                        <div class="col-md-9" style="background: lightyellow;">
-                          <div id="content" class="content-display">
-                            {% block content %}{% endblock %}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12" style="background: orange;">STOPKA</div>
-                </div>
-              </div>
+            <ul class="sub-menu collapse" id="service">
+              <li>New Service 1</li>
+              <li>New Service 2</li>
+              <li>New Service 3</li>
+            </ul>
 
-              <div id="userbar">
+            <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <a href="{% url 'fleet_mng:vehicles' %}"><i class="fa fa-car fa-lg"></i> Pojazdy <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="service">
+              <li>New Service 1</li>
+              <li>New Service 2</li>
+              <li>New Service 3</li>
+            </ul>
+          </ul>
+       </div>
+    </nav>
+
+  </div>
+    <!-- <div class="row">
+
+
+
+      <div class="col-md-12">
+        <div class="title">System Zarządzania Flotą MAGMA</div>
+        <div class="row">
+          <div class="col">
+            <div id="content" class="content-display">
+              {% block content %}{% endblock %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div> -->
+
+
+              <!-- <div id="userbar">
                     {% if user.is_authenticated %}
                     <p>Welcome, {{ user.username }}. <a href="{% url 'logout' %}">Log out</a>.</p>
                     {% else %}
                     <p>Welcome, new user. Please <a href="{% url 'login' %}">log in</a>.</p>
                     {% endif %}
-              </div>
+              </div> -->
+
+
+
+              <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  {% block sidebar %}
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="nav justify-content-end">
+                          <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                          </li>
+                          {% if perms.fleet_mng.view_vehicle %}
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a>
+                          </li>
+                          {% endif %}
+                          {% if perms.fleet_mng.view_renter %}
+                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
+                          {% endif %}
+                          {% if perms.fleet_mng.view_rent %}
+                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
+                          {% endif %}
+                          {% if perms.fleet_mng.can_show_week %}
+                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
+                          {% endif %}
+                          {% if perms.auth.view_user %}
+                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
+                          {% endif %}
+                      </ul>
+                  </div>
+                  {% endblock %}
+              </nav>-->
+
+
+
+              <!-- <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
+              </li>
+              <ul class="sub-menu collapse" id="products">
+                  <li class="active"><a href="#">CSS3 Animation</a></li>
+                  <li><a href="#">General</a></li>
+                  <li><a href="#">Buttons</a></li>
+                  <li><a href="#">Tabs & Accordions</a></li>
+                  <li><a href="#">Typography</a></li>
+                  <li><a href="#">FontAwesome</a></li>
+                  <li><a href="#">Slider</a></li>
+                  <li><a href="#">Panels</a></li>
+                  <li><a href="#">Widgets</a></li>
+                  <li><a href="#">Bootstrap Model</a></li>
+              </ul> -->
 
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

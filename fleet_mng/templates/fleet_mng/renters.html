@@ -3,16 +3,16 @@
 {% block content %}
 {% if perms.fleet_mng.add_renter %}
 <a href="{% url 'fleet_mng:renter_new' %}" class="btn">
-  <button class="btn btn-primary btn-xs" type="button">Nowy wypożyczający</button>
+  <button class="btn btn-primary btn-sm" type="button">Nowy wypożyczający</button>
 </a>
 {% endif %}
 {% if renter_list %}
-<ul>
-    {% for renter in renter_list %}
-    <li class="list-group-item list-group-item-action">
-      <a href="{% url 'fleet_mng:renter' renter.id %}">{{ renter }}</a>
-    </li>
-    {% endfor %}
+<ul class="item-list">
+  {% for renter in renter_list %}
+  <li class="list-group-item list-group-item-action">
+    <a href="{% url 'fleet_mng:renter' renter.id %}">{{ renter }}</a>
+  </li>
+  {% endfor %}
 </ul>
 {% else %}
 <p>No renters are available.</p>

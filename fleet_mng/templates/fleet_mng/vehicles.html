@@ -3,11 +3,11 @@
 {% block content %}
 {% if perms.fleet_mng.add_vehicle %}
 <a href="{% url 'fleet_mng:vehicle_new' %}" class="btn">
-  <button class="btn btn-primary btn-xs" type="button">Nowy pojazd</button>
+  <button class="btn btn-primary btn-sm" type="button">Nowy pojazd</button>
 </a>
 {% endif %}
 {% if vehicle_list %}
-<ul>
+<ul class="item-list">
     {% for vehicle in vehicle_list %}
     <li class="list-group-item list-group-item-action"><a href="{% url 'fleet_mng:vehicle' vehicle.id %}">{{ vehicle }}</a></li>
     {% endfor %}

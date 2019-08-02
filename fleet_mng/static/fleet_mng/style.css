@@ -148,9 +148,24 @@ body {
 /* ------------------------------------------ */
 
 /* USER BAR LAYOUT */
-#userbar  {
+.top-bar {
+  display: block;
+  color: #E1FFFF;
+  width: 100%;
+  height: 50px;
   text-align: right;
-  margin: 0px 50px 0px 0px;
+  margin: 0px 50px 20px 0px;
+  /* border: 1px solid black; */
+  padding: 0px 10px 10px 0px;
+  background-color: #23282e;
+}
+
+.user-ticket {
+  line-height: 50px;
+  display: block;
+  text-align: right;
+  font-size: 14px;
+  text-k
 }
 /* ------------------------------------------ */
 

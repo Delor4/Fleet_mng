@@ -13,7 +13,6 @@
 </head>
 <body>
   <div class="container-fluid">
-
     <nav class="nav-side-menu">
       <div class="brand">System Zarządzania Flotą MAGMA</div>
 
@@ -54,6 +53,14 @@
        </div>
     </nav>
 
+    <div id="userbar" class="top-bar">
+      {% if user.is_authenticated %}
+      <p style="user-ticket">Welcome, {{ user.username }}. <a href="{% url 'logout' %}">Log out</a>.</p>
+      {% else %}
+      <p style="user-ticket">Welcome, new user. Please <a href="{% url 'login' %}">log in</a>.</p>
+      {% endif %}
+    </div>
+
     <div class="main">
       <div id="content" class="content-display">
         {% block content %}{% endblock %}
@@ -61,19 +68,6 @@
     </div>
 
   </div>
-
-
-
-
-              <!-- <div id="userbar">
-                    {% if user.is_authenticated %}
-                    <p>Welcome, {{ user.username }}. <a href="{% url 'logout' %}">Log out</a>.</p>
-                    {% else %}
-                    <p>Welcome, new user. Please <a href="{% url 'login' %}">log in</a>.</p>
-                    {% endif %}
-              </div> -->
-
-
 
               <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
                   {% block sidebar %}

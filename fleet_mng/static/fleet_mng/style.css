@@ -15,6 +15,7 @@ body {
   width: 300px;
   height: 100%;
   color: #e1ffff;
+  margin: 0px
 }
 .nav-side-menu .brand {
   background-color: #23282e;
@@ -230,6 +231,12 @@ body {
 
 .rent_wrapper .not_back{
     background: #ff212a;
+}
+
+.main {
+  margin-left: 300px;
+  width: 100%;
+  height: 100%;
 }
 
 .content-display {

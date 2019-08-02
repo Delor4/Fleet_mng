@@ -1,141 +1,16 @@
 [
   {
-    "model": "fleet_mng.vehicle",
-    "pk": 1,
-    "fields": {
-      "name": "Fiacik",
-      "brand": "Fiat",
-      "model": "126p",
-      "generation": "",
-      "registration_number": "xxx-0001",
-      "created_at": "2019-07-23T16:48:22.093Z",
-      "updated_at": "2019-07-23T16:48:22.093Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.vehicle",
-    "pk": 2,
-    "fields": {
-      "name": "Cyrwuny",
-      "brand": "Ferrari",
-      "model": "Testarossa",
-      "generation": "",
-      "registration_number": "..",
-      "created_at": "2019-07-23T16:52:15.135Z",
-      "updated_at": "2019-07-27T10:36:12.799Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.vehicle",
-    "pk": 3,
-    "fields": {
-      "name": "Czarna",
-      "brand": "Wo\u0142ga",
-      "model": "GAZ-24",
-      "generation": "",
-      "registration_number": "---",
-      "created_at": "2019-07-23T16:52:32.389Z",
-      "updated_at": "2019-07-23T16:52:32.389Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.vehicle",
-    "pk": 4,
-    "fields": {
-      "name": "Niebieszczak",
-      "brand": "Reliant",
-      "model": "Regal",
-      "generation": "",
-      "registration_number": "xxx-xxx",
-      "created_at": "2019-07-27T10:43:13.654Z",
-      "updated_at": "2019-07-28T21:50:27.106Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.vehicle",
-    "pk": 5,
-    "fields": {
-      "name": "Szambiarka",
-      "brand": "Jelcz",
-      "model": "325",
-      "generation": "",
-      "registration_number": "00-xxxx",
-      "created_at": "2019-07-27T10:44:32.412Z",
-      "updated_at": "2019-07-28T21:50:07.974Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.renter",
-    "pk": 1,
-    "fields": {
-      "name": "Ziutek",
-      "description": "",
-      "created_at": "2019-07-23T16:52:53.067Z",
-      "updated_at": "2019-07-23T16:52:53.067Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.renter",
-    "pk": 2,
-    "fields": {
-      "name": "W\u0142odek",
-      "description": "",
-      "created_at": "2019-07-23T16:52:57.915Z",
-      "updated_at": "2019-07-23T16:52:57.915Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.renter",
-    "pk": 11,
-    "fields": {
-      "name": "Jasio",
-      "description": "",
-      "created_at": "2019-07-25T14:00:14.119Z",
-      "updated_at": "2019-07-25T14:00:14.119Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.renter",
-    "pk": 12,
-    "fields": {
-      "name": "M\u0142ody",
-      "description": "Fast furious.",
-      "created_at": "2019-07-27T11:56:40.314Z",
-      "updated_at": "2019-07-28T21:50:55.211Z",
-      "deleted": false
-    }
-  },
-  {
-    "model": "fleet_mng.renter",
-    "pk": 13,
-    "fields": {
-      "name": "Szybki",
-      "description": "",
-      "created_at": "2019-07-27T12:01:21.872Z",
-      "updated_at": "2019-07-28T21:51:36.037Z",
-      "deleted": false
-    }
-  },
-  {
     "model": "fleet_mng.rent",
     "pk": 9,
     "fields": {
       "description": "",
       "from_date": "2019-07-25",
-      "to_date": "2019-07-28",
+      "to_date": "2019-07-29",
       "vehicle": 1,
-      "renter": 11,
+      "renter": 2,
       "rented": 1,
       "created_at": "2019-07-25T14:00:14.216Z",
-      "updated_at": "2019-07-25T14:00:14.216Z",
+      "updated_at": "2019-07-29T15:18:53.177Z",
       "deleted": false
     }
   },
@@ -282,10 +157,10 @@
       "from_date": "2019-07-15",
       "to_date": "2019-07-15",
       "vehicle": 5,
-      "renter": 1,
+      "renter": 2,
       "rented": 0,
       "created_at": "2019-07-28T13:25:38.108Z",
-      "updated_at": "2019-07-28T13:25:38.108Z",
+      "updated_at": "2019-07-30T21:31:21.227Z",
       "deleted": false
     }
   },
@@ -312,10 +187,10 @@
       "from_date": "2019-07-18",
       "to_date": "2019-07-18",
       "vehicle": 5,
-      "renter": 1,
+      "renter": 2,
       "rented": 0,
       "created_at": "2019-07-28T13:28:41.827Z",
-      "updated_at": "2019-07-28T13:28:41.827Z",
+      "updated_at": "2019-07-30T21:31:16.770Z",
       "deleted": false
     }
   },
@@ -327,10 +202,10 @@
       "from_date": "2019-07-18",
       "to_date": "2019-07-19",
       "vehicle": 5,
-      "renter": 1,
+      "renter": 13,
       "rented": 0,
       "created_at": "2019-07-28T13:29:01.002Z",
-      "updated_at": "2019-07-28T13:29:01.002Z",
+      "updated_at": "2019-07-30T21:31:09.994Z",
       "deleted": false
     }
   },
@@ -342,10 +217,10 @@
       "from_date": "2019-07-19",
       "to_date": "2019-07-19",
       "vehicle": 5,
-      "renter": 1,
+      "renter": 12,
       "rented": 0,
       "created_at": "2019-07-28T13:29:33.368Z",
-      "updated_at": "2019-07-28T13:29:33.368Z",
+      "updated_at": "2019-07-30T21:31:02.952Z",
       "deleted": false
     }
   },
@@ -361,6 +236,36 @@
       "rented": 1,
       "created_at": "2019-07-28T17:25:19.111Z",
       "updated_at": "2019-07-28T17:25:19.111Z",
+      "deleted": false
+    }
+  },
+  {
+    "model": "fleet_mng.rent",
+    "pk": 31,
+    "fields": {
+      "description": "",
+      "from_date": "2019-07-29",
+      "to_date": "2019-08-04",
+      "vehicle": 2,
+      "renter": 1,
+      "rented": 1,
+      "created_at": "2019-07-28T22:14:18.435Z",
+      "updated_at": "2019-07-28T22:14:18.436Z",
+      "deleted": false
+    }
+  },
+  {
+    "model": "fleet_mng.rent",
+    "pk": 32,
+    "fields": {
+      "description": "Uwaga... w uwadze.\r\nNo i po uwadze.",
+      "from_date": "2019-07-30",
+      "to_date": "2019-08-06",
+      "vehicle": 4,
+      "renter": 1,
+      "rented": 1,
+      "created_at": "2019-07-30T19:43:15.406Z",
+      "updated_at": "2019-07-31T07:01:26.231Z",
       "deleted": false
     }
   }

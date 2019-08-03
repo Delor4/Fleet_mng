@@ -122,6 +122,14 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
     for vehicle in vehicles:
         vehicles_data[vehicle] = [{'present': 0, 'rents': [], 'classes': []} for _ in range(len(days))]
 
+    '''
+    f_  -   first
+    m_  -   middle
+    l_  -   last
+    b_  -   not brink back
+    r_  -   rented
+    '''
+
     # filling table
     for rent in rents:
         last = int((rent.to_date - rent.from_date).days)

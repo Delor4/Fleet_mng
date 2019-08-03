@@ -6,6 +6,8 @@
 {{ vehicle.model }}<br>
 {{ vehicle.generation }}<br>
 {{ vehicle.registration_number }}<br>
+{{ vehicle.mileage }}<br>
+{{ vehicle.checkup }}<br>
 {{ vehicle.description }}<br>
 {%if vehicle.is_rented %}
 {% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}

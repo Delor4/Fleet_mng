@@ -57,6 +57,8 @@ def ajax_show_week_date(request, year, month, day):
     make_links_for_nav(nav['prev_week'])
     make_links_for_nav(nav['next'])
     make_links_for_nav(nav['next_week'])
+    nav['today_link'] = reverse('fleet_mng:week_date', args=(year, month, day))
+    nav['today_ajax_link'] = reverse('fleet_mng:ajax_week_date', args=(year, month, day))
     return JsonResponse(
         {
             'table_html': show_week(request, t, 'fleet_mng/_week_table.html').content.decode('utf-8'),

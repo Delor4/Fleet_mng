@@ -60,3 +60,7 @@
 .rent_wrapper .not_back{
     background: #ff212a;
 }
+
+.day_name {
+    width: 1.1em;
+}

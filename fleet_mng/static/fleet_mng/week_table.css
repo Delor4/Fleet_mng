@@ -20,12 +20,12 @@ tr.is_rented th a {
 }
 
 #week_table td.checkup div.checkup:before {
-    content: "\f06a";
+    content: "\f06a\f0ad";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    color: red;
+    color: #c10000;
     font-size: 18px;
     padding-right: 0.5em;
     position: absolute;

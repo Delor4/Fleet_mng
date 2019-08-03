@@ -1,0 +1,62 @@
+[
+{
+  "model": "fleet_mng.renter",
+  "pk": 1,
+  "fields": {
+    "last_name": "Nowak",
+    "first_name": "",
+    "description": "",
+    "created_at": "2019-07-23T16:52:53.067Z",
+    "updated_at": "2019-07-30T21:24:22.750Z",
+    "deleted": false
+  }
+},
+{
+  "model": "fleet_mng.renter",
+  "pk": 2,
+  "fields": {
+    "last_name": "Kowalski",
+    "first_name": "Jan",
+    "description": "",
+    "created_at": "2019-07-23T16:52:57.915Z",
+    "updated_at": "2019-07-30T21:25:27.563Z",
+    "deleted": false
+  }
+},
+{
+  "model": "fleet_mng.renter",
+  "pk": 11,
+  "fields": {
+    "last_name": "Wi\u015bniewska",
+    "first_name": "Zuzanna",
+    "description": "",
+    "created_at": "2019-07-25T14:00:14.119Z",
+    "updated_at": "2019-07-30T21:26:14.897Z",
+    "deleted": false
+  }
+},
+{
+  "model": "fleet_mng.renter",
+  "pk": 12,
+  "fields": {
+    "last_name": "W\u00f3jcik",
+    "first_name": "Antoni",
+    "description": "Wymienia\u0142 prawo jazdy.\r\nUaktualni\u0107 dane.",
+    "created_at": "2019-07-27T11:56:40.314Z",
+    "updated_at": "2019-07-30T21:29:16.914Z",
+    "deleted": false
+  }
+},
+{
+  "model": "fleet_mng.renter",
+  "pk": 13,
+  "fields": {
+    "last_name": "Kowalczyk",
+    "first_name": "",
+    "description": "",
+    "created_at": "2019-07-27T12:01:21.872Z",
+    "updated_at": "2019-07-30T21:26:26.481Z",
+    "deleted": false
+  }
+}
+]

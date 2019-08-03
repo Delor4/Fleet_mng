@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="{% static 'fleet_mng/favicon-32x32.png' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/style.css' %}">
+    {% block css_link %}{% endblock %}
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <title>{% block title %}MAGMA VMS - Vehicle Management System{% endblock %}</title>
 </head>

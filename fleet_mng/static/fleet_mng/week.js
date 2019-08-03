@@ -9,9 +9,8 @@ function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo)
             class_str+
             (rented.indexOf(tab[i])>=0?' rented':'')+
             (back.indexOf(tab[i])>=0?' not_back':'')+
-            '" href="/rent/'+
-            tab[i]+
-            '/"'+
+            '"'+
+            (vo?'':(' href="/rent/' + tab[i] + '/"'))+
             ' data-toggle="tooltip" data-html="true" title="'+
             tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
             '"'+

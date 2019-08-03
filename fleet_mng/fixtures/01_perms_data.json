@@ -111,6 +111,24 @@
   "model": "auth.permission",
   "pk": 13,
   "fields": {
+    "name": "Can mark rent as returned",
+    "content_type": 3,
+    "codename": "can_mark_returned"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can show week view",
+    "content_type": 3,
+    "codename": "can_show_week"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
     "name": "Can add log entry",
     "content_type": 4,
     "codename": "add_logentry"
@@ -118,7 +136,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 14,
+  "pk": 16,
   "fields": {
     "name": "Can change log entry",
     "content_type": 4,
@@ -127,7 +145,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 15,
+  "pk": 17,
   "fields": {
     "name": "Can delete log entry",
     "content_type": 4,
@@ -136,7 +154,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 16,
+  "pk": 18,
   "fields": {
     "name": "Can view log entry",
     "content_type": 4,
@@ -145,7 +163,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 17,
+  "pk": 19,
   "fields": {
     "name": "Can add permission",
     "content_type": 5,
@@ -154,7 +172,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 18,
+  "pk": 20,
   "fields": {
     "name": "Can change permission",
     "content_type": 5,
@@ -163,7 +181,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 19,
+  "pk": 21,
   "fields": {
     "name": "Can delete permission",
     "content_type": 5,
@@ -172,7 +190,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 20,
+  "pk": 22,
   "fields": {
     "name": "Can view permission",
     "content_type": 5,
@@ -181,7 +199,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 21,
+  "pk": 23,
   "fields": {
     "name": "Can add group",
     "content_type": 6,
@@ -190,7 +208,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 22,
+  "pk": 24,
   "fields": {
     "name": "Can change group",
     "content_type": 6,
@@ -199,7 +217,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 23,
+  "pk": 25,
   "fields": {
     "name": "Can delete group",
     "content_type": 6,
@@ -208,7 +226,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 24,
+  "pk": 26,
   "fields": {
     "name": "Can view group",
     "content_type": 6,
@@ -217,7 +235,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 25,
+  "pk": 27,
   "fields": {
     "name": "Can add user",
     "content_type": 7,
@@ -226,7 +244,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 26,
+  "pk": 28,
   "fields": {
     "name": "Can change user",
     "content_type": 7,
@@ -235,7 +253,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 27,
+  "pk": 29,
   "fields": {
     "name": "Can delete user",
     "content_type": 7,
@@ -244,7 +262,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 28,
+  "pk": 30,
   "fields": {
     "name": "Can view user",
     "content_type": 7,
@@ -253,7 +271,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 29,
+  "pk": 31,
   "fields": {
     "name": "Can add content type",
     "content_type": 8,
@@ -262,7 +280,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 30,
+  "pk": 32,
   "fields": {
     "name": "Can change content type",
     "content_type": 8,
@@ -271,7 +289,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 31,
+  "pk": 33,
   "fields": {
     "name": "Can delete content type",
     "content_type": 8,
@@ -280,7 +298,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 32,
+  "pk": 34,
   "fields": {
     "name": "Can view content type",
     "content_type": 8,
@@ -289,7 +307,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 33,
+  "pk": 35,
   "fields": {
     "name": "Can add session",
     "content_type": 9,
@@ -298,7 +316,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 34,
+  "pk": 36,
   "fields": {
     "name": "Can change session",
     "content_type": 9,
@@ -307,7 +325,7 @@
 },
 {
   "model": "auth.permission",
-  "pk": 35,
+  "pk": 37,
   "fields": {
     "name": "Can delete session",
     "content_type": 9,
@@ -316,29 +334,11 @@
 },
 {
   "model": "auth.permission",
-  "pk": 36,
+  "pk": 38,
   "fields": {
     "name": "Can view session",
     "content_type": 9,
     "codename": "view_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 37,
-  "fields": {
-    "name": "Set vehicle as returned",
-    "content_type": 3,
-    "codename": "can_mark_returned"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 38,
-  "fields": {
-    "name": "Show week view",
-    "content_type": 3,
-    "codename": "can_show_week"
   }
 }
 ]

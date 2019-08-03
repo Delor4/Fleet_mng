@@ -33,7 +33,7 @@
                 {% for rent in day_d.rents %}
                 data-bar_tooltip_{{rent.id}}="{{ rent.from_date }} - {{ rent.to_date }}<br>{{rent.vehicle}}<br>{{rent.renter}}"
                 {% endfor %}
-            >
+            >{%if vehicle.checkup == days|index:forloop.counter0 %}<div class="checkup"></div>{% endif %}
             </td>
             {% endfor %}
         </tr>

@@ -13,6 +13,26 @@ tr.is_rented th a {
   font-weight: normal;
 }
 
+#week_table td.checkup {
+   position: relative;
+   top: 0;
+   left: 0;
+}
+
+#week_table td.checkup div.checkup:before {
+    content: "\f06a";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: red;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 #week_table tr+tr {
     border-top: 2px solid #dee2e6;
 }

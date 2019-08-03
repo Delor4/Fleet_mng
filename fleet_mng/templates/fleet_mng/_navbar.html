@@ -1,29 +1,35 @@
-    <nav class="nav-side-menu">
-      <div class="brand">System Zarządzania Flotą MAGMA</div>
+<nav class="nav-side-menu">
+    <div class="brand">System Zarządzania Flotą MAGMA</div>
 
-      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-        <div class="menu-list">
-          <ul id="menu-content" class="menu-content collapse out">
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out">
             <li>
-              <a href="/"><i class="fa fa-dashboard fa-lg"></i> Panel</a>
+                <a href="/"><i class="fa fa-dashboard fa-lg"></i> Panel</a>
             </li>
-
+            {% if perms.auth.view_user %}
             <li>
-              <a href="{% url 'fleet_mng:users' %}"><i class="fa fa-user fa-lg"></i> Konta systemowe</a>
+                <a href="{% url 'fleet_mng:users' %}"><i class="fa fa-user fa-lg"></i> Konta systemowe</a>
             </li>
-
+            {% endif %}
             <!-- <li>
               <a href="{% url 'fleet_mng:renters' %}"><i class="fa fa-users fa-lg"></i> Użytkownicy</a>
             </li> -->
 
             <li data-toggle="collapse" data-target="#service" class="collapsed">
-              <a href="#"><i class="fa fa-globe fa-lg"></i> Zarządzanie flotą <span class="arrow"></span></a>
+                <a href="#"><i class="fa fa-globe fa-lg"></i> Zarządzanie flotą <span class="arrow"></span></a>
             </li>
 
             <ul class="sub-menu collapse" id="service">
-              <li><a href="{% url 'fleet_mng:renters' %}">Użytownicy</a></li>
-              <li><a href="{% url 'fleet_mng:vehicles' %}">Pojazdy</a></li>
-              <li><a href="{% url 'fleet_mng:week' %}">Plan wypożyczeń</a></li>
+                {% if perms.fleet_mng.view_renter %}
+                <li><a href="{% url 'fleet_mng:renters' %}">Użytownicy</a></li>
+                {% endif %}
+                {% if perms.fleet_mng.view_vehicle %}
+                <li><a href="{% url 'fleet_mng:vehicles' %}">Pojazdy</a></li>
+                {% endif %}
+                {% if perms.fleet_mng.can_show_week %}
+                <li><a href="{% url 'fleet_mng:week' %}">Plan wypożyczeń</a></li>
+                {% endif %}
             </ul>
 
             <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
@@ -34,6 +40,6 @@
               <li>New Service 2</li>
               <li>New Service 3</li>
             </ul> -->
-          </ul>
-       </div>
-    </nav>
+        </ul>
+    </div>
+</nav>

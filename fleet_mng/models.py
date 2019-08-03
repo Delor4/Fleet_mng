@@ -16,7 +16,7 @@ class Vehicle(models.Model):
     # przebieg
     mileage = models.IntegerField(blank=True)
     # badania techniczne
-    chekup = models.DateField(blank=True, null=True)
+    checkup = models.DateField(blank=True, null=True)
     # dłuższy opis
     description = models.TextField(blank=True)
 

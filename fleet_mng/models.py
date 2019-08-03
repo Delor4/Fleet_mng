@@ -13,6 +13,10 @@ class Vehicle(models.Model):
     generation = models.CharField(max_length=193, blank=True)
     # nr rej.
     registration_number = models.CharField(max_length=193)
+    # przebieg
+    mileage = models.IntegerField(blank=True)
+    # badania techniczne
+    chekup = models.DateField(blank=True, null=True)
     # dłuższy opis
     description = models.TextField(blank=True)
 
@@ -85,10 +89,10 @@ class Rent(models.Model):
 
     def __str__(self) -> str:
         return "{0} - {1}: {3}, {4}.".format(self.from_date,
-                                                 self.to_date,
-                                                 self.description,
-                                                 self.vehicle,
-                                                 self.renter)
+                                             self.to_date,
+                                             self.description,
+                                             self.vehicle,
+                                             self.renter)
 
     # dodatkowe prawa dostępu
     class Meta:

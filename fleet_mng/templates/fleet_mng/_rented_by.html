@@ -1,2 +1,3 @@
-<a href="{% url 'fleet_mng:rent' rent.id %}">Wypożyczony</a> przez: <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>
+{% if perms.fleet_mng.view_rent %}<a href="{% url 'fleet_mng:rent' rent.id %}">Wypożyczony</a>{% else %}Wypożyczony{% endif %}
+przez: {% if perms.fleet_mng.view_renter %}<a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>{% else %}{{ rent.renter }}{% endif %}
 {%if rent.rented %} do {{rent.to_date}}{% endif %}.

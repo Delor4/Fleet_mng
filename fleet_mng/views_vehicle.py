@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
+from django.forms import SelectDateWidget
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import UpdateView
@@ -40,6 +41,9 @@ class VehicleForm(forms.ModelForm):
             'description': 'Uwagi',
             'mileage': 'Przebieg',
             'checkup': 'Badanie techniczne',
+        }
+        widgets = {
+            'checkup': SelectDateWidget(),
         }
 
     def __init__(self, *args, **kwargs):

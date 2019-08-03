@@ -3,9 +3,9 @@ Array.prototype.diff = function(a) {
         return a.indexOf(i) < 0;
     });
 };
-function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts){
+function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo){
     for (let i=0; i<tab.length; i++) {
-        wrapper.append('<a class="'+
+        wrapper.append('<'+(vo?'div':'a')+' class="bar '+
             class_str+
             (rented.indexOf(tab[i])>=0?' rented':'')+
             (back.indexOf(tab[i])>=0?' not_back':'')+
@@ -15,11 +15,15 @@ function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts){
             ' data-toggle="tooltip" data-html="true" title="'+
             tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
             '"'+
-            '></a>');
+            '></'+(vo?'div':'a')+'>');
     }
 };
 function create_bars_in_table(){
     $('#week_table').find( ".rent_bar" ).each(function() {
+        viewonly=false;
+        if($(this).hasClass('viewonly')){
+            viewonly=true;
+        }
         data=$( this ).attr('data-bar').split(/\s+/);
         firsts=[]
         lasts=[]
@@ -62,10 +66,10 @@ function create_bars_in_table(){
         $(this).append('<div class="rent_wrapper"></div>')
         wrapper=$(this).find(".rent_wrapper")
         //
-        create_links(wrapper, lasts, "end_rent", mids_tt, tt)
-        create_links(wrapper, shared, "start_end_rent", mids_tt, tt)
-        create_links(wrapper, firsts, "start_rent", mids_tt, tt)
-        create_links(wrapper, mids, "mid_rent", mids_tt, tt)
+        create_links(wrapper, lasts, "end_rent", mids_tt, tt, viewonly)
+        create_links(wrapper, shared, "start_end_rent", mids_tt, tt, viewonly)
+        create_links(wrapper, firsts, "start_rent", mids_tt, tt, viewonly)
+        create_links(wrapper, mids, "mid_rent", mids_tt, tt, viewonly)
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

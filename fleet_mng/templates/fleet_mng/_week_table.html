@@ -28,7 +28,8 @@
             </th>
             {% for day_d in days_data %}
             <td class="{%if day_d.present %}rent_bar{% else %}no_rent_bar{% endif %}
-                {%if vehicle.checkup == days|index:forloop.counter0 %} checkup{% endif %}"
+                {%if vehicle.checkup == days|index:forloop.counter0 %} checkup{% endif %}
+                {% if not perms.fleet_mng.view_renter %} viewonly{% endif %}"
                 data-bar="{{ day_d.classes|join:' ' }}"
                 {% for rent in day_d.rents %}
                 data-bar_tooltip_{{rent.id}}="{{ rent.from_date }} - {{ rent.to_date }}<br>{{rent.vehicle}}<br>{{rent.renter}}"

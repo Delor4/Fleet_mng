@@ -42,7 +42,7 @@ tr.is_rented th a {
     width: 100%;
     align-content: center;
 }
-.rent_wrapper a {
+.rent_wrapper .bar {
     display: inline-flex;
     flex-grow: 1;
     height: 1rem;

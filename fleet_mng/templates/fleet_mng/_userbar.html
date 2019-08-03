@@ -1,0 +1,7 @@
+<div id="userbar" class="top-bar">
+    {% if user.is_authenticated %}
+    <p style="user-ticket">Welcome, {{ user.username }}. <a href="{% url 'logout' %}">Log out</a>.</p>
+    {% else %}
+    <p style="user-ticket">Welcome, new user. Please <a href="{% url 'login' %}">log in</a>.</p>
+    {% endif %}
+</div>

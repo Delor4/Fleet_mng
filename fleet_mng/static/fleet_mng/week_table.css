@@ -13,6 +13,10 @@ tr.is_rented th a {
   font-weight: normal;
 }
 
+#week_table tr+tr {
+    border-top: 2px solid #dee2e6;
+}
+
 .rent_wrapper{
     display: inline-flex;
     width: 100%;

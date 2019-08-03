@@ -13,6 +13,8 @@ class Vehicle(models.Model):
     generation = models.CharField(max_length=193, blank=True)
     # nr rej.
     registration_number = models.CharField(max_length=193)
+    # dłuższy opis
+    description = models.TextField(blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

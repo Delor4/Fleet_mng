@@ -30,13 +30,14 @@ class VehicleView(PermissionRequiredMixin, generic.DetailView):
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
-        fields = ('name', 'brand', 'model', 'generation', 'registration_number')
+        fields = ('name', 'brand', 'model', 'generation', 'registration_number', 'description')
         labels = {
-            'name':'Nazwa',
-                     'brand':'Marka',
-                 'model':'Model',
-                 'generation':'Typ',
-                 'registration_number':'Nr rejestracyjny',
+            'name': 'Nazwa',
+            'brand': 'Marka',
+            'model': 'Model',
+            'generation': 'Typ',
+            'registration_number': 'Nr rejestracyjny',
+            'description': 'Uwagi',
         }
 
     def __init__(self, *args, **kwargs):
@@ -54,6 +55,7 @@ def vehicle_new(request):
                               model=form.cleaned_data.get('model'),
                               generation=form.cleaned_data.get('generation'),
                               registration_number=form.cleaned_data.get('registration_number'),
+                              description=form.cleaned_data.get('description')
                               )
             vehicle.save()
             return HttpResponseRedirect('/vehicle/')

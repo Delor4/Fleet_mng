@@ -7,8 +7,9 @@ from django.shortcuts import render
 
 class NewUserForm(forms.Form):
     username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
-    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput())
-    password_confirm = forms.CharField(label="Powtórz hasło:", widget=forms.PasswordInput())
+    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+    password_confirm = forms.CharField(label="Powtórz hasło:",
+                                       widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
     group = forms.ChoiceField(label="Typ:")
 
     def __init__(self, *args, **kwargs):
@@ -82,8 +83,9 @@ def new_user(request):
 
 
 class UserUpdatePassForm(forms.Form):
-    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput())
-    password_confirm = forms.CharField(label="Powtórz hasło:", widget=forms.PasswordInput())
+    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+    password_confirm = forms.CharField(label="Powtórz hasło:",
+                                       widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

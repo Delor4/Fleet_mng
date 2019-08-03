@@ -21,11 +21,17 @@
 <table>
 <tr>
     <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
+    <td><input type="text" name="{{ form.username.html_name }}" autofocus required autocomplete="username"
+           id="id_{{ form.username.html_name }}" />
+    </td>
+
+
 </tr>
 <tr>
     <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
+    <td><input type="password" name="{{ form.password.html_name }}" required autocomplete="current-password"
+           id="id_{{ form.password.html_name }}" />
+    </td>
 </tr>
 </table>
 

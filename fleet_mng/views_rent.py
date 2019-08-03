@@ -67,13 +67,15 @@ class RentForm(forms.Form):
 
         to_date = cleaned_data.get('to_date')
         if not to_date:
-            raise forms.ValidationError('Invalid date.')
+            raise forms.ValidationError('Niewłaściwa data.')
         if to_date < timezone.now().date():
-            raise forms.ValidationError('Date can\'t be in past!')
+            raise forms.ValidationError('Nie można wybrać przeszłej daty!')  # past date
 
         vehicle = cleaned_data.get('vehicle')
+        if not vehicle:
+            raise forms.ValidationError('Wybierz pojazd.')
         if not Vehicle.objects.get(id=int(vehicle)).is_free():
-            raise forms.ValidationError('Occupied vehicle.')
+            raise forms.ValidationError('Pojazd niedostępny.')
 
         renter = cleaned_data.get('renter')
 
@@ -81,7 +83,7 @@ class RentForm(forms.Form):
         new_renter_description = cleaned_data.get('new_renter_description')
 
         if (not renter or int(renter) == 0) and (not new_renter or new_renter == ''):
-            raise forms.ValidationError('You have to fill new renter\'s name!')
+            raise forms.ValidationError('Wpisz nazwisko nowego użytkownika.')
 
 
 # /rent/new/    =>  rent_new.html
@@ -167,9 +169,9 @@ class RentUpdateForm(forms.Form):
 
         to_date = cleaned_data.get('to_date')
         if not to_date:
-            raise forms.ValidationError('Invalid date.')
+            raise forms.ValidationError('Niewłaściwa data.')
         if to_date < timezone.now().date():
-            raise forms.ValidationError('Date can\'t be in past!')
+            raise forms.ValidationError('Nie można wybrać przeszłej daty!')  # past date
 
         renter = cleaned_data.get('renter')
 
@@ -177,7 +179,7 @@ class RentUpdateForm(forms.Form):
         new_renter_description = cleaned_data.get('new_renter_description')
 
         if (not renter or int(renter) == 0) and (not new_renter or new_renter == ''):
-            raise forms.ValidationError('You have to fill new renter\'s name!')
+            raise forms.ValidationError('Wpisz nazwisko nowego użytkownika!')
 
 
 # /rent/<int>/edit/    =>  rent_new.html

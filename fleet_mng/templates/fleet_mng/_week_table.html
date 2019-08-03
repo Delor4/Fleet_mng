@@ -17,15 +17,13 @@
       </thead>
       {% for vehicle, days_data in vehicles_table.items %}
       <tbody>
-        <tr class="{%if vehicle.is_not_bring_back %}not_bring_back{%endif%}">
+        <tr class="{%if vehicle.is_rented %}is_rented{%endif%}{%if vehicle.is_not_bring_back %} not_bring_back{%endif%}{%if vehicle.is_free %} is_free{%endif%}">
             <th>
                 <a href="{% url 'fleet_mng:vehicle' vehicle.id %}"
                    data-toggle="tooltip" data-html="true"
                    title="{{vehicle.name}}<br>{{vehicle.brand}} {{vehicle.model}}{% if vehicle.generation %}<br>
                         {{vehicle.generation}}{% endif %}<br>{{vehicle.registration_number}}<br>{{vehicle.description}}" >
-                    <div class="{%if vehicle.is_rented %}rented{%endif%}">
                     {{vehicle.name}}
-                    </div>
                 </a>
             </th>
             {% for day_d in days_data %}

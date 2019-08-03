@@ -9,7 +9,7 @@
 #week_table td:nth-child(2n) {
 	background-color: #e8e8e8;
 }
-.rented {
+tr.is_rented th a {
   font-weight: normal;
 }
 

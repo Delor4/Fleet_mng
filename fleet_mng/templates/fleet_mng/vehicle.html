@@ -78,16 +78,20 @@
         </div>
     </div>
     {%if vehicle.is_rented %}
+    {% for rent in vehicle.get_current_renters %}
     <div class="row">
-        {% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}
-        {% endif %}
-        {% if perms.fleet_mng.change_vehicle %}
+        <div class="col">
+            {%include 'fleet_mng/_rented_by.html'%}
+        </div>
     </div>
+    {% endfor %}
     {% endif %}
+    {% if perms.fleet_mng.change_vehicle %}
     <div class="row">
         <a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">
             <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
         </a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,6 +1,5 @@
 body {
-  margin: 0px;
-  padding: 0px;
+  width: 100%;
 }
 
 .main {
@@ -138,7 +137,7 @@ body {
   .nav-side-menu .menu-list .menu-content {
     display: block;
   }
-  .main {
+  .main-content {
     margin-left: 15px;
     padding-right: 15px;
     padding-left: 300px;
@@ -226,4 +225,10 @@ ul.item-list {
 
 .field_name {
     font-weight: bolder;
+}
+
+.main-container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
 }

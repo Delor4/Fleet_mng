@@ -16,10 +16,10 @@
     <title>{% block title %}MAGMA VMS - Vehicle Management System{% endblock %}</title>
 </head>
 <body>
-  <div class="container-fluid">
+  <div class="main-container">
     {% include "fleet_mng/_navbar.html" %}
     {% include "fleet_mng/_userbar.html" %}
-    <div class="main">
+    <div class="main-content">
       <div id="content" class="content-display">
         {% block content %}{% endblock %}
       </div>

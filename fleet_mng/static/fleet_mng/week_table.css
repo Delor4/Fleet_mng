@@ -47,7 +47,7 @@ tr.is_rented th a {
     position: absolute;
     top: 0.2em;
     left: 0em;
-    z-index: 1;
+    z-index: 3;
 }
 /* insurance indicator - wrapper */
 #week_table td.insurance {
@@ -69,7 +69,7 @@ tr.is_rented th a {
     position: absolute;
     top: 0.2em;
     left: 1em;
-    z-index: 1;
+    z-index: 3;
 }
 /* bars */
 .rent_wrapper{
@@ -119,21 +119,28 @@ tr.is_rented th a {
 }
 .bar .note {
     position: absolute;
-}
-
-.bar .note:before {
-    content: "\f075";
-    font-family: FontAwesome;
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    color: #c10000;
     font-size: 1em;
+}
+
+.bar .note:before {
+    content: "\f075";
     position: absolute;
     top: -0.8em;
     left: 0.2em;
+    color: #ffffff;
     z-index: 1;
+}
+.bar .note:after {
+    content: "\f0e5";
+    position: absolute;
+    top: -0.8em;
+    left: 0.2em;
+    color: #000000;
+    z-index: 2;
 }
 /* rented color */
 .rent_wrapper .rented{

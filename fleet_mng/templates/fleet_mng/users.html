@@ -12,7 +12,7 @@
     {% for user in users_list %}
     <li class="list-group-item list-group-item-action"><a href="{% url 'fleet_mng:user' user.id %}">{{ user.username }}</a></li>
     {% empty %}
-    <p>Brak użyttkowników.</p>
+    <p>Brak użytkowników.</p>
     {% endfor %}
 </ul>
 {% endblock %}

@@ -1,6 +1,7 @@
 {# Wyświetlenie danych konkretnego wypożyczenia #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+<a href="{% url 'fleet_mng:week' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
     Od {{ rent.from_date }} do {{ rent.to_date }}<br>
     Pojazd: <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
     {%if rent.rented == 1 %} (użytkowany{%if rent.is_not_bring_back %} po terminie{% endif %}){% endif %}<br>

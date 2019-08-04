@@ -1,6 +1,7 @@
 {# Wyświetlenie danych konkretnego wypożyczającego #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+<a href="{% url 'fleet_mng:renters' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
 Nazwisko: {{ renter.last_name }}<br>
 Imię: {{ renter.first_name }}<br>
 Uwagi: {{ renter.description }}<br>

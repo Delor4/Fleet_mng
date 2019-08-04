@@ -12,6 +12,9 @@ from fleet_mng.models import Vehicle
 
 # pokazanie listy pojazdów
 # /vehicle/ =>  vehicles.html
+from fleet_mng.widgets import BootstrapDatePickerInput
+
+
 class VehiclesView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'fleet_mng.view_vehicle'
     template_name = 'fleet_mng/vehicles.html'
@@ -43,7 +46,7 @@ class VehicleForm(forms.ModelForm):
             'checkup': 'Badanie techniczne',
         }
         widgets = {
-            'checkup': SelectDateWidget(),
+            'checkup': BootstrapDatePickerInput(),
         }
 
     def __init__(self, *args, **kwargs):

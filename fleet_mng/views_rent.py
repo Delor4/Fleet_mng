@@ -32,7 +32,7 @@ class RentView(PermissionRequiredMixin, generic.DetailView):
 
 
 class RentForm(forms.Form):
-    to_date = forms.DateField(widget=SelectDateWidget,
+    to_date = forms.DateField(widget=BootstrapDatePickerInput,
                               label="Przewidywana data zwrotu:",
                               initial=timezone.now().date() + datetime.timedelta(+7))
     vehicle = forms.ChoiceField(label="Dostępne pojazdy:")

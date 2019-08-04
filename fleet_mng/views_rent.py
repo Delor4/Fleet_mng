@@ -1,4 +1,5 @@
 import datetime
+import inspect
 
 import pytz
 from django import forms
@@ -119,7 +120,7 @@ def show_rent_form(request):
                            description=description)
             rent_db.save()
 
-            return HttpResponseRedirect('/rent/')
+            return HttpResponseRedirect('/week/')
     else:
         form = RentForm()
 
@@ -158,6 +159,7 @@ class RentUpdateForm(forms.Form):
         widget=forms.Textarea(),
         required=False
     )
+    backed = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
@@ -184,38 +186,63 @@ class RentUpdateForm(forms.Form):
             raise forms.ValidationError('Wpisz nazwisko nowego użytkownika!')
 
 
+class RentUpdateBackedForm(forms.Form):
+    description = forms.CharField(
+        label='Uwagi:',
+        max_length=2000,
+        widget=forms.Textarea(),
+        required=False
+    )
+    backed = forms.IntegerField(widget=forms.HiddenInput(), initial=1)
+
+    def __init__(self, *args, **kwargs):
+        search_str = kwargs.pop('search_str', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(RentUpdateBackedForm, self).clean()
+
+
 # /rent/<int>/edit/    =>  rent_new.html
 @login_required
 @permission_required('fleet_mng.change_rent')
 def show_rent_update_form(request, pk):
+    form = None
     if request.method == 'POST':
-        form = RentUpdateForm(request.POST)
+        if request.POST['backed'] != '1':
+            form = RentUpdateForm(request.POST)
+        else:
+            form = RentUpdateBackedForm(request.POST)
         if form.is_valid():
-            renter = int(form.cleaned_data.get('renter'))
-            new_renter = form.cleaned_data.get('new_renter')
-            new_renter_description = form.cleaned_data.get('new_renter_description')
+            if request.POST['backed'] != '1':
+                renter = int(form.cleaned_data.get('renter'))
+                new_renter = form.cleaned_data.get('new_renter')
+                new_renter_description = form.cleaned_data.get('new_renter_description')
 
-            renter_db = None
-            if renter == 0:
-                renter_db = Renter(last_name=new_renter, description=new_renter_description)
-                renter_db.save()
-            else:
-                renter_db = Renter.objects.get(id=renter)
+                renter_db = None
+                if renter == 0:
+                    renter_db = Renter(last_name=new_renter, description=new_renter_description)
+                    renter_db.save()
+                else:
+                    renter_db = Renter.objects.get(id=renter)
 
-            d = form.cleaned_data.get('to_date')
-            naive = timezone.datetime(d.year, d.month, d.day)
-            t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
+                d = form.cleaned_data.get('to_date')
+                naive = timezone.datetime(d.year, d.month, d.day)
+                t = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
 
             rent_db = Rent.objects.get(id=pk)
-            rent_db.to_date = t
-            rent_db.renter = renter_db
+            if request.POST['backed'] != '1':
+                rent_db.to_date = t
+                rent_db.renter = renter_db
             rent_db.description = form.cleaned_data.get('description')
             rent_db.save()
-
-            return HttpResponseRedirect('/rent/')
+            return HttpResponseRedirect('/week/')
     else:
         rent = Rent.objects.get(id=pk)
-        form = RentUpdateForm(
-            initial={'to_date': rent.to_date, 'renter': rent.renter.id, 'description': rent.description})
+        if not rent.rented:
+            form = RentUpdateBackedForm(initial={'description': rent.description})
+        else:
+            form = RentUpdateForm(
+                initial={'to_date': rent.to_date, 'renter': rent.renter.id, 'description': rent.description})
 
     return render(request, 'fleet_mng/rent_new.html', {'form': form})

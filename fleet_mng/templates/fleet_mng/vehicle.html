@@ -2,14 +2,14 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 <a href="{% url 'fleet_mng:vehicles' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
-Nazwa: {{ vehicle.name }}<br>
-Marka: {{ vehicle.brand }}<br>
-Model: {{ vehicle.model }}<br>
-Typ: {{ vehicle.generation }}<br>
-Nr rej.: {{ vehicle.registration_number }}<br>
-Przebieg: {{ vehicle.mileage }}<br>
-Przegląd tech.: {% firstof vehicle.checkup '------' %}<br>
-Uwagi: {{ vehicle.description }}<br>
+<b>Nazwa:</b> {{ vehicle.name }}<br>
+<b>Marka:</b> {{ vehicle.brand }}<br>
+<b>Model:</b> {{ vehicle.model }}<br>
+<b>Typ:</b> {{ vehicle.generation }}<br>
+<b>Nr rej.:</b> {{ vehicle.registration_number }}<br>
+<b>Przebieg:</b> {{ vehicle.mileage }}<br>
+<b>Przegląd tech.:</b> {% firstof vehicle.checkup '------' %}<br>
+<b>Uwagi: </b>{{ vehicle.description }}<br>
 {%if vehicle.is_rented %}
 {% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}
 {% endif %}

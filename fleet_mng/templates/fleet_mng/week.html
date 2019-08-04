@@ -13,6 +13,7 @@
         {% include "fleet_mng/_week_table.html"%}
     </table>
 </div>
+<div class="week_nav_buttons">
 <a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"
    class="btn week_nav prev_week"
    data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}">
@@ -33,5 +34,6 @@
    data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}">
     <button type="button" class="btn btn-primary btn-xs">>></button>
 </a>
+    </div>
 <script src="{% static 'fleet_mng/week.js' %}"></script>
 {% endblock %}

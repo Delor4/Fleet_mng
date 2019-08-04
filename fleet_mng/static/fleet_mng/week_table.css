@@ -104,3 +104,8 @@ tr.is_rented th a {
 .rent_wrapper .not_back{
     background: #f2f249;
 }
+
+.week_nav_buttons {
+    float: right;
+    margin-right: 15px;
+}

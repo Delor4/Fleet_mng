@@ -134,7 +134,7 @@ def rent_bring_back(request, pk):
         rent.rented = 0
         rent.to_date = timezone.now().date()
         rent.save()
-    return HttpResponseRedirect('/rent/')
+    return HttpResponseRedirect('/week/')
 
 
 class RentUpdateForm(forms.Form):

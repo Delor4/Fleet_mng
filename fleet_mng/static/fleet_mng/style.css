@@ -223,3 +223,7 @@ body {
 ul.item-list {
   padding-right: 40px;
 }
+
+.field_name {
+    font-weight: bolder;
+}

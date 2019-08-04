@@ -36,7 +36,7 @@ tr.is_rented th a {
 
 /* checkup indicator */
 #week_table td.checkup div.checkup:before {
-    content: "\f06a\f0ad";
+    content: "\f0ad";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -46,9 +46,29 @@ tr.is_rented th a {
     padding-right: 0.0em;
     position: absolute;
     top: 0.2em;
-    left: 0.1em;
+    left: 0em;
+}
+/* insurance indicator - wrapper */
+#week_table td.insurance {
+   position: relative;
+   top: 0;
+   left: 0;
 }
 
+/* insurance indicator */
+#week_table td.insurance div.insurance:before {
+    content: "\f132";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #c10000;
+    font-size: 1.5em;
+    padding-right: 0.0em;
+    position: absolute;
+    top: 0.2em;
+    left: 1em;
+}
 /* bars */
 .rent_wrapper{
     display: inline-flex;

@@ -16,7 +16,13 @@
 #week_table td:nth-child(2n) {
 	background-color: #e8e8e8;
 }
-/* is_rented normal look */
+
+/* const width of cells with days of the week */
+.day_name {
+    width: 1.1em;
+}
+
+/* rented vehicle's name */
 tr.is_rented th a {
   font-weight: normal;
 }
@@ -97,9 +103,4 @@ tr.is_rented th a {
 /* not back color */
 .rent_wrapper .not_back{
     background: #ff212a;
-}
-
-/* const width of cells with days of the week */
-.day_name {
-    width: 1.1em;
 }

@@ -34,7 +34,8 @@
                 {% for rent in day_d.rents %}
                 data-bar_tooltip_{{rent.id}}="{{ rent.from_date }} - {{ rent.to_date }}<br>{{rent.vehicle}}<br>{{rent.renter}}"
                 {% endfor %}
-            >{%if vehicle.checkup == days|index:forloop.counter0 %}<div class="checkup"></div>{% endif %}
+            >{%if vehicle.checkup == days|index:forloop.counter0 %}<div class="checkup"  data-toggle="tooltip" data-html="true" data-placement="left"
+                                                                        title="Przegląd techniczny.<br>{{vehicle}}<br>{{vehicle.checkup}}"></div>{% endif %}
             </td>
             {% endfor %}
         </tr>

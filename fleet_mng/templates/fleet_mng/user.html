@@ -1,17 +1,54 @@
 {# Wyświetlenie danych konkretnego użyszkodnika #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
-
-Login: {{ user.username }}<br>
-Imię: {{ user.first_name }}<br>
-Nazwisko: {{ user.last_name }}<br>
-Email: {{ user.email }}<br>
-Groupy:<br>
-{% for group in user.groups.all %}
-{{ group }}<br>
-{% endfor %}
-{% if perms.auth.change_user %}
-<a href="{% url 'fleet_mng:user_pass' user.id%}">Hasło</a><br>
-<a href="{% url 'fleet_mng:user_edit' user.id%}">Edycja</a>
-{% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col field_name">
+            Login:
+        </div>
+        <div class="col field_value">
+            {{ user.username }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Imię:
+        </div>
+        <div class="col field_value">
+            {{ user.first_name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Nazwisko:
+        </div>
+        <div class="col field_value">
+            {{ user.last_name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Email:
+        </div>
+        <div class="col field_value">
+            {{ user.email }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Groupy:
+        </div>
+        {% for group in user.groups.all %}
+        <div class="col field_value">
+            <div class="row">
+                {{ group }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% if perms.auth.change_user %}
+    <a href="{% url 'fleet_mng:user_pass' user.id%}">Hasło</a><br>
+    <a href="{% url 'fleet_mng:user_edit' user.id%}">Edycja</a>
+    {% endif %}
+</div>
 {% endblock %}

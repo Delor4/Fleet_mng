@@ -1,3 +1,4 @@
+/* table layout */
 #week_table {
     border-spacing: 0px;
 }
@@ -6,19 +7,28 @@
     vertical-align: middle;
     border: 0;
 }
+
+#week_table tr+tr {
+    border-top: 2px solid #dee2e6;
+}
+
+/* background */
 #week_table td:nth-child(2n) {
 	background-color: #e8e8e8;
 }
+/* is_rented normal look */
 tr.is_rented th a {
   font-weight: normal;
 }
 
+/* checkup indicator - wrapper */
 #week_table td.checkup {
    position: relative;
    top: 0;
    left: 0;
 }
 
+/* checkup indicator */
 #week_table td.checkup div.checkup:before {
     content: "\f06a\f0ad";
     font-family: FontAwesome;
@@ -26,22 +36,20 @@ tr.is_rented th a {
     font-weight: normal;
     text-decoration: inherit;
     color: #c10000;
-    font-size: 18px;
+    font-size: 0.8em;
     padding-right: 0.5em;
     position: absolute;
     top: 0;
     left: 0;
 }
 
-#week_table tr+tr {
-    border-top: 2px solid #dee2e6;
-}
-
+/* bars */
 .rent_wrapper{
     display: inline-flex;
     width: 100%;
     align-content: center;
 }
+
 .rent_wrapper .bar {
     display: inline-flex;
     flex-grow: 1;
@@ -57,34 +65,41 @@ tr.is_rented th a {
     border-right: 0px;
     margin-left: 1px;
 }
+
 .rent_wrapper .end_rent {
     border-radius: 0px 3px 3px 0px;
     border-left: 0px;
     margin-right: 1px;
 }
+
 .rent_wrapper .start_end_rent {
     border-radius: 3px;
     margin-left: 1px;
     margin-right: 1px;
 }
+
 .rent_wrapper .mid_rent {
     border-radius: 0px;
     border-right: 0px;
     border-left: 0px;
 }
+
 .rent_bar {
     white-space: nowrap;
     justify-items: stretch;
 }
 
+/* rented color */
 .rent_wrapper .rented{
     background: #d5f4fd;
 }
 
+/* not back color */
 .rent_wrapper .not_back{
     background: #ff212a;
 }
 
+/* const width of cells with days of the week */
 .day_name {
     width: 1.1em;
 }

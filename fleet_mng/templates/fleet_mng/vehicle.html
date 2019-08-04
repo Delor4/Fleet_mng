@@ -1,22 +1,93 @@
 {# Wyświetlenie danych konkretnego pojazdu #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
-<a href="{% url 'fleet_mng:vehicles' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
-<b>Nazwa:</b> {{ vehicle.name }}<br>
-<b>Marka:</b> {{ vehicle.brand }}<br>
-<b>Model:</b> {{ vehicle.model }}<br>
-<b>Typ:</b> {{ vehicle.generation }}<br>
-<b>Nr rej.:</b> {{ vehicle.registration_number }}<br>
-<b>Przebieg:</b> {{ vehicle.mileage }}<br>
-<b>Przegląd tech.:</b> {{ vehicle.checkup|default:'------' }}<br>
-<b>Ubezpieczenie:</b> {{ vehicle.insurance|default:'------' }}<br>
-<b>Uwagi: </b>{{ vehicle.description }}<br>
-{%if vehicle.is_rented %}
-{% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}
-{% endif %}
-{% if perms.fleet_mng.change_vehicle %}
-<a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">
-  <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
-</a>
-{% endif %}
+<a href="{% url 'fleet_mng:vehicles' %}">
+    <button class="btn btn-primary btn-sm" type="button"><</button>
+</a><br>
+<div class="container">
+    <div class="row">
+        <div class="col field_name">
+            Nazwa:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Marka:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.brand }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Model:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.model }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Typ:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.generation }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Nr rej.:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.registration_number }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Przebieg:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.mileage }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Przegląd tech.:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.checkup|default:'------' }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Ubezpieczenie:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.insurance|default:'------' }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col field_name">
+            Uwagi:
+        </div>
+        <div class="col field_value">
+            {{ vehicle.description }}
+        </div>
+    </div>
+    {%if vehicle.is_rented %}
+    <div class="row">
+        {% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}
+        {% endif %}
+        {% if perms.fleet_mng.change_vehicle %}
+    </div>
+    {% endif %}
+    <div class="row">
+        <a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">
+            <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
+        </a>
+    </div>
+</div>
 {% endblock %}

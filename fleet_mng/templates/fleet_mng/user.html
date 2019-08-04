@@ -2,10 +2,10 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 
-{{ user.username }}<br>
-{{ user.first_name }}<br>
-{{ user.last_name }}<br>
-{{ user.email }}<br>
+Login: {{ user.username }}<br>
+Imię: {{ user.first_name }}<br>
+Nazwisko: {{ user.last_name }}<br>
+Email: {{ user.email }}<br>
 Groupy:<br>
 {% for group in user.groups.all %}
 {{ group }}<br>

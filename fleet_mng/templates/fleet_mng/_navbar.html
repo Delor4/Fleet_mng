@@ -12,25 +12,21 @@
                 <a href="{% url 'fleet_mng:users' %}"><i class="fa fa-user fa-lg"></i> Konta systemowe</a>
             </li>
             {% endif %}
-            <!-- <li>
-              <a href="{% url 'fleet_mng:renters' %}"><i class="fa fa-users fa-lg"></i> Użytkownicy</a>
-            </li> -->
-
-            <li data-toggle="collapse" data-target="#service" class="collapsed">
-                <a href="#"><i class="fa fa-globe fa-lg"></i> Zarządzanie flotą <span class="arrow"></span></a>
+            {% if perms.fleet_mng.view_renter %}
+            <li>
+              <a href="{% url 'fleet_mng:renters' %}"><i class="fa fa-users fa-lg"></i> Użytownicy</a>
             </li>
-
-            <ul class="sub-menu collapse" id="service">
-                {% if perms.fleet_mng.view_renter %}
-                <li><a href="{% url 'fleet_mng:renters' %}">Użytownicy</a></li>
-                {% endif %}
-                {% if perms.fleet_mng.view_vehicle %}
-                <li><a href="{% url 'fleet_mng:vehicles' %}">Pojazdy</a></li>
-                {% endif %}
-                {% if perms.fleet_mng.can_show_week %}
-                <li><a href="{% url 'fleet_mng:week' %}">Plan wypożyczeń</a></li>
-                {% endif %}
-            </ul>
+            {% endif %}
+            {% if perms.fleet_mng.view_vehicle %}
+            <li>
+              <a href="{% url 'fleet_mng:vehicles' %}"><i class="fa fa-car fa-lg"></i> Pojazdy</a>
+            </li>
+            {% endif %}
+            {% if perms.fleet_mng.can_show_week %}
+            <li>
+              <a href="{% url 'fleet_mng:week' %}"><i class="fa fa-calendar fa-lg"></i> Plan wypożyczeń</a>
+            </li>
+            {% endif %}
 
             <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
               <a href="{% url 'fleet_mng:vehicles' %}"><i class="fa fa-car fa-lg"></i> Pojazdy <span class="arrow"></span></a>

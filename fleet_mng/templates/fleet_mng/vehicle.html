@@ -5,87 +5,87 @@
     <button class="btn btn-primary btn-sm" type="button"><</button>
 </a><br>
 <div class="container">
-    <div class="row">
-        <div class="col field_name">
-            Nazwa:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.name }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Marka:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.brand }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Model:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.model }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Typ:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.generation }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Nr rej.:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.registration_number }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Przebieg:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.mileage }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Przegląd tech.:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.checkup|default:'------' }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Ubezpieczenie:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.insurance|default:'------' }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Uwagi:
-        </div>
-        <div class="col field_value">
-            {{ vehicle.description }}
-        </div>
-    </div>
-    {%if vehicle.is_rented %}
-    {% for rent in vehicle.get_current_renters %}
-    <div class="row">
-        <div class="col">
-            {%include 'fleet_mng/_rented_by.html'%}
-        </div>
-    </div>
-    {% endfor %}
-    {% endif %}
+  <div class="table-responsive">
+    <table class="table table-bordered" id="vehicle-table">
+      <tbody>
+        <tr>
+          <td>Nazwa:</td>
+          <td>{{ vehicle.name }}</td>
+        </tr>
+
+        <tr>
+          <td>Marka:</td>
+          <td>{{ vehicle.brand }}</td>
+        </tr>
+
+        <tr>
+          <td>Model</td>
+          <td>{{ vehicle.model }}</td>
+        </tr>
+
+        <tr>
+          <td>Typ:</td>
+          <td>{{ vehicle.generation }}</td>
+        </tr>
+
+        <tr>
+          <td>Numer rejestracyjny:</td>
+          <td>{{ vehicle.registration_number }}</td>
+        </tr>
+
+        <tr>
+          <td>Przebieg:</td>
+          <td>{{ vehicle.mileage }}</td>
+        </tr>
+
+        <tr>
+          <td>Termin przeglądu:</td>
+          <td>{{ vehicle.checkup|default:'------' }}</td>
+        </tr>
+
+        <tr>
+          <td>Termin ubezpieczenia:</td>
+          <td>{{ vehicle.insurance|default:'------' }}</td>
+        </tr>
+
+        <tr>
+          <td>Uwagi:</td>
+          <td>{{ vehicle.description }}</td>
+        </tr>
+
+        {%if vehicle.is_rented %}
+        {% for rent in vehicle.get_current_renters %}
+        <tr>
+          <td>
+            {% if perms.fleet_mng.view_rent %}
+            <a href="{% url 'fleet_mng:rent' rent.id %}">Wypożyczony</a> przez:
+            {% else %}
+            Wypożyczony przez:
+            {% endif %}
+          </td>
+          <td>
+            {% if perms.fleet_mng.view_renter %}
+            <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>
+            {% else %}
+            {{ rent.renter }}
+            {% endif %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Termin oddania:</td>
+          <td>
+            {%if rent.rented %}
+            {{rent.to_date}}
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
     {% if perms.fleet_mng.change_vehicle %}
     <div class="row">
         <a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">

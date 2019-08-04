@@ -1,9 +1,9 @@
 {# Wyświetlenie danych konkretnego wypożyczającego #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
-{{ renter.last_name }}<br>
-{{ renter.first_name }}<br>
-{{ renter.description }}<br>
+Nazwisko: {{ renter.last_name }}<br>
+Imię: {{ renter.first_name }}<br>
+Uwagi: {{ renter.description }}<br>
 {% if perms.fleet_mng.change_renter %}
 <a href="{% url 'fleet_mng:renter_edit' renter.id%}" class="btn">
   <button class="btn btn-primary btn-xs" type="button">Edytuj</button>

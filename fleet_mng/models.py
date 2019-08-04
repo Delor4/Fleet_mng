@@ -14,7 +14,7 @@ class Vehicle(models.Model):
     # nr rej.
     registration_number = models.CharField(max_length=193)
     # przebieg
-    mileage = models.IntegerField(blank=True)
+    mileage = models.CharField(blank=True, max_length=20, default="0")
     # badania techniczne
     checkup = models.DateField(blank=True, null=True)
     # dłuższy opis

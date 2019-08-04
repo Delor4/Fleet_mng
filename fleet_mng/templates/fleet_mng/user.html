@@ -1,6 +1,9 @@
 {# Wyświetlenie danych konkretnego użyszkodnika #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+<a href="{% url 'fleet_mng:users' %}">
+    <button class="btn btn-primary btn-sm" type="button"><</button>
+</a>
 <div class="container">
     <div class="row">
         <div class="col field_name">
@@ -38,17 +41,23 @@
         <div class="col field_name">
             Groupy:
         </div>
-        {% for group in user.groups.all %}
         <div class="col field_value">
             <div class="row">
-                {{ group }}
+                {% for group in user.groups.all %}
+                <div class="col">
+                    {{ group }}
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    {% endfor %}
     {% if perms.auth.change_user %}
-    <a href="{% url 'fleet_mng:user_pass' user.id%}">Hasło</a><br>
-    <a href="{% url 'fleet_mng:user_edit' user.id%}">Edycja</a>
+    <a href="{% url 'fleet_mng:user_pass' user.id%}" class="btn">
+        <button class="btn btn-primary btn-xs" type="button">Hasło</button>
+    </a>
+    <a href="{% url 'fleet_mng:user_edit' user.id%}" class="btn">
+        <button class="btn btn-primary btn-xs" type="button">Edycja</button>
+    </a>
     {% endif %}
 </div>
 {% endblock %}

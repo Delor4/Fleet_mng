@@ -1,0 +1,15 @@
+{% load l10n %}
+<div class="input-group date" id="{{ widget.datepicker_id }}" data-target-input="nearest">
+  {% include "django/forms/widgets/input.html" %}
+  <div class="input-group-append" data-target="#{{ widget.datepicker_id }}" data-toggle="datetimepicker">
+    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("#{{ widget.datepicker_id }}").datetimepicker({
+      format: 'DD.MM.YYYY',
+    });
+  });
+</script>

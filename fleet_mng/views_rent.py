@@ -12,6 +12,8 @@ from django.views import generic
 
 from fleet_mng.models import Vehicle, Renter, Rent
 
+from fleet_mng.widgets import BootstrapDatePickerInput
+
 
 # /rent/    =>  rents.html
 class RentsView(PermissionRequiredMixin, generic.ListView):
@@ -138,7 +140,7 @@ def rent_bring_back(request, pk):
 
 
 class RentUpdateForm(forms.Form):
-    to_date = forms.DateField(widget=SelectDateWidget,
+    to_date = forms.DateField(widget=BootstrapDatePickerInput,
                               label="Przewidywana data zwrotu:",
                               initial=timezone.now().date() + datetime.timedelta(+7))
     renter = forms.ChoiceField(label="Wypożyczający:")

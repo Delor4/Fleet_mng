@@ -3,7 +3,7 @@ Array.prototype.diff = function(a) {
         return a.indexOf(i) < 0;
     });
 };
-function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo){
+function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo, note){
     for (let i=0; i<tab.length; i++) {
         wrapper.append('<'+(vo?'div':'a')+' class="bar '+
             class_str+
@@ -14,7 +14,9 @@ function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo)
             ' data-toggle="tooltip" data-html="true" title="'+
             tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
             '"'+
-            '></'+(vo?'div':'a')+'>');
+            '>'+
+            (note.indexOf(tab[i])>=0?'<div class="note"></div>':'')+
+            '</'+(vo?'div':'a')+'>');
     }
 };
 function create_bars_in_table(){
@@ -31,6 +33,7 @@ function create_bars_in_table(){
         tt = []
         rented=[]
         back=[]
+        note=[]
         //
          for (let i=0; i<data.length; i++) {
             beg = data[i].substr(0,2)
@@ -47,6 +50,8 @@ function create_bars_in_table(){
                 rented.push(nr)
             }else  if(beg=='b_'){
                 back.push(nr)
+            }else  if(beg=='n_'){
+                note.push(nr)
             }
          }
          //
@@ -65,10 +70,10 @@ function create_bars_in_table(){
         $(this).append('<div class="rent_wrapper"></div>')
         wrapper=$(this).find(".rent_wrapper")
         //
-        create_links(wrapper, lasts, "end_rent", mids_tt, tt, viewonly)
-        create_links(wrapper, shared, "start_end_rent", mids_tt, tt, viewonly)
-        create_links(wrapper, firsts, "start_rent", mids_tt, tt, viewonly)
-        create_links(wrapper, mids, "mid_rent", mids_tt, tt, viewonly)
+        create_links(wrapper, lasts, "end_rent", mids_tt, tt, viewonly, note)
+        create_links(wrapper, shared, "start_end_rent", mids_tt, tt, viewonly, note)
+        create_links(wrapper, firsts, "start_rent", mids_tt, tt, viewonly, note)
+        create_links(wrapper, mids, "mid_rent", mids_tt, tt, viewonly, note)
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

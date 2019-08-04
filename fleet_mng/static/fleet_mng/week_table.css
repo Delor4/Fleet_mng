@@ -47,6 +47,7 @@ tr.is_rented th a {
     position: absolute;
     top: 0.2em;
     left: 0em;
+    z-index: 1;
 }
 /* insurance indicator - wrapper */
 #week_table td.insurance {
@@ -68,12 +69,14 @@ tr.is_rented th a {
     position: absolute;
     top: 0.2em;
     left: 1em;
+    z-index: 1;
 }
 /* bars */
 .rent_wrapper{
     display: inline-flex;
     width: 100%;
     align-content: center;
+    position: relative;
 }
 
 .rent_wrapper .bar {
@@ -114,7 +117,24 @@ tr.is_rented th a {
     white-space: nowrap;
     justify-items: stretch;
 }
+.bar .note {
+    position: absolute;
+}
 
+.bar .note:before {
+    content: "\f075";
+    font-family: FontAwesome;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #c10000;
+    font-size: 1em;
+    position: absolute;
+    top: -0.8em;
+    left: 0.2em;
+    z-index: 1;
+}
 /* rented color */
 .rent_wrapper .rented{
     background: #d5f4fd;
@@ -129,3 +149,4 @@ tr.is_rented th a {
     float: right;
     margin-right: 15px;
 }
+

@@ -128,8 +128,9 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
     f_  -   first
     m_  -   middle
     l_  -   last
-    b_  -   not brink back
+    b_  -   not bring back
     r_  -   rented
+    n_  -   has note
     '''
 
     # filling table
@@ -147,6 +148,8 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
                     tab_item['classes'].append('b_' + str(rent.id))
                 if i == 0:
                     tab_item['classes'].append('f_' + str(rent.id))
+                    if rent.description:
+                        tab_item['classes'].append('n_' + str(rent.id))
                 if i == last:
                     tab_item['classes'].append('l_' + str(rent.id))
 

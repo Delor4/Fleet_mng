@@ -17,6 +17,9 @@ class Vehicle(models.Model):
     mileage = models.CharField(blank=True, max_length=20, default="0")
     # badania techniczne
     checkup = models.DateField(blank=True, null=True)
+    # ubezpieczenie
+    insurance = models.DateField(blank=True, null=True)
+
     # dłuższy opis
     description = models.TextField(blank=True)
 

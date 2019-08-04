@@ -9,7 +9,6 @@ from django.views import generic
 
 from fleet_mng.models import Vehicle
 
-
 # pokazanie listy pojazdów
 # /vehicle/ =>  vehicles.html
 from fleet_mng.widgets import BootstrapDatePickerInput
@@ -34,7 +33,9 @@ class VehicleView(PermissionRequiredMixin, generic.DetailView):
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
-        fields = ('name', 'brand', 'model', 'generation', 'registration_number', 'description', 'mileage', 'checkup')
+        fields = (
+            'name', 'brand', 'model', 'generation', 'registration_number',
+            'description', 'mileage', 'checkup', 'insurance')
         labels = {
             'name': 'Nazwa',
             'brand': 'Marka',
@@ -44,9 +45,11 @@ class VehicleForm(forms.ModelForm):
             'description': 'Uwagi',
             'mileage': 'Przebieg',
             'checkup': 'Badanie techniczne',
+            'insurance': 'Ubezpieczenie',
         }
         widgets = {
             'checkup': BootstrapDatePickerInput(),
+            'insurance': BootstrapDatePickerInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -67,6 +70,7 @@ def vehicle_new(request):
                               description=form.cleaned_data.get('description'),
                               mileage=form.cleaned_data.get('mileage'),
                               checkup=form.cleaned_data.get('checkup'),
+                              insurance=form.cleaned_data.get('insurance'),
                               )
             vehicle.save()
             return HttpResponseRedirect('/vehicle/')

@@ -8,7 +8,8 @@
 <b>Typ:</b> {{ vehicle.generation }}<br>
 <b>Nr rej.:</b> {{ vehicle.registration_number }}<br>
 <b>Przebieg:</b> {{ vehicle.mileage }}<br>
-<b>Przegląd tech.:</b> {% firstof vehicle.checkup '------' %}<br>
+<b>Przegląd tech.:</b> {{ vehicle.checkup|default:'------' }}<br>
+<b>Ubezpieczenie:</b> {{ vehicle.insurance|default:'------' }}<br>
 <b>Uwagi: </b>{{ vehicle.description }}<br>
 {%if vehicle.is_rented %}
 {% for rent in vehicle.get_current_renters %}{%include 'fleet_mng/_rented_by.html'%}{% endfor %}

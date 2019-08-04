@@ -117,6 +117,8 @@ tr.is_rented th a {
     white-space: nowrap;
     justify-items: stretch;
 }
+
+/* note indicator */
 .bar .note {
     position: absolute;
     font-family: FontAwesome;
@@ -128,20 +130,21 @@ tr.is_rented th a {
 
 .bar .note:before {
     content: "\f075";
+    color: #ffffff;
     position: absolute;
     top: -0.8em;
     left: 0.2em;
-    color: #ffffff;
     z-index: 1;
 }
 .bar .note:after {
     content: "\f0e5";
+    color: #000000;
     position: absolute;
     top: -0.8em;
     left: 0.2em;
-    color: #000000;
     z-index: 2;
 }
+
 /* rented color */
 .rent_wrapper .rented{
     background: #d5f4fd;

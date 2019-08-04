@@ -105,6 +105,6 @@ jQuery(document).ready(function($){
         load_site($(this).attr('data-nav_target'));
     })
     window.onpopstate = function(event) {
-        window.location.reload()
+        //window.location.reload()
   }
 })

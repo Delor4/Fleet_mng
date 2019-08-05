@@ -10,60 +10,60 @@
         <table class="table table-bordered" id="vehicle-table">
             <tbody>
             <tr>
-                <td>Nazwa:</td>
+                <th>Nazwa:</th>
                 <td>{{ vehicle.name }}</td>
             </tr>
 
             <tr>
-                <td>Marka:</td>
+                <th>Marka:</th>
                 <td>{{ vehicle.brand }}</td>
             </tr>
 
             <tr>
-                <td>Model</td>
+                <th>Model</th>
                 <td>{{ vehicle.model }}</td>
             </tr>
 
             <tr>
-                <td>Typ:</td>
+                <th>Typ:</th>
                 <td>{{ vehicle.generation }}</td>
             </tr>
 
             <tr>
-                <td>Numer rejestracyjny:</td>
+                <th>Numer rejestracyjny:</th>
                 <td>{{ vehicle.registration_number }}</td>
             </tr>
 
             <tr>
-                <td>Przebieg:</td>
+                <th>Przebieg:</th>
                 <td>{{ vehicle.mileage }}</td>
             </tr>
 
             <tr>
-                <td>Termin przeglądu:</td>
+                <th>Termin przeglądu:</th>
                 <td>{{ vehicle.checkup|default:'------' }}</td>
             </tr>
 
             <tr>
-                <td>Termin ubezpieczenia:</td>
+                <th>Termin ubezpieczenia:</th>
                 <td>{{ vehicle.insurance|default:'------' }}</td>
             </tr>
 
             <tr>
-                <td>Uwagi:</td>
+                <th>Uwagi:</th>
                 <td>{{ vehicle.description }}</td>
             </tr>
 
             {%if vehicle.is_rented %}
             {% for rent in vehicle.get_current_renters %}
             <tr>
-                <td>
+                <th>
                     {% if perms.fleet_mng.view_rent %}
                     <a href="{% url 'fleet_mng:rent' rent.id %}">Wypożyczony</a> przez:
                     {% else %}
                     Wypożyczony przez:
                     {% endif %}
-                </td>
+                </th>
                 <td>
                     {% if perms.fleet_mng.view_renter %}
                     <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>
@@ -74,7 +74,7 @@
             </tr>
 
             <tr>
-                <td>Termin oddania:</td>
+                <th>Termin oddania:</th>
                 <td>
                     {%if rent.rented %}
                     {{rent.to_date}}

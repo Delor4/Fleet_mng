@@ -1,18 +1,14 @@
 import datetime
-import inspect
-
 import pytz
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.forms import SelectDateWidget
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import generic
 
 from fleet_mng.models import Vehicle, Renter, Rent
-
 from fleet_mng.widgets import BootstrapDatePickerInput
 
 
@@ -145,6 +141,9 @@ class RentUpdateForm(forms.Form):
     to_date = forms.DateField(widget=BootstrapDatePickerInput,
                               label="Przewidywana data zwrotu:",
                               initial=timezone.now().date() + datetime.timedelta(+7))
+
+    vehicle = forms.CharField(label="Pojazd:", disabled=True, required=False)
+
     renter = forms.ChoiceField(label="Wypożyczający:")
 
     new_renter = forms.CharField(max_length=191, required=False, label="Nowy wypożyczający, nazwisko:")
@@ -189,6 +188,11 @@ class RentUpdateForm(forms.Form):
 
 
 class RentUpdateBackedForm(forms.Form):
+    to_date = forms.CharField(label="Data zwrotu:",
+                              disabled=True, required=False)
+    vehicle = forms.CharField(label="Pojazd:", disabled=True, required=False)
+    renter = forms.CharField(label="Wypożyczający:", disabled=True, required=False)
+
     description = forms.CharField(
         label='Uwagi:',
         max_length=2000,
@@ -242,9 +246,12 @@ def show_rent_update_form(request, pk):
     else:
         rent = Rent.objects.get(id=pk)
         if not rent.rented:
-            form = RentUpdateBackedForm(initial={'description': rent.description})
+            form = RentUpdateBackedForm(
+                initial={'description': rent.description, 'vehicle': rent.vehicle.name, 'to_date': rent.to_date,
+                         'renter': rent.renter})
         else:
             form = RentUpdateForm(
-                initial={'to_date': rent.to_date, 'renter': rent.renter.id, 'description': rent.description})
+                initial={'to_date': rent.to_date, 'renter': rent.renter.id, 'description': rent.description,
+                         'vehicle': rent.vehicle.name})
 
     return render(request, 'fleet_mng/rent_new.html', {'form': form})

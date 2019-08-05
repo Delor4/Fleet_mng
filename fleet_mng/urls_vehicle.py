@@ -7,5 +7,5 @@ urlpatterns = [
     path('<int:pk>/', views_vehicle.VehicleView.as_view(), name='vehicle'),
     path('new/', views_vehicle.vehicle_new, name='vehicle_new'),
     path('<int:pk>/edit/', views_vehicle.VehicleUpdateView.as_view(), name='vehicle_edit'),
-
+    path('<int:pk>/delete/', views_vehicle.vehicle_delete, name='vehicle_delete'),
 ]

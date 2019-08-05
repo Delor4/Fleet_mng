@@ -86,3 +86,16 @@ class VehicleUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = VehicleForm
     template_name = 'fleet_mng/vehicle_new.html'
     success_url = '/vehicle/'
+
+@login_required
+@permission_required('fleet_mng.delete_vehicle')
+def vehicle_delete(request, pk):
+    if request.method == 'POST' and \
+            int(request.POST['confirm']) == 1:
+        vehicle = Vehicle.objects.get(pk=pk)
+        if int(request.POST['delete']) == 1:
+            vehicle.deleted = 1
+        else:
+            vehicle.deleted = 0
+        vehicle.save()
+    return HttpResponseRedirect('/vehicle/')

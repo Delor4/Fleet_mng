@@ -1,7 +1,7 @@
 {# Wyświetlenie listy wypożyczających #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
-<a href="{% url 'fleet_mng:week' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
+<!-- <a href="{% url 'fleet_mng:week' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br> -->
 {% if perms.fleet_mng.add_renter %}
 <a href="{% url 'fleet_mng:renter_new' %}" class="btn">
   <button class="btn btn-primary btn-sm" type="button">Nowy wypożyczający</button>

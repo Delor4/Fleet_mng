@@ -2,9 +2,9 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 {% load static %}
-<a href="{% url 'fleet_mng:renters' %}">
+<!-- <a href="{% url 'fleet_mng:renters' %}">
     <button class="btn btn-primary btn-sm" type="button"><</button>
-</a>
+</a> -->
 <div class="container">
     <div class="row">
         <div class="col field_name">
@@ -38,7 +38,7 @@
     {% if perms.fleet_mng.delete_renter%}
     <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
     <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
-          onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź usunięcie użytkownika.'{% endif %});"/>
+          onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź usunięcie użytkownika.'{% endif %});">
     {% csrf_token %}
     <input type=hidden name="delete" value="{% if renter.deleted == 1 %}0{% else %}1{% endif %}"/>
     <input type=hidden name="confirm" value="0"/>

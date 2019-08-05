@@ -18,7 +18,7 @@ class RentsView(PermissionRequiredMixin, generic.ListView):
     template_name = 'fleet_mng/rents.html'
 
     def get_queryset(self):
-        return Rent.objects.all()
+        return Rent.objects.all().order_by('-rented')
 
 
 # /rent/<int:pk>    =>  rent.html

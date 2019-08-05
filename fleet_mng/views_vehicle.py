@@ -19,7 +19,7 @@ class VehiclesView(PermissionRequiredMixin, generic.ListView):
     template_name = 'fleet_mng/vehicles.html'
 
     def get_queryset(self):
-        return Vehicle.objects.all()
+        return Vehicle.objects.all().order_by('deleted')
 
 
 # pokazanie pojedyńczego pojazdu
@@ -34,8 +34,12 @@ class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
         fields = (
-            'name', 'brand', 'model', 'generation', 'registration_number',
-            'description', 'mileage', 'checkup', 'insurance')
+            'name',
+            'brand', 'model', 'generation',
+            'registration_number',
+            'checkup', 'insurance',
+            'mileage',
+            'description')
         labels = {
             'name': 'Nazwa',
             'brand': 'Marka',
@@ -67,10 +71,10 @@ def vehicle_new(request):
                               model=form.cleaned_data.get('model'),
                               generation=form.cleaned_data.get('generation'),
                               registration_number=form.cleaned_data.get('registration_number'),
-                              description=form.cleaned_data.get('description'),
-                              mileage=form.cleaned_data.get('mileage'),
                               checkup=form.cleaned_data.get('checkup'),
                               insurance=form.cleaned_data.get('insurance'),
+                              mileage=form.cleaned_data.get('mileage'),
+                              description=form.cleaned_data.get('description'),
                               )
             vehicle.save()
             return HttpResponseRedirect('/vehicle/')
@@ -86,6 +90,7 @@ class VehicleUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = VehicleForm
     template_name = 'fleet_mng/vehicle_new.html'
     success_url = '/vehicle/'
+
 
 @login_required
 @permission_required('fleet_mng.delete_vehicle')

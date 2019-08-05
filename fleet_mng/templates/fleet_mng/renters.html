@@ -10,11 +10,13 @@
 {% if renter_list %}
 <ul class="item-list">
   {% for renter in renter_list %}
+  {% if perms.fleet_mng.change_renter or not renter.deleted %}
   <li class="list-group-item list-group-item-action{% if renter.deleted %} item_deleted{% endif %}">
     <a href="{% url 'fleet_mng:renter' renter.id %}">
       {{ renter }}
     </a>
   </li>
+  {% endif %}
   {% endfor %}
 </ul>
 {% else %}

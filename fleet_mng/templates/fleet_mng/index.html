@@ -1,5 +1,10 @@
 {# Strona główna - index.html #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
-Witamy w MAGMA VMS - Vehicle Management System.
+<h2>Witamy w MAGMA VMS - Vehicle Management System.</h2>
+{% if user.is_authenticated %}
+<p>Przejdź do <a href="{% url 'fleet_mng:week' %}"><i class="fa fa-calendar fa-lg"></i> planu wypożyczeń</a></p>
+{% else %}
+<p><a href="{% url 'login' %}">Zaloguj się</a>.</p>
+{% endif %}
 {% endblock %}

@@ -16,7 +16,7 @@ class RentersView(PermissionRequiredMixin, generic.ListView):
     template_name = 'fleet_mng/renters.html'
 
     def get_queryset(self):
-        return Renter.objects.all().order_by('deleted')
+        return Renter.objects.all().order_by('deleted')[:100]
 
 
 # widok dla pojedyńczego obiektu modelu Renter

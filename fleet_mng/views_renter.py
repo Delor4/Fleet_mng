@@ -65,3 +65,17 @@ class RenterUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = RenterForm
     template_name = 'fleet_mng/renter_new.html'
     success_url = '/renter/'
+
+
+@login_required
+@permission_required('fleet_mng.delete_renter')
+def renter_delete(request, pk):
+    if request.method == 'POST' and \
+            int(request.POST['confirm']) == 1:
+        renter = Renter.objects.get(pk=pk)
+        if int(request.POST['delete']) == 1:
+            renter.deleted = 1
+        else:
+            renter.deleted = 0
+        renter.save()
+    return HttpResponseRedirect('/renter/')

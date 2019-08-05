@@ -11,7 +11,13 @@
 <ul class="item-list">
   {% for renter in renter_list %}
   <li class="list-group-item list-group-item-action">
-    <a href="{% url 'fleet_mng:renter' renter.id %}">{{ renter }}</a>
+    <a href="{% url 'fleet_mng:renter' renter.id %}">
+      {%if not renter.deleted %}
+      {{ renter }}
+      {% else %}
+      <del>{{ renter }}</del>
+      {% endif %}
+    </a>
   </li>
   {% endfor %}
 </ul>

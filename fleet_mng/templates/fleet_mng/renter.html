@@ -42,7 +42,7 @@
     {% csrf_token %}
     <input type=hidden name="delete" value="{% if renter.deleted == 1 %}0{% else %}1{% endif %}"/>
     <input type=hidden name="confirm" value="0"/>
-    <input type=submit value="{% if renter.deleted == 1 %}Przywróć{% else %}Usuń{% endif %}"/>
+    <button type="submit" class="btn btn-primary">{% if renter.deleted == 1 %}Przywróć{% else %}Usuń{% endif %}</button>
     </form>
     {% endif %}
 </div>

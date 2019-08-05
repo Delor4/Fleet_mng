@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/style.css' %}">
     {% block css_link %}{% endblock %}
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
     <script src="{% static 'js/tempusdominus-bootstrap-4.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/tempusdominus-bootstrap-4.min.css' %}">
     <title>{% block title %}MAGMA VMS - Vehicle Management System{% endblock %}</title>
@@ -27,52 +27,6 @@
 
   </div>
 {% comment %}
-              <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                  {% block sidebar %}
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul class="nav justify-content-end">
-                          <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                          </li>
-                          {% if perms.fleet_mng.view_vehicle %}
-                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'fleet_mng:vehicles' %}">Vehicles</a>
-                          </li>
-                          {% endif %}
-                          {% if perms.fleet_mng.view_renter %}
-                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:renters' %}">Renters</a></li>
-                          {% endif %}
-                          {% if perms.fleet_mng.view_rent %}
-                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:rents' %}">Rents</a></li>
-                          {% endif %}
-                          {% if perms.fleet_mng.can_show_week %}
-                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:week' %}">Week table</a></li>
-                          {% endif %}
-                          {% if perms.auth.view_user %}
-                          <li class="nav-item"><a class="nav-link" href="{% url 'fleet_mng:users' %}">Users</a></li>
-                          {% endif %}
-                      </ul>
-                  </div>
-                  {% endblock %}
-              </nav>-->
-
-
-
-              <!-- <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
-              </li>
-              <ul class="sub-menu collapse" id="products">
-                  <li class="active"><a href="#">CSS3 Animation</a></li>
-                  <li><a href="#">General</a></li>
-                  <li><a href="#">Buttons</a></li>
-                  <li><a href="#">Tabs & Accordions</a></li>
-                  <li><a href="#">Typography</a></li>
-                  <li><a href="#">FontAwesome</a></li>
-                  <li><a href="#">Slider</a></li>
-                  <li><a href="#">Panels</a></li>
-                  <li><a href="#">Widgets</a></li>
-                  <li><a href="#">Bootstrap Model</a></li>
-              </ul> -->
 {% endcomment %}
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

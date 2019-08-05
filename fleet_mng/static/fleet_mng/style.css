@@ -165,7 +165,6 @@ body {
   display: block;
   text-align: right;
   font-size: 14px;
-  text-k
 }
 /* ------------------------------------------ */
 
@@ -175,7 +174,6 @@ body {
   text-align: center;
   font-size: 0.8em;
   width: 130px;
-  /* height: auto; */
   text-decoration: none;
   color: #fff;
   background-color: #000;
@@ -236,4 +234,28 @@ ul.item-list {
 
 .item_deleted {
     text-decoration: line-through;
+}
+
+#vehicle-table {
+  width: 100%;
+}
+
+#vehicle-table th {
+  width: 50%;
+}
+
+#vehicle-table td {
+  width: 50%;
+}
+
+#renter-table {
+  width: 100%;
+}
+
+#renter-table th {
+  width: 50%;
+}
+
+#renter-table td {
+  width: 50%;
 }

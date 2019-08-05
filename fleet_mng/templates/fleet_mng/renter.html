@@ -2,48 +2,53 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 {% load static %}
-<!-- <a href="{% url 'fleet_mng:renters' %}">
-    <button class="btn btn-primary btn-sm" type="button"><</button>
-</a> -->
+<a href="{% url 'fleet_mng:renters' %}">
+    <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
+</a>
 <div class="container">
-    <div class="row">
-        <div class="col field_name">
-            Nazwisko:
-        </div>
-        <div class="col field_value">
-            {{ renter.last_name }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Imię:
-        </div>
-        <div class="col field_value">
-            {{ renter.first_name }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Uwagi:
-        </div>
-        <div class="col field_value">
-            {{ renter.description }}
-        </div>
-    </div>
+  <div class="table-responsive">
+      <table class="table table-bordered" id="renter-table">
+        <tbody>
+          <tr>
+              <th>Nazwisko:</th>
+              <td>{{ renter.last_name }}</td>
+          </tr>
+
+          <tr>
+              <th>Imię:</th>
+              <td>{{ renter.first_name }}</td>
+          </tr>
+
+          <tr>
+              <th>Uwagi:</th>
+              <td>{{ renter.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
     {% if perms.fleet_mng.change_renter %}
-    <a href="{% url 'fleet_mng:renter_edit' renter.id%}" class="btn">
-        <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
-    </a>
+    <div class="" style="display:inline-block;">
+      <a href="{% url 'fleet_mng:renter_edit' renter.id%}" class="btn">
+          <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
+      </a>
+    </div>
     {% endif %}
-    {% if perms.fleet_mng.delete_renter%}
-    <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
-    <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
-          onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź usunięcie użytkownika.'{% endif %});">
-    {% csrf_token %}
-    <input type=hidden name="delete" value="{% if renter.deleted == 1 %}0{% else %}1{% endif %}"/>
-    <input type=hidden name="confirm" value="0"/>
-    <button type="submit" class="btn btn-primary">{% if renter.deleted == 1 %}Przywróć{% else %}Usuń{% endif %}</button>
-    </form>
-    {% endif %}
+    <div class="" style="display:inline-block;">
+      {% if perms.fleet_mng.delete_renter%}
+      <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
+      <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
+            onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź usunięcie użytkownika.'{% endif %});">
+        {% csrf_token %}
+        <input type=hidden name="delete" value="{% if renter.deleted == 1 %}0{% else %}1{% endif %}"/>
+        <input type=hidden name="confirm" value="0"/>
+        {% if renter.deleted == 1 %}
+        <button type="submit" class="btn btn-warning">Przywróć</button>
+        {% else %}
+        <button type="submit" class="btn btn-danger">Usuń</button>
+        {% endif %}
+      </form>
+      {% endif %}
+    </div>
 </div>
 {% endblock %}

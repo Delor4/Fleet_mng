@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 <a href="{% url 'fleet_mng:vehicles' %}">
-    <button class="btn btn-primary btn-sm" type="button"><</button>
+    <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
 </a><br>
 <div class="container">
     <div class="table-responsive">
@@ -20,7 +20,7 @@
             </tr>
 
             <tr>
-                <th>Model</th>
+                <th>Model:</th>
                 <td>{{ vehicle.model }}</td>
             </tr>
 
@@ -95,9 +95,8 @@
               <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
           </a>
         </div>
-        
+    {% endif %}
         <div class="" style="display:inline-block;">
-          {% endif %}
           {% if perms.fleet_mng.delete_vehicle %}
           <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
           <form method=post name="delete_form" action="{% url 'fleet_mng:vehicle_delete' vehicle.id %}"

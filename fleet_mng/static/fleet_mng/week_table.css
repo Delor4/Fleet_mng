@@ -1,6 +1,7 @@
 /* table layout */
 #week_table {
-    border-spacing: 0;
+  width: 100%;
+  border-spacing: 0;
 }
 #week_table td {
     padding: 0;

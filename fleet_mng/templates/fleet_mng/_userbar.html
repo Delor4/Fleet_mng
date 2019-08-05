@@ -1,7 +1,7 @@
 <div id="userbar" class="top-bar">
     {% if user.is_authenticated %}
-    <p style="user-ticket">Witaj, {{ user.username }}. <a href="{% url 'logout' %}">Wyloguj</a>.</p>
+    <p style="user-ticket">Witaj, {{ user.username }}. <a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-lg"></i>Wyloguj</a>.</p>
     {% else %}
-    <p style="user-ticket">Witaj nieznajomy. <a href="{% url 'login' %}">Zaloguj się</a>.</p>
+    <p style="user-ticket">Witaj nieznajomy. <a href="{% url 'login' %}"><i class="fa fa-sign-in fa-lg"></i>Zaloguj się</a>.</p>
     {% endif %}
 </div>

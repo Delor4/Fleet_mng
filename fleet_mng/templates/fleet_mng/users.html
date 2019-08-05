@@ -10,9 +10,9 @@
 
 <ul>
     {% for user in users_list %}
-    <li class="list-group-item list-group-item-action">
+    <li class="list-group-item list-group-item-action{% if not user.is_active %} item_deleted{% endif %}">
         <a href="{% url 'fleet_mng:user' user.id %}">
-            {% if user.is_active %}{{user.username}}{% else %}<del>{{user.username}}</del>{% endif %}
+            {{user.username}}
         </a>
     </li>
     {% empty %}

@@ -233,3 +233,7 @@ ul.item-list {
     margin-right: auto;
     margin-left: auto;
 }
+
+.item_deleted {
+    text-decoration: line-through;
+}

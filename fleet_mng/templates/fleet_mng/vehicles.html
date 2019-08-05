@@ -10,12 +10,8 @@
 {% if vehicle_list %}
 <ul class="item-list">
     {% for vehicle in vehicle_list %}
-    <li class="list-group-item list-group-item-action"><a href="{% url 'fleet_mng:vehicle' vehicle.id %}">
-        {% if not vehicle.deleted %}
+    <li class="list-group-item list-group-item-action{% if vehicle.deleted %} item_deleted{% endif %}"><a href="{% url 'fleet_mng:vehicle' vehicle.id %}">
         {{ vehicle }}
-        {% else %}
-        <del>{{ vehicle }}</del>
-        {% endif %}
     </a></li>
     {% endfor %}
 </ul>

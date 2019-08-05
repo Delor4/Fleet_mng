@@ -1,7 +1,8 @@
 {# Wyświetlenie widoku tygodniowego #}
 {% extends "fleet_mng/_base.html" %}
 {% load static %}
-{% block css_link %}<link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/week_table.css' %}">{% endblock %}
+{% block css_link %}
+<link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/week_table.css' %}">{% endblock %}
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" class="btn">
@@ -13,27 +14,29 @@
         {% include "fleet_mng/_week_table.html"%}
     </table>
 </div>
-<div class="week_nav_buttons">
-<a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"
-   class="btn week_nav prev_week"
-   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}">
-    <button type="button" class="btn btn-primary btn-xs"><<</button>
-</a>
-<a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}"
-   class="btn week_nav prev"
-   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev.year nav.prev.month nav.prev.day %}">
-    <button type="button" class="btn btn-primary btn-xs"><</button>
-</a>
-<a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}"
-   class="btn week_nav next"
-   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next.year nav.next.month nav.next.day %}">
-    <button type="button" class="btn btn-primary btn-xs">></button>
-</a>
-<a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}"
-   class="btn week_nav next_week"
-   data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}">
-    <button type="button" class="btn btn-primary btn-xs">>></button>
-</a>
-    </div>
+<div class="week_nav_prev_buttons">
+    <a href="{% url 'fleet_mng:week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}"
+       class="btn week_nav prev_week"
+       data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev_week.year nav.prev_week.month nav.prev_week.day %}">
+        <button type="button" class="btn btn-primary btn-xs"><<</button>
+    </a>
+    <a href="{% url 'fleet_mng:week_date' nav.prev.year nav.prev.month nav.prev.day %}"
+       class="btn week_nav prev"
+       data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.prev.year nav.prev.month nav.prev.day %}">
+        <button type="button" class="btn btn-primary btn-xs"><</button>
+    </a>
+</div>
+<div class="week_nav_next_buttons">
+    <a href="{% url 'fleet_mng:week_date' nav.next.year nav.next.month nav.next.day %}"
+       class="btn week_nav next"
+       data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next.year nav.next.month nav.next.day %}">
+        <button type="button" class="btn btn-primary btn-xs">></button>
+    </a>
+    <a href="{% url 'fleet_mng:week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}"
+       class="btn week_nav next_week"
+       data-nav_target="{% url 'fleet_mng:ajax_week_date' nav.next_week.year nav.next_week.month nav.next_week.day %}">
+        <button type="button" class="btn btn-primary btn-xs">>></button>
+    </a>
+</div>
 <script src="{% static 'fleet_mng/week.js' %}"></script>
 {% endblock %}

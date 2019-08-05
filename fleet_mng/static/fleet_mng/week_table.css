@@ -155,7 +155,11 @@ tr.is_rented th a {
     background: #f2f249;
 }
 
-.week_nav_buttons {
+.week_nav_prev_buttons {
+    float: left;
+    margin-left: 15px;
+}
+.week_nav_next_buttons {
     float: right;
     margin-right: 15px;
 }

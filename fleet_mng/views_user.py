@@ -126,7 +126,7 @@ def change_user_pass(request, pk):
 
 
 class UserUpdateForm(forms.Form):
-    username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
+    username = forms.CharField(max_length=191, label="Nazwa użytkownika:", disabled=True, required=False)
     group = forms.ChoiceField(label="Typ:")
     blocked = forms.BooleanField(label="zablokowany", widget=forms.CheckboxInput, required=False)
 
@@ -157,7 +157,7 @@ def user_edit(request, pk):
         form = UserUpdateForm(request.POST)
         if form.is_valid():
             user = User.objects.get(id=pk)
-            user.username = form.cleaned_data.get('username')
+            # user.username = form.cleaned_data.get('username')
             # removing from old groups
             for user_group in Group.objects.filter(name__in=('viewer', 'user', 'admin')):
                 user_group.user_set.remove(user)

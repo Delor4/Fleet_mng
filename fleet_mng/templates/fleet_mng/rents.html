@@ -1,6 +1,7 @@
 {# Wyświetlenie listy wypożyczeń #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+<a href="{% url 'fleet_mng:week' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" class="btn">
   <button class="btn btn-primary btn-xs" type="button">Nowe wypożyczenie</button>

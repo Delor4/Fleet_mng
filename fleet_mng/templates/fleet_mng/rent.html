@@ -1,6 +1,7 @@
 {# Wyświetlenie danych konkretnego wypożyczenia #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+{% load static %}
 <a href="{% url 'fleet_mng:week' %}"><button class="btn btn-primary btn-sm" type="button"><</button></a><br>
 Od <b>{{ rent.from_date }}</b> do <b>{{ rent.to_date }}</b><br>
 <b>Pojazd: </b><a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a><br>
@@ -9,19 +10,9 @@ Od <b>{{ rent.from_date }}</b> do <b>{{ rent.to_date }}</b><br>
     Uwagi: {{ rent.description }}<br>
 
     {% if perms.fleet_mng.can_mark_returned and rent.rented == 1 %}
-        <script>
-        function _delete(e,a) {
-            if(e)
-                e.preventDefault();
-            else
-                window.event.returnValue=false;
-            if(window.confirm('Potwierdź zwrot pojazdu.'))
-                document.forms.bring_back_form.confirm.value=1;
-                document.forms.bring_back_form.submit();
-        }
-        </script>
+        <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
         <form method=post name="bring_back_form" action="{% url 'fleet_mng:rent_bring_back' rent.id %}"
-              onsubmit="_delete(event,this);"/>
+              onsubmit="_delete(event,this,'Potwierdź zwrot pojazdu.');"/>
         {% csrf_token %}
         <input type=hidden name="confirm" value="0"/>
         <input type=submit value="Zwróć"/>

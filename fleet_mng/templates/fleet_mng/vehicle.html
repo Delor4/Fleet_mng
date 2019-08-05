@@ -1,6 +1,7 @@
 {# Wyświetlenie danych konkretnego pojazdu #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+{% load static %}
 <a href="{% url 'fleet_mng:vehicles' %}">
     <button class="btn btn-primary btn-sm" type="button"><</button>
 </a><br>
@@ -94,17 +95,7 @@
     </div>
     {% endif %}
    {% if perms.fleet_mng.delete_vehicle %}
-    <script>
-        function _delete(e,a,msg) {
-            if(e)
-                e.preventDefault();
-            else
-                window.event.returnValue=false;
-            if(window.confirm(msg))
-                document.forms.delete_form.confirm.value=1;
-                document.forms.delete_form.submit();
-        }
-    </script>
+    <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
     <form method=post name="delete_form" action="{% url 'fleet_mng:vehicle_delete' vehicle.id %}"
           onsubmit="_delete(event,this,{% if vehicle.deleted == 1 %}'Potwierdź przywrócenie pojazdu.'{% else %}'Potwierdź usunięcie pojazdu.'{% endif %});"/>
     {% csrf_token %}

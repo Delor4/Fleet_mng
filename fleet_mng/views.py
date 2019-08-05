@@ -119,7 +119,7 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
     week_days = [days_names[d.weekday()] for d in days]
 
     vehicles_data = {}
-    vehicles = Vehicle.objects.all()
+    vehicles = Vehicle.objects.exclude(deleted=1)
     # initialize vehicles table
     for vehicle in vehicles:
         vehicles_data[vehicle] = [{'present': 0, 'rents': [], 'classes': []} for _ in range(len(days))]
@@ -135,6 +135,8 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
 
     # filling table
     for rent in rents:
+        if rent.vehicle.deleted:
+            continue
         last = int((rent.to_date - rent.from_date).days)
         for i, d in enumerate(date_range(rent.from_date, rent.to_date)):
             if d in days:

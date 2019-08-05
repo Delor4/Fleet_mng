@@ -57,7 +57,7 @@ class RentForm(forms.Form):
         search_str = kwargs.pop('search_str', None)
         super().__init__(*args, **kwargs)
         v = Vehicle.objects.raw(
-            'select * from fleet_mng_vehicle where id not in '
+            'select * from fleet_mng_vehicle where deleted = 0 and id not in '
             '(select distinct(vehicle_id) from fleet_mng_rent where rented = 1)')
         self.fields['vehicle'].initial = search_str
         self.fields['vehicle'].choices = [(x.id, x) for x in v]

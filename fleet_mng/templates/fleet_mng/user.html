@@ -13,6 +13,7 @@
             {{ user.username }}
         </div>
     </div>
+{% comment %}
     <div class="row">
         <div class="col field_name">
             Imię:
@@ -37,6 +38,7 @@
             {{ user.email }}
         </div>
     </div>
+{% endcomment %}
     <div class="row">
         <div class="col field_name">
             Groupy:
@@ -51,6 +53,13 @@
             </div>
         </div>
     </div>
+    {% if not user.is_active %}
+    <div class="row">
+        <div class="col field_value">
+            Zablokowany.
+        </div>
+    </div>
+    {% endif %}
     {% if perms.auth.change_user %}
     <a href="{% url 'fleet_mng:user_pass' user.id%}" class="btn">
         <button class="btn btn-primary btn-xs" type="button">Hasło</button>

@@ -11,6 +11,7 @@ class NewUserForm(forms.Form):
     password_confirm = forms.CharField(label="Powtórz hasło:",
                                        widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
     group = forms.ChoiceField(label="Typ:")
+    blocked = forms.BooleanField(label="zablokowany", widget=forms.CheckboxInput, required=False)
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
@@ -72,6 +73,8 @@ def new_user(request):
             password = form.cleaned_data.get('password')
             group = Group.objects.get(pk=int(form.cleaned_data.get('group')))
             user = User.objects.create_user(username, None, password)
+
+            user.is_active = not form.cleaned_data.get('blocked')
             user.save()
             # adding user to group
             group.user_set.add(user)
@@ -125,6 +128,7 @@ def change_user_pass(request, pk):
 class UserUpdateForm(forms.Form):
     username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
     group = forms.ChoiceField(label="Typ:")
+    blocked = forms.BooleanField(label="zablokowany", widget=forms.CheckboxInput, required=False)
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
@@ -160,12 +164,15 @@ def user_edit(request, pk):
             group = Group.objects.get(pk=int(form.cleaned_data.get('group')))
             # adding user to group
             group.user_set.add(user)
+            # set is_active
+            user.is_active = not form.cleaned_data.get('blocked')
             user.save()
         return HttpResponseRedirect('/user/')
     else:
         user = User.objects.get(id=pk)
         form = UserUpdateForm(initial={'username': user.username,
                                        'group': user.groups.all()[0].id,
+                                       'blocked': not user.is_active,
                                        })
 
         return render(request, 'fleet_mng/user_new.html', {'form': form})

@@ -62,8 +62,9 @@ class RentForm(forms.Form):
         self.fields['vehicle'].initial = search_str
         self.fields['vehicle'].choices = [(x.id, x) for x in v]
 
+        renters = Renter.objects.exclude(deleted=1)
         self.fields['renter'].choices = [(0, '-- nowy --')]
-        self.fields['renter'].choices.extend([(x.id, x) for x in Renter.objects.all()])
+        self.fields['renter'].choices.extend([(x.id, x) for x in renters])
 
     def clean(self):
         cleaned_data = super(RentForm, self).clean()
@@ -165,8 +166,9 @@ class RentUpdateForm(forms.Form):
         search_str = kwargs.pop('search_str', None)
         super().__init__(*args, **kwargs)
 
+        renters = Renter.objects.exclude(deleted=1)
         self.fields['renter'].choices = [(0, '-- nowy --')]
-        self.fields['renter'].choices.extend([(x.id, x) for x in Renter.objects.all()])
+        self.fields['renter'].choices.extend([(x.id, x) for x in renters])
 
     def clean(self):
         cleaned_data = super(RentUpdateForm, self).clean()

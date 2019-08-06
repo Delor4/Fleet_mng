@@ -38,14 +38,14 @@
       {% if perms.fleet_mng.delete_renter%}
       <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
       <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
-            onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź usunięcie użytkownika.'{% endif %});">
+            onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź ukrycie użytkownika.'{% endif %});">
         {% csrf_token %}
         <input type=hidden name="delete" value="{% if renter.deleted == 1 %}0{% else %}1{% endif %}"/>
         <input type=hidden name="confirm" value="0"/>
         {% if renter.deleted == 1 %}
         <button type="submit" class="btn btn-warning">Przywróć</button>
         {% else %}
-        <button type="submit" class="btn btn-danger">Usuń</button>
+        <button type="submit" class="btn btn-danger">Ukryj</button>
         {% endif %}
       </form>
       {% endif %}

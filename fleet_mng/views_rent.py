@@ -102,6 +102,7 @@ def show_rent_form(request):
             renter_db = None
             if renter == 0:
                 renter_db = Renter(last_name=new_renter, description=new_renter_description)
+                renter_db.additional_data['request'] = request
                 renter_db.save()
             else:
                 renter_db = Renter.objects.get(id=renter)
@@ -115,6 +116,7 @@ def show_rent_form(request):
                            vehicle=v,
                            renter=renter_db,
                            description=description)
+            rent_db.additional_data['request'] = request
             rent_db.save()
 
             return HttpResponseRedirect('/week/')
@@ -133,6 +135,7 @@ def rent_bring_back(request, pk):
         rent = Rent.objects.get(pk=pk)
         rent.rented = 0
         rent.to_date = timezone.now().date()
+        rent.additional_data['request'] = request
         rent.save()
     return HttpResponseRedirect('/week/')
 
@@ -228,6 +231,7 @@ def show_rent_update_form(request, pk):
                 renter_db = None
                 if renter == 0:
                     renter_db = Renter(last_name=new_renter, description=new_renter_description)
+                    renter_db.additional_data['request'] = request
                     renter_db.save()
                 else:
                     renter_db = Renter.objects.get(id=renter)
@@ -241,6 +245,7 @@ def show_rent_update_form(request, pk):
                 rent_db.to_date = t
                 rent_db.renter = renter_db
             rent_db.description = form.cleaned_data.get('description')
+            rent_db.additional_data['request'] = request
             rent_db.save()
             return HttpResponseRedirect('/week/')
     else:

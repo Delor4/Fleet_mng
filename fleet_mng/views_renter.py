@@ -51,6 +51,7 @@ def renter_new(request):
                             first_name=form.cleaned_data.get('first_name'),
                             description=form.cleaned_data.get('description'),
                             )
+            renter.additional_data['request'] = request
             renter.save()
             return HttpResponseRedirect('/renter/')
     else:
@@ -65,6 +66,18 @@ class RenterUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = RenterForm
     template_name = 'fleet_mng/renter_new.html'
     success_url = '/renter/'
+    context_object_name = 'renter'
+    request = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        renter = form.save(commit=False)
+        renter.additional_data['request'] = self.request
+        renter.save()
+        return super(RenterUpdateView, self).form_valid(form)
 
 
 @login_required
@@ -77,5 +90,6 @@ def renter_delete(request, pk):
             renter.deleted = 1
         else:
             renter.deleted = 0
+        renter.additional_data['request'] = request
         renter.save()
     return HttpResponseRedirect('/renter/')

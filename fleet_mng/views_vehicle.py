@@ -1,6 +1,6 @@
 from django import forms
+from django.contrib.admin.models import ADDITION
 from django.contrib.auth.decorators import login_required, permission_required
-from django.forms import SelectDateWidget
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import UpdateView
@@ -76,6 +76,7 @@ def vehicle_new(request):
                               mileage=form.cleaned_data.get('mileage'),
                               description=form.cleaned_data.get('description'),
                               )
+            vehicle.additional_data['request'] = request
             vehicle.save()
             return HttpResponseRedirect('/vehicle/')
     else:
@@ -102,5 +103,6 @@ def vehicle_delete(request, pk):
             vehicle.deleted = 1
         else:
             vehicle.deleted = 0
+        vehicle.additional_data['request'] = request
         vehicle.save()
     return HttpResponseRedirect('/vehicle/')

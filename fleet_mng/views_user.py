@@ -1,8 +1,11 @@
+from django.contrib.admin.models import LogEntry, CHANGE, ADDITION
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User, Group
 from django import forms
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+from fleet_mng.models import log_user_entry
 
 
 class NewUserForm(forms.Form):
@@ -78,6 +81,7 @@ def new_user(request):
             user.save()
             # adding user to group
             group.user_set.add(user)
+            log_user_entry(request, user, ADDITION, 'User added.')
             return HttpResponseRedirect('/user/')
     else:
         form = NewUserForm()
@@ -118,6 +122,7 @@ def change_user_pass(request, pk):
             user = User.objects.get(id=pk)
             user.password = password
             user.save()
+            log_user_entry(request, user, CHANGE, 'User pass changed.')
             return HttpResponseRedirect('/user/')
     else:
         form = UserUpdatePassForm()
@@ -167,6 +172,7 @@ def user_edit(request, pk):
             # set is_active
             user.is_active = not form.cleaned_data.get('blocked')
             user.save()
+            log_user_entry(request, user, CHANGE, 'User data changed.')
         return HttpResponseRedirect('/user/')
     else:
         user = User.objects.get(id=pk)

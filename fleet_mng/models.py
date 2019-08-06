@@ -1,8 +1,12 @@
+from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
 
-
 # dane pojazdu
+from pytz import unicode
+
+
 class Vehicle(models.Model):
     # nazwa pojazdu
     name = models.CharField(max_length=193, db_index=True)
@@ -106,3 +110,16 @@ class Rent(models.Model):
     # Zwraca True gdy pojazd nie oddany a minęła data wypożyczenia
     def is_not_bring_back(self) -> bool:
         return self.to_date < timezone.now().date() and self.from_date < timezone.now().date() and self.rented == 1
+
+
+def log_user_entry(request, obj, action_flag, msg):
+    LogEntry.objects.log_action(
+        user_id=request.user.id,
+        content_type_id=ContentType.objects.get_for_model(obj).pk,
+        object_id=obj.pk,
+        object_repr=str({'username': obj.username,
+                         'groups': [gr.id for gr in obj.groups.all()],
+                         'is_active': obj.is_active,
+                         }),
+        action_flag=action_flag,
+        change_message=msg)

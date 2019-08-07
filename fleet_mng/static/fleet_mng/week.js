@@ -31,12 +31,12 @@ function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo,
             '"'+
             (vo?'':(' href="/rent/' + tab[i] + '/"'))+
             ' data-toggle="tooltip" data-html="true" title="'+
-            escape(tooltips_texts[tooltips_nrs.indexOf(tab[i])])+
+            tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
             '"'+
             '>'+
             (note.indexOf(tab[i])>=0?'<div class="note"'+
             ' data-toggle="tooltip" data-html="true" data-placement="left" title="'+
-            escape(note_desc[note.indexOf(tab[i])])+
+            note_desc[note.indexOf(tab[i])]+
             '"'+
             '></div>':'')+
             '</'+(vo?'div':'a')+'>');

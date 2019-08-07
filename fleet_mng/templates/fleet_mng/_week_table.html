@@ -16,13 +16,14 @@
         </tr>
       </thead>
       <tbody>
+      {% load double_escape %}
       {% for vehicle, days_data in vehicles_table.items %}
         <tr class="{%if vehicle.is_rented %}is_rented{%endif%}{%if vehicle.is_not_bring_back %} not_bring_back{%endif%}{%if vehicle.is_free %} is_free{%endif%}">
             <th>
                 <a href="{% url 'fleet_mng:vehicle' vehicle.id %}"
                    data-toggle="tooltip" data-html="true"
-                   title="{{vehicle.name}}<br>{{vehicle.brand}} {{vehicle.model}}{% if vehicle.generation %}<br>
-                        {{vehicle.generation}}{% endif %}<br>{{vehicle.registration_number}}<br>{{vehicle.description}}" >
+                   title="{{vehicle.name|double_escape}}<br>{{vehicle.brand|double_escape}} {{vehicle.model|double_escape}}{% if vehicle.generation %}<br>
+                        {{vehicle.generation|double_escape}}{% endif %}<br>{{vehicle.registration_number|double_escape}}<br>{{vehicle.description|double_escape}}" >
                     {{vehicle.name}}
                 </a>
             </th>
@@ -33,14 +34,14 @@
                 {% if not perms.fleet_mng.view_renter %} viewonly{% endif %}"
                 data-bar="{{ day_d.classes|join:' ' }}"
                 {% for rent in day_d.rents %}
-                data-bar_tooltip_{{rent.id}}="{{ rent.from_date }} - {{ rent.to_date }}<br>{{rent.vehicle}}<br>{{rent.renter}}"
-                data-bar_desc_{{rent.id}}="{{rent.description}}"
+                data-bar_tooltip_{{rent.id}}="{{ rent.from_date|double_escape }} - {{ rent.to_date|double_escape }}<br>{{rent.vehicle|double_escape}}<br>{{rent.renter|double_escape}}"
+                data-bar_desc_{{rent.id}}="{{rent.description|double_escape}}"
                 {% endfor %}
             >
                 {%if vehicle.insurance == days|index:forloop.counter0 %}<div class="insurance"  data-toggle="tooltip" data-html="true" data-placement="left"
-                                                                        title="Ubezpieczenie.<br>{{vehicle}}<br>{{vehicle.insurance}}"></div>{% endif %}
+                                                                        title="Ubezpieczenie.<br>{{vehicle|double_escape}}<br>{{vehicle.insurance|double_escape}}"></div>{% endif %}
                 {%if vehicle.checkup == days|index:forloop.counter0 %}<div class="checkup"  data-toggle="tooltip" data-html="true" data-placement="left"
-                                                                        title="Przegląd techniczny.<br>{{vehicle}}<br>{{vehicle.checkup}}"></div>{% endif %}
+                                                                        title="Przegląd techniczny.<br>{{vehicle|double_escape}}<br>{{vehicle.checkup|double_escape}}"></div>{% endif %}
             </td>
             {% endfor %}
         </tr>

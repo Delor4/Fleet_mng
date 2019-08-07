@@ -127,6 +127,9 @@ tr.is_rented th a {
 }
 
 /* note indicator */
+.bar {
+    position: relative;
+}
 .bar .note {
     position: absolute;
     font-family: FontAwesome;

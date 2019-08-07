@@ -17,22 +17,13 @@
 </head>
 <body>
   <div class="main-container">
-    <!-- <div class="main-content">
+    {% include "fleet_mng/_navbar.html" %}
+    {% include "fleet_mng/_userbar.html" %}
+    <div class="main-content">
       <div id="content" class="content-display">
-
-      </div>
-    </div> -->
-    <div class="row">
-      <div class="col-12">
-        {% include "fleet_mng/_userbar.html" %}
+        {% block content %}{% endblock %}
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-3">{% include "fleet_mng/_navbar.html" %}</div>
-      <div class="col-9">{% block content %}{% endblock %}</div>
-    </div>
-
   </div>
 {% comment %}
 {% endcomment %}

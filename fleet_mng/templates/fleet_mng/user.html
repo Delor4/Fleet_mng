@@ -17,25 +17,13 @@
             </tr>
             <tr>
                 <th>Grupy:</th>
-                <td>
-                    <div class="row">
-                        {% for group in user.groups.all %}
-                        <div class="col">
-                            {{ group }}
-                        </div>
-                        {% endfor %}
-                    </div>
-                </td>
+                <td>{{ user.groups.all|join:", " }}</td>
             </tr>
             <tr>
                 <th>Status:</th>
                 <td>
                     {% if not user.is_active %}
-                    <div class="row">
-                        <div class="col field_value">
-                            Zablokowany.
-                        </div>
-                    </div>
+                    Zablokowany.
                     {% endif %}
                 </td>
             </tr>

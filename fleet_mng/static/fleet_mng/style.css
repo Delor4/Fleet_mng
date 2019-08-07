@@ -134,7 +134,7 @@ body {
     line-height: 50px !important;
   }
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   .nav-side-menu .menu-list .menu-content {
     display: block;
   }
@@ -165,6 +165,17 @@ body {
   display: block;
   text-align: right;
   font-size: 14px;
+}
+
+.beta_indicator {
+    margin-left: 330px;
+    float: left;
+    color: coral;
+}
+@media (max-width: 767px) {
+.beta_indicator {
+    margin-left: 15px;
+}
 }
 /* ------------------------------------------ */
 

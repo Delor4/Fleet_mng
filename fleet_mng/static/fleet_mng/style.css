@@ -270,3 +270,8 @@ ul.item-list {
 #renter-table td {
   width: 50%;
 }
+
+.buttons_row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

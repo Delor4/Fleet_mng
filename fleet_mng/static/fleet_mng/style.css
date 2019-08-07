@@ -259,6 +259,9 @@ ul.item-list {
   width: 50%;
 }
 
+#items-table .not_bring_back {
+  color: red;
+}
 .buttons_row {
     margin-top: 5px;
     margin-bottom: 5px;

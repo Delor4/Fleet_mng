@@ -3,6 +3,25 @@ Array.prototype.diff = function(a) {
         return a.indexOf(i) < 0;
     });
 };
+var htmlEscapes = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#x27;',
+  '/': '&#x2F;'
+};
+
+// Regex containing the keys listed immediately above.
+var htmlEscaper = /[&<>"'\/]/g;
+
+// Escape a string for HTML interpolation.
+function escape(string) {
+  return ('' + string).replace(htmlEscaper, function(match) {
+    return htmlEscapes[match];
+  });
+};
+
 function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo, note, note_desc){
     for (let i=0; i<tab.length; i++) {
         wrapper.append('<'+(vo?'div':'a')+' class="bar '+
@@ -12,12 +31,12 @@ function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo,
             '"'+
             (vo?'':(' href="/rent/' + tab[i] + '/"'))+
             ' data-toggle="tooltip" data-html="true" title="'+
-            tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
+            escape(tooltips_texts[tooltips_nrs.indexOf(tab[i])])+
             '"'+
             '>'+
             (note.indexOf(tab[i])>=0?'<div class="note"'+
             ' data-toggle="tooltip" data-html="true" data-placement="left" title="'+
-            note_desc[note.indexOf(tab[i])]+
+            escape(note_desc[note.indexOf(tab[i])])+
             '"'+
             '></div>':'')+
             '</'+(vo?'div':'a')+'>');
@@ -47,11 +66,11 @@ function create_bars_in_table(){
                 lasts.push(nr)
             }else  if(beg=='f_'){
                 firsts.push(nr)
-                note_desc.push($( this ).attr('data-bar_desc_'+nr))
+                note_desc.push(escape($( this ).attr('data-bar_desc_'+nr)))
             }else  if(beg=='m_'){
                 mids.push(nr)
                 mids_tt.push(nr)
-                tt.push($( this ).attr('data-bar_tooltip_'+nr))
+                tt.push(escape($( this ).attr('data-bar_tooltip_'+nr)))
             }else  if(beg=='r_'){
                 rented.push(nr)
             }else  if(beg=='b_'){

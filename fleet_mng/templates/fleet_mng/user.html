@@ -6,71 +6,49 @@
         <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
     </a>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col field_name">
-            Login:
+<td class="container">
+    <tr class="table-responsive">
+        <table class="table table-bordered" id="items-table">
+            <tbody>
+            <tr>
+                <th>Login:</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Grupy:</th>
+                <td>
+                    <div class="row">
+                        {% for group in user.groups.all %}
+                        <div class="col">
+                            {{ group }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Status:</th>
+                <td>
+                    {% if not user.is_active %}
+                    <div class="row">
+                        <div class="col field_value">
+                            Zablokowany.
+                        </div>
+                    </div>
+                    {% endif %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        {% if perms.auth.change_user %}
+        <div class="buttons_row">
+            <a href="{% url 'fleet_mng:user_pass' user.id%}" class="btn">
+                <button class="btn btn-primary btn-xs" type="button">Hasło</button>
+            </a>
+            <a href="{% url 'fleet_mng:user_edit' user.id%}" class="btn">
+                <button class="btn btn-primary btn-xs" type="button">Edycja</button>
+            </a>
         </div>
-        <div class="col field_value">
-            {{ user.username }}
+        {% endif %}
         </div>
-    </div>
-{% comment %}
-    <div class="row">
-        <div class="col field_name">
-            Imię:
-        </div>
-        <div class="col field_value">
-            {{ user.first_name }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Nazwisko:
-        </div>
-        <div class="col field_value">
-            {{ user.last_name }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field_name">
-            Email:
-        </div>
-        <div class="col field_value">
-            {{ user.email }}
-        </div>
-    </div>
-{% endcomment %}
-    <div class="row">
-        <div class="col field_name">
-            Grupy:
-        </div>
-        <div class="col field_value">
-            <div class="row">
-                {% for group in user.groups.all %}
-                <div class="col">
-                    {{ group }}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% if not user.is_active %}
-    <div class="row">
-        <div class="col field_value">
-            Zablokowany.
-        </div>
-    </div>
-    {% endif %}
-    {% if perms.auth.change_user %}
-    <div class="buttons_row">
-        <a href="{% url 'fleet_mng:user_pass' user.id%}" class="btn">
-            <button class="btn btn-primary btn-xs" type="button">Hasło</button>
-        </a>
-        <a href="{% url 'fleet_mng:user_edit' user.id%}" class="btn">
-            <button class="btn btn-primary btn-xs" type="button">Edycja</button>
-        </a>
-    </div>
-    {% endif %}
-</div>
-{% endblock %}
+        {% endblock %}

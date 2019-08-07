@@ -1,4 +1,5 @@
-      <thead>
+{% load double_escape %}
+    <thead>
         <tr>
             <th rowspan="2">
                 Pojazdy
@@ -11,12 +12,11 @@
         <tr>
             {% load index %}
             {% for week_day in week_days %}
-            <th data-toggle="tooltip" title="{{days|index:forloop.counter0}}"><div class="day_name">{{week_day}}</div></th>
+            <th data-toggle="tooltip" title="{{days|index:forloop.counter0|double_escape}}"><div class="day_name">{{week_day}}</div></th>
             {% endfor %}
         </tr>
       </thead>
       <tbody>
-      {% load double_escape %}
       {% for vehicle, days_data in vehicles_table.items %}
         <tr class="{%if vehicle.is_rented %}is_rented{%endif%}{%if vehicle.is_not_bring_back %} not_bring_back{%endif%}{%if vehicle.is_free %} is_free{%endif%}">
             <th>

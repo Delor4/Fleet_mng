@@ -272,3 +272,11 @@ ul.item-list {
 .buttons_row > * {
     display:inline-block;
 }
+
+/* FORMS LAYOUT */
+.fieldWrapper {
+  /* margin-left: 15%;
+  margin-right: 15%; */
+  margin-bottom: 1rem;
+  display: inline-grid;
+}

@@ -190,6 +190,5 @@ def post_save_handler(sender, instance, created, using, **kwargs):
 
 @receiver(post_delete)
 def post_delete_handler(sender, instance, using, **kwargs):
-    print('* post_delete_handler *')
     if isinstance(instance, TraceableModel):
         log_entry(instance, sender, DELETION, "")

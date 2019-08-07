@@ -242,8 +242,20 @@ ul.item-list {
     margin-left: auto;
 }
 
-.item_deleted {
-    text-decoration: line-through;
+/* DELETED ITEMS LAYOUT */
+.item_deleted a {
+    position: relative;
+    margin: 1em;
+}
+
+.item_deleted a:before {
+    content: "\f00d";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    color: red;
+    position: absolute;
+    left: -1em;
 }
 
 /* ITEMS TABLES LAYOUT */

@@ -84,7 +84,7 @@ tr.is_rented th a {
     display: inline-flex;
     flex-grow: 1;
     height: 1rem;
-    border: 0.1em solid #000000;
+    border: 0.1em solid #0cae31;
     margin-top: auto;
     margin-bottom: auto;
     background: rgba(91,243,133,1);
@@ -154,7 +154,9 @@ tr.is_rented th a {
 }
 
 /* rented color */
-.rent_wrapper .rented{
+.rent_wrapper .rented {
+    border-color: #209ef8;
+
     background: rgba(123,203,252,1);
     background: -moz-linear-gradient(top, rgba(123,203,252,1) 0%, rgba(44,167,247,1) 100%);
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(123,203,252,1)), color-stop(100%, rgba(44,167,247,1)));
@@ -166,7 +168,8 @@ tr.is_rented th a {
 }
 
 /* not back color */
-.rent_wrapper .not_back{
+.rent_wrapper .not_back {
+    border-color: #f39a28;
     background: rgba(249,178,96,1);
     background: -moz-linear-gradient(top, rgba(249,178,96,1) 0%, rgba(238,138,5,1) 100%);
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,178,96,1)), color-stop(100%, rgba(238,138,5,1)));

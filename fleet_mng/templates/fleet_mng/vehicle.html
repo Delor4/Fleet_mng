@@ -89,33 +89,25 @@
         </table>
     </div>
 
-
     <div class="buttons_row">
-        <div class="row">
-            <div class="col">
-                {% if perms.fleet_mng.change_vehicle %}
-                <div class="" style="display:inline-block;">
-                    <a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">
-                        <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
-                    </a>
-                </div>
-                {% endif %}
-                {% if perms.fleet_mng.delete_vehicle %}
-                <div class="" style="display:inline-block;">
-                    <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
-                    <form method=post name="delete_form" action="{% url 'fleet_mng:vehicle_delete' vehicle.id %}"
-                          onsubmit="_delete(event,this,{% if vehicle.deleted == 1 %}'Potwierdź przywrócenie pojazdu.'{% else %}'Potwierdź ukrycie pojazdu.'{% endif %});">
-                        {% csrf_token %}
-                        <input type=hidden name="delete" value="{% if vehicle.deleted == 1 %}0{% else %}1{% endif %}"/>
-                        <input type=hidden name="confirm" value="0"/>
-                        <button type="submit" class="btn btn-danger">
-                            {%if vehicle.deleted == 1%}Przywróć{%else%}Ukryj{%endif%}
-                        </button>
-                    </form>
-                </div>
-                {% endif %}
-            </div>
-        </div>
+        {% if perms.fleet_mng.change_vehicle %}
+        <a href="{% url 'fleet_mng:vehicle_edit' vehicle.id%}" class="btn">
+            <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
+        </a>
+        {% endif %}
+
+        {% if perms.fleet_mng.delete_vehicle %}
+        <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
+        <form method=post name="delete_form" action="{% url 'fleet_mng:vehicle_delete' vehicle.id %}"
+              onsubmit="_delete(event,this,{% if vehicle.deleted == 1 %}'Potwierdź przywrócenie pojazdu.'{% else %}'Potwierdź ukrycie pojazdu.'{% endif %});">
+            {% csrf_token %}
+            <input type=hidden name="delete" value="{% if vehicle.deleted == 1 %}0{% else %}1{% endif %}"/>
+            <input type=hidden name="confirm" value="0"/>
+            <button type="submit" class="btn btn-danger">
+                {%if vehicle.deleted == 1%}Przywróć{%else%}Ukryj{%endif%}
+            </button>
+        </form>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

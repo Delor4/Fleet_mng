@@ -146,7 +146,6 @@ body {
 }
 
 /* ------------------------------------------ */
-
 /* USER BAR LAYOUT */
 .top-bar {
   display: block;
@@ -247,6 +246,7 @@ ul.item-list {
     text-decoration: line-through;
 }
 
+/* ITEMS TABLES LAYOUT */
 #items-table {
   width: 100%;
 }
@@ -262,7 +262,13 @@ ul.item-list {
 #items-table .not_bring_back {
   color: red;
 }
+
+/* BUTTONS ROWS LAYOUT */
 .buttons_row {
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.buttons_row > * {
+    display:inline-block;
 }

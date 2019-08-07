@@ -8,40 +8,38 @@
     </a>
 </div>
 <div class="container">
-  <div class="table-responsive">
-      <table class="table table-bordered" id="items-table">
-        <tbody>
-          <tr>
-              <th>Nazwisko:</th>
-              <td>{{ renter.last_name }}</td>
-          </tr>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="items-table">
+            <tbody>
+            <tr>
+                <th>Nazwisko:</th>
+                <td>{{ renter.last_name }}</td>
+            </tr>
 
-          <tr>
-              <th>Imię:</th>
-              <td>{{ renter.first_name }}</td>
-          </tr>
+            <tr>
+                <th>Imię:</th>
+                <td>{{ renter.first_name }}</td>
+            </tr>
 
-          <tr>
-              <th>Uwagi:</th>
-              <td>{{ renter.description }}</td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
+            <tr>
+                <th>Uwagi:</th>
+                <td>{{ renter.description }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="buttons_row">
         {% if perms.fleet_mng.change_renter %}
-        <div class="" style="display:inline-block;">
-          <a href="{% url 'fleet_mng:renter_edit' renter.id%}" class="btn">
-              <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
-          </a>
-        </div>
+        <a href="{% url 'fleet_mng:renter_edit' renter.id%}" class="btn">
+            <button class="btn btn-primary btn-xs" type="button">Edytuj</button>
+        </a>
         {% endif %}
-        <div class="" style="display:inline-block;">
-          {% if perms.fleet_mng.delete_renter%}
-          <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
-          <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
-                onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź ukrycie użytkownika.'{% endif %});">
+
+        {% if perms.fleet_mng.delete_renter%}
+        <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
+        <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
+              onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź ukrycie użytkownika.'{% endif %});">
             {% csrf_token %}
             <input type=hidden name="delete" value="{% if renter.deleted == 1 %}0{% else %}1{% endif %}"/>
             <input type=hidden name="confirm" value="0"/>
@@ -50,9 +48,8 @@
             {% else %}
             <button type="submit" class="btn btn-danger">Ukryj</button>
             {% endif %}
-          </form>
-          {% endif %}
-        </div>
+        </form>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

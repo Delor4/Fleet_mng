@@ -5,6 +5,7 @@
     <a href="{% url 'fleet_mng:week' %}">
       <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
     </a>
+
     {% if perms.fleet_mng.add_vehicle %}
     <a href="{% url 'fleet_mng:vehicle_new' %}" class="btn">
       <button class="btn btn-primary btn-sm" type="button">Nowy pojazd</button>

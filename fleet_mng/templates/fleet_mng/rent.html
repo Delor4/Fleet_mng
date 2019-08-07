@@ -61,6 +61,7 @@
         <button type="submit" class="btn btn-primary">Zwróć</button>
     </form>
     {% endif %}
+
     {% if perms.fleet_mng.change_rent %}
     <a href="{% url 'fleet_mng:rent_edit' rent.id%}">
         <button type="submit" class="btn btn-primary">Edytuj</button>

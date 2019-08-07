@@ -2,26 +2,28 @@
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
 <div class="buttons_row">
-  <a href="{% url 'fleet_mng:week' %}">
-    <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
-  </a>
-  {% if perms.fleet_mng.add_renter %}
-  <a href="{% url 'fleet_mng:renter_new' %}" class="btn">
-    <button class="btn btn-primary btn-sm" type="button">Nowy wypożyczający</button>
-  </a>
-  {% endif %}
+    <a href="{% url 'fleet_mng:week' %}">
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
+    </a>
+
+    {% if perms.fleet_mng.add_renter %}
+    <a href="{% url 'fleet_mng:renter_new' %}" class="btn">
+        <button class="btn btn-primary btn-sm" type="button">Nowy wypożyczający</button>
+    </a>
+    {% endif %}
 </div>
+
 {% if renter_list %}
 <ul class="item-list">
-  {% for renter in renter_list %}
-  {% if perms.fleet_mng.change_renter or not renter.deleted %}
-  <li class="list-group-item list-group-item-action{% if renter.deleted %} item_deleted{% endif %}">
-    <a href="{% url 'fleet_mng:renter' renter.id %}">
-      {{ renter }}
-    </a>
-  </li>
-  {% endif %}
-  {% endfor %}
+    {% for renter in renter_list %}
+    {% if perms.fleet_mng.change_renter or not renter.deleted %}
+    <li class="list-group-item list-group-item-action{% if renter.deleted %} item_deleted{% endif %}">
+        <a href="{% url 'fleet_mng:renter' renter.id %}">
+            {{ renter }}
+        </a>
+    </li>
+    {% endif %}
+    {% endfor %}
 </ul>
 {% else %}
 <p>Brak użytkowników.</p>

@@ -166,10 +166,10 @@ def log_user_entry(request, obj, action_flag, msg):
 
 def log_entry(model: TraceableModel, action_flag):
     user_id = 1
-    msg = model.get_str()
+    msg = '[Unknown user.]' + model.get_str()
     if model.additional_data:
         user_id = model.additional_data['request'].user.id
-        msg += '[Unknown user.]'
+        msg = model.get_str()
     LogEntry.objects.log_action(
         user_id=user_id,
         content_type_id=ContentType.objects.get_for_model(model).pk,

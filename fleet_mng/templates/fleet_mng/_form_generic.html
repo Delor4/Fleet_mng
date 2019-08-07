@@ -3,6 +3,10 @@
 <form method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <button type="submit" class="btn btn-success">Zapisz</button>
-    <a href="{% url 'fleet_mng:week' %}" class="btn"><button class="btn btn-primary btn-xs" type="button">Anuluj</button></a>
+    <div class="buttons_row">
+        <button type="submit" class="btn btn-success">Zapisz</button>
+        <a href="{% url 'fleet_mng:week' %}" class="btn">
+            <button class="btn btn-primary btn-xs" type="button">Anuluj</button>
+        </a>
+    </div>
 </form>

@@ -247,27 +247,15 @@ ul.item-list {
     text-decoration: line-through;
 }
 
-#vehicle-table {
+#items-table {
   width: 100%;
 }
 
-#vehicle-table th {
+#items-table th {
   width: 50%;
 }
 
-#vehicle-table td {
-  width: 50%;
-}
-
-#renter-table {
-  width: 100%;
-}
-
-#renter-table th {
-  width: 50%;
-}
-
-#renter-table td {
+#items-table td {
   width: 50%;
 }
 

@@ -30,7 +30,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 INSTALLED_APPS = [
     'fleet_mng.apps.FleetmngappConfig',
-    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,4 +116,4 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+DOCK = os.environ.get('IN_DOCKER', None)

@@ -1,6 +1,7 @@
 import datetime
 
 import pytz
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -164,5 +165,6 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
                        'from': show_from,
                        'to': show_to,
                    },
-                   'nav': get_nav_from_date(show_from)
+                   'nav': get_nav_from_date(show_from),
+                   'dock': settings.DOCK
                    })

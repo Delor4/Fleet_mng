@@ -40,5 +40,6 @@
         <button type="button" class="btn btn-primary btn-xs"><i class="fa fa-angle-double-right fa-lg"></i></button>
     </a>
 </div>
-<script src="{% static 'fleet_mng/week.js' %}"></script>
+<script src="{% if dock %}{% static 'fleet_mng/week.min.js' %}{%else%}{% static 'fleet_mng/week.js' %}{%endif%}"></script>
+
 {% endblock %}

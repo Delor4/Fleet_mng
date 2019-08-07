@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponseRedirect
@@ -25,6 +26,13 @@ class RenterView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'fleet_mng.view_renter'
     model = Renter
     template_name = 'fleet_mng/renter.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RenterView, self).get_context_data(**kwargs)
+        context['dock'] = settings.DOCK
+
+        return context
+
 
 
 class RenterForm(forms.ModelForm):

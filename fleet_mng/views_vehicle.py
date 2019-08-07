@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.admin.models import ADDITION
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect
@@ -28,6 +29,12 @@ class VehicleView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'fleet_mng.view_vehicle'
     model = Vehicle
     template_name = 'fleet_mng/vehicle.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VehicleView, self).get_context_data(**kwargs)
+        context['dock'] = settings.DOCK
+
+        return context
 
 
 class VehicleForm(forms.ModelForm):

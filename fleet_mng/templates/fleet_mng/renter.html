@@ -37,7 +37,7 @@
         {% endif %}
 
         {% if perms.fleet_mng.delete_renter%}
-        <script src="{% static 'fleet_mng/form_helpers.js' %}"></script>
+        <script src="{% if dock %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
         <form method=post name="delete_form" action="{% url 'fleet_mng:renter_delete' renter.id %}"
               onsubmit="_delete(event,this,{% if renter.deleted == 1 %}'Potwierdź przywrócenie użytkownika.'{% else %}'Potwierdź ukrycie użytkownika.'{% endif %});">
             {% csrf_token %}

@@ -1,6 +1,7 @@
 import datetime
 import pytz
 from django import forms
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponseRedirect
@@ -26,6 +27,12 @@ class RentView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'fleet_mng.view_rent'
     model = Rent
     template_name = 'fleet_mng/rent.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RentView, self).get_context_data(**kwargs)
+        context['dock'] = settings.DOCK
+
+        return context
 
 
 class RentForm(forms.Form):

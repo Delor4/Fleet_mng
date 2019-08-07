@@ -3,7 +3,7 @@ Array.prototype.diff = function(a) {
         return a.indexOf(i) < 0;
     });
 };
-function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo, note){
+function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo, note, note_desc){
     for (let i=0; i<tab.length; i++) {
         wrapper.append('<'+(vo?'div':'a')+' class="bar '+
             class_str+
@@ -15,7 +15,11 @@ function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo,
             tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
             '"'+
             '>'+
-            (note.indexOf(tab[i])>=0?'<div class="note"></div>':'')+
+            (note.indexOf(tab[i])>=0?'<div class="note"'+
+            ' data-toggle="tooltip" data-html="true" data-placement="left" title="'+
+            note_desc[note.indexOf(tab[i])]+
+            '"'+
+            '></div>':'')+
             '</'+(vo?'div':'a')+'>');
     }
 };
@@ -34,6 +38,7 @@ function create_bars_in_table(){
         rented=[]
         back=[]
         note=[]
+        note_desc=[]
         //
          for (let i=0; i<data.length; i++) {
             beg = data[i].substr(0,2)
@@ -42,6 +47,7 @@ function create_bars_in_table(){
                 lasts.push(nr)
             }else  if(beg=='f_'){
                 firsts.push(nr)
+                note_desc.push($( this ).attr('data-bar_desc_'+nr))
             }else  if(beg=='m_'){
                 mids.push(nr)
                 mids_tt.push(nr)
@@ -70,10 +76,10 @@ function create_bars_in_table(){
         $(this).append('<div class="rent_wrapper"></div>')
         wrapper=$(this).find(".rent_wrapper")
         //
-        create_links(wrapper, lasts, "end_rent", mids_tt, tt, viewonly, note)
-        create_links(wrapper, shared, "start_end_rent", mids_tt, tt, viewonly, note)
-        create_links(wrapper, firsts, "start_rent", mids_tt, tt, viewonly, note)
-        create_links(wrapper, mids, "mid_rent", mids_tt, tt, viewonly, note)
+        create_links(wrapper, lasts, "end_rent", mids_tt, tt, viewonly, note, note_desc)
+        create_links(wrapper, shared, "start_end_rent", mids_tt, tt, viewonly, note, note_desc)
+        create_links(wrapper, firsts, "start_rent", mids_tt, tt, viewonly, note, note_desc)
+        create_links(wrapper, mids, "mid_rent", mids_tt, tt, viewonly, note, note_desc)
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

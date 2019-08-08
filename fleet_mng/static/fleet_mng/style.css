@@ -258,6 +258,13 @@ ul.item-list {
     left: -1em;
 }
 
+/* RENTED ITEMS LAYOUT */
+.has_rents a:after {
+    content: " \f1b9";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+}
 /* ITEMS TABLES LAYOUT */
 #items-table {
   width: 100%;

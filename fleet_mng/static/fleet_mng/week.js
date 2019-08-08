@@ -23,7 +23,7 @@ function escape(string) {
 };
 
 function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo, note, note_desc){
-    for (let i=0; i<tab.length; i++) {
+    for (var i=0; i<tab.length; i++) {
         wrapper.append('<'+(vo?'div':'a')+' class="bar '+
             class_str+
             (rented.indexOf(tab[i])>=0?' rented':'')+
@@ -59,7 +59,7 @@ function create_bars_in_table(){
         note=[]
         note_desc=[]
         //
-         for (let i=0; i<data.length; i++) {
+         for (var i=0; i<data.length; i++) {
             beg = data[i].substr(0,2)
             nr = data[i].substr(2)
             if(beg=='l_'){
@@ -81,7 +81,7 @@ function create_bars_in_table(){
          }
          //
         shared=[]
-        for (let i=0; i<lasts.length; i++) {
+        for (var i=0; i<lasts.length; i++) {
             if(firsts.indexOf(lasts[i])!=-1){
                 shared.push(lasts[i])
                 firsts.splice(firsts.indexOf(lasts[i]),1)

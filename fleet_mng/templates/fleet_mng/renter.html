@@ -20,7 +20,24 @@
                 <th>Imię:</th>
                 <td>{{ renter.first_name }}</td>
             </tr>
-
+            {% for rent in renter.rented %}
+            <tr>
+                <th>
+                    {% if perms.fleet_mng.view_rent %}
+                    <a href="{% url 'fleet_mng:rent' rent.id %}">Wypożycza:</a>
+                    {% else %}
+                    Wypożycza:
+                    {% endif %}
+                </th>
+                <td>
+                    {% if perms.fleet_mng.view_vehicle %}
+                    <a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a>
+                    {% else %}
+                    {{ rent.vehicle }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
             <tr>
                 <th>Uwagi:</th>
                 <td>{{ renter.description }}</td>

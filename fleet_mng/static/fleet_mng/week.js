@@ -106,6 +106,7 @@ function create_bars_in_table(){
 }
 
 jQuery(document).ready(function($){
+    $('#week_table').show();
     create_bars_in_table()
 })
 

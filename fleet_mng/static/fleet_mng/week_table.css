@@ -2,6 +2,7 @@
 #week_table {
   width: 100%;
   border-spacing: 0;
+  display: none;
 }
 #week_table td {
     padding: 0;

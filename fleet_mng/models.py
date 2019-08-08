@@ -104,6 +104,12 @@ class Renter(TraceableModel):
                     ],
                    )
 
+    def rents_all(self):
+        return Rent.objects.filter(renter=self).count()
+
+    def rents_current(self):
+        return Rent.objects.filter(renter=self, rented=1).count()
+
 
 # obiekt wypożyczenia
 class Rent(TraceableModel):

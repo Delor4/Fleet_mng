@@ -103,9 +103,11 @@
             {% csrf_token %}
             <input type=hidden name="delete" value="{% if vehicle.deleted == 1 %}0{% else %}1{% endif %}"/>
             <input type=hidden name="confirm" value="0"/>
-            <button type="submit" class="btn btn-danger">
-                {%if vehicle.deleted == 1%}Przywróć{%else%}Ukryj{%endif%}
-            </button>
+            {% if vehicle.deleted == 1 %}
+            <button type="submit" class="btn btn-warning">Przywróć</button>
+            {% else %}
+            <button type="submit" class="btn btn-danger">Ukryj</button>
+            {% endif %}
         </form>
         {% endif %}
     </div>

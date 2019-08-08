@@ -16,7 +16,7 @@
 <ul class="item-list">
     {% for vehicle in vehicle_list %}
     {% if perms.fleet_mng.change_vehicle or not vehicle.deleted %}
-    <li class="list-group-item list-group-item-action{% if vehicle.deleted %} item_deleted{% endif %}{% if vehicle.is_rented %} has_rents{% endif %}">
+    <li class="list-group-item list-group-item-action{% if vehicle.deleted %} item_deleted{% endif %}{% if vehicle.is_rented %} is_rented{% endif %}{%if vehicle.is_free %} is_free{%endif%}">
         <a href="{% url 'fleet_mng:vehicle' vehicle.id %}">
             {{ vehicle }}
         </a>

@@ -267,6 +267,11 @@ ul.item-list {
     font-size: smaller;
     color: black;
 }
+
+.is_free a {
+    font-weight: bold;
+}
+
 /* ITEMS TABLES LAYOUT */
 #items-table {
   width: 100%;

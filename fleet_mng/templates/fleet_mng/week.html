@@ -2,7 +2,7 @@
 {% extends "fleet_mng/_base.html" %}
 {% load static %}
 {% block css_link %}
-<link rel="stylesheet" type="text/css" href="{% static 'fleet_mng/week_table.css' %}">{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% if dock %}{% static 'fleet_mng/week_table.min.css' %}{%else%}{% static 'fleet_mng/week_table.css' %}{%endif%}">{% endblock %}
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" class="btn">

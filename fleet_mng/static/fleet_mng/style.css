@@ -264,6 +264,8 @@ ul.item-list {
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
+    font-size: smaller;
+    color: black;
 }
 /* ITEMS TABLES LAYOUT */
 #items-table {

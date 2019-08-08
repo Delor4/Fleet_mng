@@ -27,13 +27,6 @@ class RenterView(PermissionRequiredMixin, generic.DetailView):
     model = Renter
     template_name = 'fleet_mng/renter.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(RenterView, self).get_context_data(**kwargs)
-        context['dock'] = settings.DOCK
-
-        return context
-
-
 
 class RenterForm(forms.ModelForm):
     class Meta:

@@ -97,7 +97,7 @@
         {% endif %}
 
         {% if perms.fleet_mng.delete_vehicle %}
-        <script src="{% if dock %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
+        <script src="{% if DOCK %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
         <form method=post name="delete_form" action="{% url 'fleet_mng:vehicle_delete' vehicle.id %}"
               onsubmit="_delete(event,this,{% if vehicle.deleted == 1 %}'Potwierdź przywrócenie pojazdu.'{% else %}'Potwierdź ukrycie pojazdu.'{% endif %});">
             {% csrf_token %}

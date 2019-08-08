@@ -28,12 +28,6 @@ class RentView(PermissionRequiredMixin, generic.DetailView):
     model = Rent
     template_name = 'fleet_mng/rent.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(RentView, self).get_context_data(**kwargs)
-        context['dock'] = settings.DOCK
-
-        return context
-
 
 class RentForm(forms.Form):
     to_date = forms.DateField(widget=BootstrapDatePickerInput,

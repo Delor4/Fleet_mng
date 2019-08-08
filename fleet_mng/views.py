@@ -166,5 +166,4 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
                        'to': show_to,
                    },
                    'nav': get_nav_from_date(show_from),
-                   'dock': settings.DOCK
                    })

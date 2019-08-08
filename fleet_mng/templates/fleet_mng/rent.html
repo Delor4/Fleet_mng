@@ -53,7 +53,7 @@
 
 <div class="buttons_row">
     {% if perms.fleet_mng.can_mark_returned and rent.rented == 1 %}
-    <script src="{% if dock %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
+    <script src="{% if DOCK %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
     <form method=post name="delete_form" action="{% url 'fleet_mng:rent_bring_back' rent.id %}"
           onsubmit="_delete(event,this,'Potwierdź zwrot pojazdu.');">
         {% csrf_token %}

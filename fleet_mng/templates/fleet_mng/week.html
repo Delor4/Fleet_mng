@@ -2,7 +2,7 @@
 {% extends "fleet_mng/_base.html" %}
 {% load static %}
 {% block css_link %}
-<link rel="stylesheet" type="text/css" href="{% if dock %}{% static 'fleet_mng/week_table.min.css' %}{%else%}{% static 'fleet_mng/week_table.css' %}{%endif%}">{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% if DOCK %}{% static 'fleet_mng/week_table.min.css' %}{%else%}{% static 'fleet_mng/week_table.css' %}{%endif%}">{% endblock %}
 {% block content %}
 {% if perms.fleet_mng.add_rent %}
 <a href="{% url 'fleet_mng:rent_form' %}" class="btn">
@@ -42,6 +42,6 @@
         <button type="button" class="btn btn-primary btn-xs"><i class="fa fa-angle-double-right fa-lg"></i></button>
     </a>
 </div>
-<script src="{% if dock %}{% static 'fleet_mng/week.min.js' %}{%else%}{% static 'fleet_mng/week.js' %}{%endif%}"></script>
+<script src="{% if DOCK %}{% static 'fleet_mng/week.min.js' %}{%else%}{% static 'fleet_mng/week.js' %}{%endif%}"></script>
 
 {% endblock %}

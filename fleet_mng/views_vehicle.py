@@ -30,12 +30,6 @@ class VehicleView(PermissionRequiredMixin, generic.DetailView):
     model = Vehicle
     template_name = 'fleet_mng/vehicle.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(VehicleView, self).get_context_data(**kwargs)
-        context['dock'] = settings.DOCK
-
-        return context
-
 
 class VehicleForm(forms.ModelForm):
     class Meta:

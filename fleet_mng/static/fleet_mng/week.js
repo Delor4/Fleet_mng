@@ -47,7 +47,7 @@ function create_links(wrapper, tab, class_str, params, viewonly){
 };
 function create_bars_in_table(){
     $('#week_table').find( ".rent_bar" ).each(function() {
-        viewonly=false;
+        var viewonly=false;
         if($(this).hasClass('viewonly')){
             viewonly=true;
         }
@@ -66,28 +66,35 @@ function create_bars_in_table(){
             note_desc: []
         }
         //
-         for (var i=0; i<data.length; i++) {
-            beg = data[i].substr(0,2)
-            nr = data[i].substr(2)
-            if(beg=='l_'){
-                bars.lasts.push(nr)
-            }else  if(beg=='f_'){
-                bars.firsts.push(nr)
-                params.note_desc.push(escape($( this ).attr('data-bar_desc_'+nr)))
-            }else  if(beg=='m_'){
-                bars.mids.push(nr)
-                params.mids_tt.push(nr)
-                params.tt.push(escape($( this ).attr('data-bar_tooltip_'+nr)))
-            }else  if(beg=='r_'){
-                params.rented.push(nr)
-            }else  if(beg=='b_'){
-                params.back.push(nr)
-            }else  if(beg=='n_'){
-                params.note.push(nr)
+        for (var class_name of data) {
+            var beg = class_name.substr(0,2)
+            var nr = class_name.substr(2)
+            switch(beg) {
+                case 'l_':
+                    bars.lasts.push(nr);
+                    break;
+                case 'f_':
+                    bars.firsts.push(nr)
+                    params.note_desc.push(escape($( this ).attr('data-bar_desc_'+nr)))
+                    break;
+                case 'm_':
+                    bars.mids.push(nr)
+                    params.mids_tt.push(nr)
+                    params.tt.push(escape($( this ).attr('data-bar_tooltip_'+nr)))
+                    break;
+                case 'r_':
+                    params.rented.push(nr)
+                    break;
+                case 'b_':
+                    params.back.push(nr)
+                    break;
+                case 'n_':
+                    params.note.push(nr)
+                    break;
             }
-         }
-         //
-         bars.shared=[]
+        }
+        //
+        bars.shared=[]
         for (var i=0; i<bars.lasts.length; i++) {
             if(bars.firsts.indexOf(bars.lasts[i])!=-1){
                 bars.shared.push(bars.lasts[i])
@@ -100,7 +107,7 @@ function create_bars_in_table(){
         bars.mids = bars.mids.diff(bars.firsts).diff(bars.lasts).diff(bars.shared)
         //
         $(this).append('<div class="rent_wrapper"></div>')
-        wrapper=$(this).find(".rent_wrapper")
+        var wrapper=$(this).find(".rent_wrapper")
         //
         create_links(wrapper, bars.lasts, "end_rent", params, viewonly)
         create_links(wrapper, bars.shared, "start_end_rent", params, viewonly)

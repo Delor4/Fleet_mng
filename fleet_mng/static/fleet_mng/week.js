@@ -22,24 +22,27 @@ function escape(string) {
   });
 };
 
-function create_links(wrapper, tab, class_str, tooltips_nrs, tooltips_texts, vo, note, note_desc){
+function create_links(wrapper, tab, class_str, params, viewonly){
+    tooltips_nrs = params.mids_tt;
+    tooltips_texts = params.tt
+
     for (var i=0; i<tab.length; i++) {
-        wrapper.append('<'+(vo?'div':'a')+' class="bar '+
+        wrapper.append('<'+(viewonly?'div':'a')+' class="bar '+
             class_str+
-            (rented.indexOf(tab[i])>=0?' rented':'')+
-            (back.indexOf(tab[i])>=0?' not_back':'')+
+            (params.rented.indexOf(tab[i])>=0?' rented':'')+
+            (params.back.indexOf(tab[i])>=0?' not_back':'')+
             '"'+
-            (vo?'':(' href="/rent/' + tab[i] + '/"'))+
+            (viewonly?'':(' href="/rent/' + tab[i] + '/"'))+
             ' data-toggle="tooltip" data-html="true" title="'+
             tooltips_texts[tooltips_nrs.indexOf(tab[i])]+
             '"'+
             '>'+
-            (note.indexOf(tab[i])>=0?'<div class="note"'+
+            (params.note.indexOf(tab[i])>=0?'<div class="note"'+
             ' data-toggle="tooltip" data-html="true" data-placement="left" title="'+
-            note_desc[note.indexOf(tab[i])]+
+            params.note_desc[params.note.indexOf(tab[i])]+
             '"'+
             '></div>':'')+
-            '</'+(vo?'div':'a')+'>');
+            '</'+(viewonly?'div':'a')+'>');
     }
 };
 function create_bars_in_table(){
@@ -49,56 +52,60 @@ function create_bars_in_table(){
             viewonly=true;
         }
         data=$( this ).attr('data-bar').split(/\s+/);
-        firsts=[]
-        lasts=[]
-        mids = []
-        mids_tt = []
-        tt = []
-        rented=[]
-        back=[]
-        note=[]
-        note_desc=[]
+        var bars = {
+            firsts: [],
+            lasts: [],
+            mids: []
+        };
+        var params = {
+            mids_tt: [],
+            tt: [],
+            rented: [],
+            back: [],
+            note: [],
+            note_desc: []
+        }
         //
          for (var i=0; i<data.length; i++) {
             beg = data[i].substr(0,2)
             nr = data[i].substr(2)
             if(beg=='l_'){
-                lasts.push(nr)
+                bars.lasts.push(nr)
             }else  if(beg=='f_'){
-                firsts.push(nr)
-                note_desc.push(escape($( this ).attr('data-bar_desc_'+nr)))
+                bars.firsts.push(nr)
+                params.note_desc.push(escape($( this ).attr('data-bar_desc_'+nr)))
             }else  if(beg=='m_'){
-                mids.push(nr)
-                mids_tt.push(nr)
-                tt.push(escape($( this ).attr('data-bar_tooltip_'+nr)))
+                bars.mids.push(nr)
+                params.mids_tt.push(nr)
+                params.tt.push(escape($( this ).attr('data-bar_tooltip_'+nr)))
             }else  if(beg=='r_'){
-                rented.push(nr)
+                params.rented.push(nr)
             }else  if(beg=='b_'){
-                back.push(nr)
+                params.back.push(nr)
             }else  if(beg=='n_'){
-                note.push(nr)
+                params.note.push(nr)
             }
          }
          //
-        shared=[]
-        for (var i=0; i<lasts.length; i++) {
-            if(firsts.indexOf(lasts[i])!=-1){
-                shared.push(lasts[i])
-                firsts.splice(firsts.indexOf(lasts[i]),1)
-                lasts.splice(i,1)
+         bars.shared=[]
+        for (var i=0; i<bars.lasts.length; i++) {
+            if(bars.firsts.indexOf(bars.lasts[i])!=-1){
+                bars.shared.push(bars.lasts[i])
+                bars.firsts.splice(bars.firsts.indexOf(bars.lasts[i]),1)
+                bars.lasts.splice(i,1)
                 i--
             };
         }
         //
-        mids = mids.diff(firsts).diff(lasts).diff(shared)
+        bars.mids = bars.mids.diff(bars.firsts).diff(bars.lasts).diff(bars.shared)
         //
         $(this).append('<div class="rent_wrapper"></div>')
         wrapper=$(this).find(".rent_wrapper")
         //
-        create_links(wrapper, lasts, "end_rent", mids_tt, tt, viewonly, note, note_desc)
-        create_links(wrapper, shared, "start_end_rent", mids_tt, tt, viewonly, note, note_desc)
-        create_links(wrapper, firsts, "start_rent", mids_tt, tt, viewonly, note, note_desc)
-        create_links(wrapper, mids, "mid_rent", mids_tt, tt, viewonly, note, note_desc)
+        create_links(wrapper, bars.lasts, "end_rent", params, viewonly)
+        create_links(wrapper, bars.shared, "start_end_rent", params, viewonly)
+        create_links(wrapper, bars.firsts, "start_rent", params, viewonly)
+        create_links(wrapper, bars.mids, "mid_rent", params, viewonly)
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

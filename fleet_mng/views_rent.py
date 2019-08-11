@@ -164,16 +164,18 @@ class RentUpdateForm(forms.Form):
         required=False
     )
     backed = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    old_renter = forms.IntegerField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)
         super().__init__(*args, **kwargs)
 
         renters = Renter.objects.exclude(deleted=1)
+        old_renter_id = int(self.get_initial_for_field(self.fields['renter'], 'renter'))
+
         self.fields['renter'].choices = [(0, '-- nowy --')]
-        old_renter_id = self.get_initial_for_field(self.fields['renter'], 'renter')
         self.fields['renter'].choices.extend(
-            [(x.id, str(x)) for x in renters if x.rented_count() == 0 or x.id == old_renter_id])
+            [(x.id, str(x)) for x in renters if (x.rented_count() == 0 or x.id == old_renter_id)])
 
     def clean(self):
         cleaned_data = super(RentUpdateForm, self).clean()
@@ -185,7 +187,6 @@ class RentUpdateForm(forms.Form):
             raise forms.ValidationError('Nie można wybrać przeszłej daty!')  # past date
 
         renter = cleaned_data.get('renter')
-
         new_renter = cleaned_data.get('new_renter')
         new_renter_description = cleaned_data.get('new_renter_description')
 
@@ -222,7 +223,7 @@ def show_rent_update_form(request, pk):
     form = None
     if request.method == 'POST':
         if request.POST['backed'] != '1':
-            form = RentUpdateForm(request.POST)
+            form = RentUpdateForm(request.POST, initial={'renter': request.POST['old_renter']})
         else:
             form = RentUpdateBackedForm(request.POST)
         if form.is_valid():
@@ -260,6 +261,6 @@ def show_rent_update_form(request, pk):
         else:
             form = RentUpdateForm(
                 initial={'to_date': rent.to_date, 'renter': rent.renter.id, 'description': rent.description,
-                         'vehicle': rent.vehicle.name})
+                         'vehicle': rent.vehicle.name, 'old_renter': rent.renter.id})
 
     return render(request, 'fleet_mng/rent_new.html', {'form': form})

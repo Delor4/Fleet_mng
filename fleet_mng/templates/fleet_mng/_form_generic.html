@@ -1,9 +1,8 @@
 {# Wyświetlenie formularza z dostarczonych danych #}
-{% load crispy_forms_tags %}
 <form method="post" novalidate>
     {% csrf_token %}
-    <!-- {{ form|crispy }} -->
     {% for field in form %}
+    {% if field.is_hidden %}{{ field }}{% else %}
     <div class="fieldWrapper">
         {{ field.errors }}
         {{ field.label_tag }} {{ field }}
@@ -11,7 +10,8 @@
         <p class="help">{{ field.help_text|safe }}</p>
         {% endif %}
     </div>
-{% endfor %}
+    {% endif %}
+    {% endfor %}
     <div class="buttons_row">
         <button type="submit" class="btn btn-success">Zapisz</button>
         <a href="{% url 'fleet_mng:week' %}" class="btn">

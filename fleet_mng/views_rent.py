@@ -171,7 +171,7 @@ class RentUpdateForm(forms.Form):
 
         renters = Renter.objects.exclude(deleted=1)
         self.fields['renter'].choices = [(0, '-- nowy --')]
-        self.fields['renter'].choices.extend([(x.id, str(x)) for x in renters if x.rented_count == 0])
+        self.fields['renter'].choices.extend([(x.id, str(x)) for x in renters if x.rented_count() == 0])
 
     def clean(self):
         cleaned_data = super(RentUpdateForm, self).clean()

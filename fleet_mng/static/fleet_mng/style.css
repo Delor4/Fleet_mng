@@ -205,10 +205,6 @@ body {
   max-width: 1230px;
 }
 
-.btn {
-  margin-left: 13px;
-}
-
 .list-group-item {
     position: relative;
     display: block;
@@ -294,6 +290,7 @@ ul.item-list {
 .buttons_row {
     margin-top: 5px;
     margin-bottom: 5px;
+    margin-left: 40px;
 }
 
 .buttons_row > * {

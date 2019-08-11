@@ -21,11 +21,10 @@
 <table>
 <tr>
     <td>{{ form.username.label_tag }}</td>
+    <!-- <td>Login:</td> -->
     <td><input type="text" name="{{ form.username.html_name }}" autofocus required autocomplete="username"
            id="id_{{ form.username.html_name }}" />
     </td>
-
-
 </tr>
 <tr>
     <td>{{ form.password.label_tag }}</td>
@@ -34,11 +33,14 @@
     </td>
 </tr>
 </table>
-    <button type="submit" class="btn btn-primary">Zaloguj</button>
+<div class="buttons_row">
+  <button type="submit" class="btn btn-primary">Zaloguj</button>
+  <!-- <a href="{% url 'password_reset' %}" class="btn"> -->
+    <button type="submit" class="btn btn-danger">Przypomnij hasło</button>
+  <!-- </a> -->
+</div>
+
 <input type="hidden" name="next" value="{{ next }}">
 </form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-{#<p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
 
 {% endblock %}

@@ -124,32 +124,46 @@ jQuery(document).ready(function($){
     create_bars_in_table()
 })
 
+function set_site_data( data ){
+    //update table data
+    $('#week_table').html( data.table_html );
+    create_bars_in_table()
+    //update buttons data
+    $('a.week_nav.prev').attr('data-nav_target', data.nav.prev.ajax_link)
+    $('a.week_nav.prev').attr('href', data.nav.prev.link)
+
+    $('a.week_nav.prev_week').attr('data-nav_target', data.nav.prev_week.ajax_link)
+    $('a.week_nav.prev_week').attr('href', data.nav.prev_week.link)
+
+    $('a.week_nav.next').attr('data-nav_target', data.nav.next.ajax_link)
+    $('a.week_nav.next').attr('href', data.nav.next.link)
+
+    $('a.week_nav.next_week').attr('data-nav_target', data.nav.next_week.ajax_link)
+    $('a.week_nav.next_week').attr('href', data.nav.next_week.link)
+
+}
+
 function load_site(site_url){
     $.get( site_url, function( data ) {
-              //update table data
-              $('#week_table').html( data.table_html );
-              create_bars_in_table()
-              //update buttons data
-              $('a.week_nav.prev').attr('data-nav_target', data.nav.prev.ajax_link)
-              $('a.week_nav.prev').attr('href', data.nav.prev.link)
-
-              $('a.week_nav.prev_week').attr('data-nav_target', data.nav.prev_week.ajax_link)
-              $('a.week_nav.prev_week').attr('href', data.nav.prev_week.link)
-
-              $('a.week_nav.next').attr('data-nav_target', data.nav.next.ajax_link)
-              $('a.week_nav.next').attr('href', data.nav.next.link)
-
-              $('a.week_nav.next_week').attr('data-nav_target', data.nav.next_week.ajax_link)
-              $('a.week_nav.next_week').attr('href', data.nav.next_week.link)
-              window.history.pushState({ page: data.nav.today_ajax_link }, "", data.nav.today_link);
-            });
+        set_site_data(data);
+        window.history.pushState({ page: data }, "", data.nav.today_link);
+    });
 }
+
 jQuery(document).ready(function($){
     $('body').find( "a.week_nav" ).click(function(event) {
         event.preventDefault();
         load_site($(this).attr('data-nav_target'));
     })
+
+    //window.history.replaceState(...); TODO:
+
     window.onpopstate = function(event) {
-        //window.location.reload()
-  }
+        if(event.state == null ){
+            window.location.reload()
+        } else {
+            set_site_data(event.state.page)
+        }
+        //
+    }
 })

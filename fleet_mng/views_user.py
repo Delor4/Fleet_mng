@@ -133,7 +133,7 @@ def change_user_pass(request, pk):
 class UserUpdateForm(forms.Form):
     username = forms.CharField(max_length=191, label="Nazwa użytkownika:", disabled=True, required=False)
     group = forms.ChoiceField(label="Typ:")
-    blocked = forms.BooleanField(label="zablokowany", widget=forms.CheckboxInput, required=False)
+    blocked = forms.BooleanField(label="Zablokowany", widget=forms.CheckboxInput, required=False)
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)

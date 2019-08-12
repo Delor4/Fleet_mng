@@ -26,6 +26,14 @@
         </div>
         {% endif %}
         {% endfor %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-block alert-danger">
+            {% if form_error_title %}<h4 class="alert-heading">{{ form_error_title }}</h4>{% endif %}
+            <ul>
+                {{ form.non_field_errors|unordered_list }}
+            </ul>
+        </div>
+        {% endif %}
         <div class="buttons_row">
             <button type="submit" class="btn btn-success">Zapisz</button>
             <a href="{% url 'fleet_mng:week' %}" class="btn">

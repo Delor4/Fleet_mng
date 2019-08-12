@@ -14,7 +14,7 @@ class NewUserForm(forms.Form):
     password_confirm = forms.CharField(label="Powtórz hasło:",
                                        widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
     group = forms.ChoiceField(label="Typ:")
-    blocked = forms.BooleanField(label="zablokowany", widget=forms.CheckboxInput, required=False)
+    blocked = forms.BooleanField(label="Zablokowany", widget=forms.CheckboxInput, required=False)
 
     def __init__(self, *args, **kwargs):
         search_str = kwargs.pop('search_str', None)

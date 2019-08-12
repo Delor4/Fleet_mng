@@ -8,11 +8,8 @@ from django.shortcuts import render
 from fleet_mng.models import log_user_entry
 
 
-class NewUserForm(forms.Form):
-    username = forms.CharField(max_length=191, label="Nazwa użytkownika:")
-    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
-    password_confirm = forms.CharField(label="Powtórz hasło:",
-                                       widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+class UserUpdateForm(forms.Form):
+    username = forms.CharField(max_length=191, label="Nazwa użytkownika:", disabled=True, required=False)
     group = forms.ChoiceField(label="Typ:")
     blocked = forms.BooleanField(label="Zablokowany", widget=forms.CheckboxInput, required=False)
 
@@ -25,24 +22,48 @@ class NewUserForm(forms.Form):
         self.fields['group'].choices.extend([(x.id, x) for x in groups])
 
     def clean(self):
-        cleaned_data = super(NewUserForm, self).clean()
+        cleaned_data = super(UserUpdateForm, self).clean()
 
-        username = cleaned_data.get('username')
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('Duplicated username!')
-
-        password = cleaned_data.get('password')
-        password_confirm = cleaned_data.get('password_confirm')
-        if not password or password == '':
-            raise forms.ValidationError('Empty password!')
-
-        if not (password == password_confirm):
-            raise forms.ValidationError('Different passwords!')
+        if cleaned_data.get('group') is None:
+            raise forms.ValidationError('Wybierz grupę!')
         group = int(cleaned_data.get('group'))
         groups_id = [x.id for x in Group.objects.filter(name__in=('viewer', 'user', 'admin'))]
 
         if group not in groups_id:
-            raise forms.ValidationError('Select group!')
+            raise forms.ValidationError('Wybierz właściwą grupę!')
+
+
+class NewUserForm(UserUpdateForm):
+    password = forms.CharField(label="Hasło:", widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+    password_confirm = forms.CharField(label="Powtórz hasło:",
+                                       widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+
+    def __init__(self, *args, **kwargs):
+        search_str = kwargs.pop('search_str', None)
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].disabled = False
+        self.fields['username'].requires = True
+
+        groups = Group.objects.filter(name__in=('viewer', 'user', 'admin'))
+        self.fields['group'].initial = search_str
+        self.fields['group'].choices = [(None, '---------')]
+        self.fields['group'].choices.extend([(x.id, x) for x in groups])
+
+    def clean(self):
+        cleaned_data = super(UserUpdateForm, self).clean()
+
+        username = cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Używana nazwa!')
+
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
+        if not password or password == '':
+            raise forms.ValidationError('Wpisz hasło!')
+
+        if not (password == password_confirm):
+            raise forms.ValidationError('Hasła różnią się!')
 
 
 # pokazuje listę użytkowników
@@ -103,10 +124,10 @@ class UserUpdatePassForm(forms.Form):
         password = cleaned_data.get('password')
         password_confirm = cleaned_data.get('password_confirm')
         if not password or password == '':
-            raise forms.ValidationError('Empty password!')
+            raise forms.ValidationError('Wpisz hasło!')
 
         if not (password == password_confirm):
-            raise forms.ValidationError('Different passwords!')
+            raise forms.ValidationError('Hasła różnią się!')
 
 
 # Obsługa formularza ustawiania hasła użytkownika
@@ -128,29 +149,6 @@ def change_user_pass(request, pk):
         form = UserUpdatePassForm()
 
     return render(request, 'fleet_mng/user_new.html', {'form': form})
-
-
-class UserUpdateForm(forms.Form):
-    username = forms.CharField(max_length=191, label="Nazwa użytkownika:", disabled=True, required=False)
-    group = forms.ChoiceField(label="Typ:")
-    blocked = forms.BooleanField(label="Zablokowany", widget=forms.CheckboxInput, required=False)
-
-    def __init__(self, *args, **kwargs):
-        search_str = kwargs.pop('search_str', None)
-        super().__init__(*args, **kwargs)
-        groups = Group.objects.filter(name__in=('viewer', 'user', 'admin'))
-        self.fields['group'].initial = search_str
-        self.fields['group'].choices = [(None, '---------')]
-        self.fields['group'].choices.extend([(x.id, x) for x in groups])
-
-    def clean(self):
-        cleaned_data = super(UserUpdateForm, self).clean()
-
-        group = int(cleaned_data.get('group'))
-        groups_id = [x.id for x in Group.objects.filter(name__in=('viewer', 'user', 'admin'))]
-
-        if group not in groups_id:
-            raise forms.ValidationError('Select group!')
 
 
 # Obsługa formularza zmiany danych użytkownika

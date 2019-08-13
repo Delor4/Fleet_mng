@@ -195,3 +195,17 @@ tr.is_rented th a {
     float: right;
     margin-right: 15px;
 }
+
+.week_nav_bar {
+    background: #ffffff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    z-index: 4;
+}
+@media (min-width: 768px) {
+    .week_nav_bar {
+        left: 315px;
+}

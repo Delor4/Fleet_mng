@@ -198,14 +198,14 @@ tr.is_rented th a {
 
 .week_nav_bar {
     background: #ffffff;
-    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 50px;
-    z-index: 4;
+    height: 3.2em;
+    z-index: 11;
 }
 @media (min-width: 768px) {
     .week_nav_bar {
-        left: 315px;
+        left: 300px;
+        padding-left: 15px;
 }

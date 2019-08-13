@@ -167,3 +167,15 @@ jQuery(document).ready(function($){
         //
     }
 })
+
+// Position of week's navbar: fixed/inherit
+var footerResize = function() {
+            if ($('.week_nav_bar').css('position') == "fixed")
+                $('.week_nav_bar').css('position', $("body").height() + $(".week_nav_bar").height() > $(window).innerHeight() ? "fixed" : "inherit");
+            else
+                $('.week_nav_bar').css('position', $("body").height() > $(window).innerHeight() ? "fixed" : "inherit");
+};
+
+jQuery(document).ready(function($) {
+    $(window).resize(footerResize).ready(footerResize);
+});

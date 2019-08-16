@@ -209,3 +209,7 @@ tr.is_rented th a {
         left: 300px;
         padding-left: 15px;
 }
+
+.content-display {
+  max-width: initial;
+}

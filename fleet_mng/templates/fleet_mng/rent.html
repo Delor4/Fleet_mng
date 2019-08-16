@@ -52,6 +52,11 @@
 </div>
 
 <div class="buttons_row">
+    {% if perms.fleet_mng.change_rent %}
+    <a href="{% url 'fleet_mng:rent_edit' rent.id%}">
+        <button type="submit" class="btn btn-primary">Edytuj</button>
+    </a>
+    {% endif %}
     {% if perms.fleet_mng.can_mark_returned and rent.rented == 1 %}
     <script src="{% if DOCK %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
     <form method=post name="delete_form" action="{% url 'fleet_mng:rent_bring_back' rent.id %}"
@@ -60,12 +65,6 @@
         <input type=hidden name="confirm" value="0"/>
         <button type="submit" class="btn btn-primary">Zwróć</button>
     </form>
-    {% endif %}
-
-    {% if perms.fleet_mng.change_rent %}
-    <a href="{% url 'fleet_mng:rent_edit' rent.id%}">
-        <button type="submit" class="btn btn-primary">Edytuj</button>
-    </a>
     {% endif %}
 </div>
 {% endblock %}

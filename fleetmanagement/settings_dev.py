@@ -46,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'fleet_mng.middleware.ActiveUsersMiddleware',
 ]
 
 ROOT_URLCONF = 'fleetmanagement.urls'

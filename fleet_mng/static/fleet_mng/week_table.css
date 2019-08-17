@@ -3,6 +3,7 @@
   width: 100%;
   border-spacing: 0;
   display: none;
+  margin-top: 1em;
 }
 #week_table td {
     padding: 0;
@@ -13,7 +14,6 @@
 #week_table tr+tr {
     border-top: 0.15em solid #dee2e6;
 }
-
 /* background */
 #week_table td:nth-child(2n) {
 	background-color: #e8e8e8;
@@ -214,4 +214,8 @@ tr.is_rented th a {
 .content-display {
   max-width: initial;
   min-height: 350px;
+}
+
+#reports {
+  margin-top: 1em;
 }

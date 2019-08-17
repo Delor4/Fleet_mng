@@ -7,7 +7,7 @@
 {% block content %}
 <div class="buttons_row">
     <a href="{% url 'fleet_mng:week' %}">
-      <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
     </a>
 </div>
 
@@ -60,12 +60,18 @@
 </div>
 {% endif %}
 
-{% for report in reports %}
-Samochód: {{ report.vehicle }}
-Wypożyczający: {{ report.renter }}
-Uwagi: {{ report.description }}
-<br>
-{% endfor %}
+<div class="container" id="reports">
+    {% for report in reports %}
+    <div class="row alert {% cycle 'alert-primary' 'alert-secondary' 'alert-success' 'alert-danger' 'alert-warning' %}"
+         role="alert">
+        <div class="col-3">{{ report.vehicle }}</div>
+        <div class="col-7">Wypożyczony przez: {{ report.renter }}</div>
+        {% if report.description %}
+        <div class="col-12">Uwagi: {{ report.description }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 
 <script src="{% if DOCK %}{% static 'fleet_mng/week.min.js' %}{%else%}{% static 'fleet_mng/week.js' %}{%endif%}"></script>
 {% endblock %}

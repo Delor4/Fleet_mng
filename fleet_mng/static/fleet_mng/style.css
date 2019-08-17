@@ -171,6 +171,11 @@ body {
     float: left;
     color: coral;
 }
+
+.active_users {
+    float: left;
+    padding-left: 15px;
+}
 @media (max-width: 767px) {
 .beta_indicator {
     margin-left: 15px;

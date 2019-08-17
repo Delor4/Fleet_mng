@@ -1,11 +1,15 @@
 from django.contrib.admin.models import LogEntry, CHANGE, ADDITION
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django import forms
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from fleet_mng.models import log_user_entry
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class UserUpdateForm(forms.Form):

@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.admin.models import LogEntry, ADDITION, DELETION, CHANGE
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -7,8 +9,15 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 
 
+
+
+
 class User(AbstractUser):
     last_active = models.DateTimeField(null=True, blank=True)
+
+    @staticmethod
+    def last_active_all():
+        return User.objects.filter(last_active__gte=timezone.now() + datetime.timedelta(minutes=-10)).count()
 
 
 class TraceableModel(models.Model):

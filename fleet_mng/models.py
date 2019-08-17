@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.admin.models import LogEntry, ADDITION, DELETION, CHANGE
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.db.models.signals import post_delete, post_save
@@ -42,7 +43,7 @@ class Vehicle(TraceableModel):
     # nr rej.
     registration_number = models.CharField(max_length=193)
     # przebieg
-    mileage = models.CharField(blank=True, max_length=20, default="0")
+    mileage = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     # badania techniczne
     checkup = models.DateField(blank=True, null=True)
     # ubezpieczenie

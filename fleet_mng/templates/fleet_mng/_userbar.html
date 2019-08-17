@@ -1,9 +1,11 @@
 <div id="userbar" class="top-bar">
+    <span class="active_users">Aktywnych: {{ LAST_ACTIVE_ALL }}</span>
     <span class="beta_indicator">* * * Wersja testowa * * *</span>
-    <span class="active_users">Aktywnych użytkowników: {{ LAST_ACTIVE_ALL }}</span>
-    {% if user.is_authenticated %}
-    <p style="user-ticket">Witaj, {{ user.username }}. <a href="{% url 'logout' %}">Wyloguj</a>.</p>
-    {% else %}
-    <p style="user-ticket">Witaj nieznajomy. <a href="{% url 'login' %}">Zaloguj się</a>.</p>
-    {% endif %}
+    <span class="curr_user">
+        {% if user.is_authenticated %}
+        <p style="user-ticket">Witaj, {{ user.username }}. <a href="{% url 'logout' %}">Wyloguj</a>.</p>
+        {% else %}
+        <p style="user-ticket">Witaj nieznajomy. <a href="{% url 'login' %}">Zaloguj się</a>.</p>
+        {% endif %}
+    </span>
 </div>

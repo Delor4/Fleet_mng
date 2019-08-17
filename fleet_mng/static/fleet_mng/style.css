@@ -157,6 +157,7 @@ body {
   /* border: 1px solid black; */
   padding: 10px 20px 10px 0px;
   background-color: #23282e;
+  text-align: center;
 }
 
 .user-ticket {
@@ -167,17 +168,18 @@ body {
 }
 
 .beta_indicator {
-    margin-left: 330px;
-    float: left;
     color: coral;
 }
 
 .active_users {
+    margin-left: 330px;
     float: left;
-    padding-left: 15px;
+}
+.curr_user {
+    float: right;
 }
 @media (max-width: 767px) {
-.beta_indicator {
+.active_users {
     margin-left: 15px;
 }
 }

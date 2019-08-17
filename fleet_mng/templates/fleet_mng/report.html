@@ -3,7 +3,13 @@
 {% block content %}
 {% include "fleet_mng/_form_generic.html" %}
 
-{% if week %}{{ week }}{% endif %}
+{% if week %}
+<div class="table-responsive">
+    <table class="table table-bordered" id="week_table">
+        {% include "fleet_mng/_week_table.html"%}
+    </table>
+</div>
+{% endif %}
 
 {% if reports %}{{ reports }}{% endif %}
 

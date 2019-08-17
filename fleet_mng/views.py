@@ -106,13 +106,7 @@ def get_nav_from_date(s_date):
     }
 
 
-# właściwe wywołanie widoku
-@login_required
-@permission_required('fleet_mng.can_show_week')
-def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html'):
-    show_to = show_from + datetime.timedelta((4 * 7) - 1)
-    from_range = show_from
-    to_range = show_to
+def compute_week_data(from_range, to_range):
     rents = Rent.objects.filter(from_date__lte=to_range).filter(to_date__gte=from_range)
 
     # fill days
@@ -156,11 +150,24 @@ def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html')
                 if i == last:
                     tab_item['classes'].append('l_' + str(rent.id))
 
+    return {'days': days, 'week_days': week_days, 'rents': rents, 'vehicles_data': vehicles_data}
+
+
+# właściwe wywołanie widoku
+@login_required
+@permission_required('fleet_mng.can_show_week')
+def show_week(request, show_from=timezone.now(), template='fleet_mng/week.html'):
+    show_to = show_from + datetime.timedelta((4 * 7) - 1)
+    from_range = show_from
+    to_range = show_to
+
+    week_data = compute_week_data(from_range, to_range)
+
     return render(request, template,
-                  {'days': days,
-                   'week_days': week_days,
-                   'rents_list': rents,
-                   'vehicles_table': vehicles_data,
+                  {'days': week_data['days'],
+                   'week_days': week_data['week_days'],
+                   'rents_list': week_data['rents'],
+                   'vehicles_table': week_data['vehicles_data'],
                    'dates': {
                        'from': show_from,
                        'to': show_to,

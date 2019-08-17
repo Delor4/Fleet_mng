@@ -20,8 +20,10 @@ class ReportDateForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+
 def get_reports(date):
     return Rent.objects.filter(from_date__lte=date).filter(to_date__gte=date)
+
 
 # pokazanie widoku raportu dla podanej daty
 # /report/<year>-<month>-<day>  =>    report.html
@@ -36,16 +38,15 @@ def show_report_date(request, year, month, day):
                 '/report/{0}-{1}-{2}/'.format(report_date.year, report_date.month, report_date.day)
             )
 
-    form = ReportDateForm()
-
     naive = timezone.datetime(int(year), int(month), int(day))
     report_date = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
     from_range = report_date + datetime.timedelta(-7)
     to_range = from_range + datetime.timedelta((4 * 7) - 1)
 
+    form = ReportDateForm(initial={'report_date': report_date})
+
     week_data = compute_week_data(from_range, to_range)
 
-    print(get_reports(report_date))
     return render(request, 'fleet_mng/report.html', {'form': form,
                                                      'week': 'Tablica',
                                                      'days': week_data['days'],

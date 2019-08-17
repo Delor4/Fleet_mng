@@ -1,0 +1,10 @@
+{# Raporty - wyświetlenie < form > i danych #}
+{% extends "fleet_mng/_base.html" %}
+{% block content %}
+{% include "fleet_mng/_form_generic.html" %}
+
+{% if week %}{{ week }}{% endif %}
+
+{% if reports %}{{ reports }}{% endif %}
+
+{% endblock %}

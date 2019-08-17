@@ -16,4 +16,6 @@ urlpatterns = [
     re_path(r'^week/ajax/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', views.ajax_show_week_date, name='ajax_week_date'),
 
     path('user/', include('fleet_mng.urls_user')),
+
+    path('report/', include('fleet_mng.urls_report')),
 ]

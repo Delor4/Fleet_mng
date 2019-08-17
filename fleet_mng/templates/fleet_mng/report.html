@@ -1,5 +1,9 @@
 {# Raporty - wyświetlenie < form > i danych #}
 {% extends "fleet_mng/_base.html" %}
+{% load static %}
+{% block css_link %}
+<link rel="stylesheet" type="text/css"
+      href="{% if DOCK %}{% static 'fleet_mng/week_table.min.css' %}{%else%}{% static 'fleet_mng/week_table.css' %}{%endif%}">{% endblock %}
 {% block content %}
 {% include "fleet_mng/_form_generic.html" %}
 
@@ -11,6 +15,12 @@
 </div>
 {% endif %}
 
-{% if reports %}{{ reports }}{% endif %}
+{% for report in reports %}
+Samochód: {{ report.vehicle }}
+Wypożyczający: {{ report.renter }}
+Uwagi: {{ report.description }}
+<br>
+{% endfor %}
 
+<script src="{% if DOCK %}{% static 'fleet_mng/week.min.js' %}{%else%}{% static 'fleet_mng/week.js' %}{%endif%}"></script>
 {% endblock %}

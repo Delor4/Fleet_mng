@@ -208,8 +208,10 @@ tr.is_rented th a {
     .week_nav_bar {
         left: 300px;
         padding-left: 15px;
+    }
 }
 
 .content-display {
   max-width: initial;
+  min-height: 350px;
 }

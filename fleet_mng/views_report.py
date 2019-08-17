@@ -28,7 +28,7 @@ def get_reports(date):
 # pokazanie widoku raportu dla podanej daty
 # /report/<year>-<month>-<day>  =>    report.html
 @login_required
-@permission_required('fleet_mng.can_show_week')
+@permission_required('fleet_mng.can_update_rent')
 def show_report_date(request, year, month, day):
     if request.method == "POST":
         form = ReportDateForm(request.POST)
@@ -59,7 +59,7 @@ def show_report_date(request, year, month, day):
 
 # wywołanie podstawowego widoku (bez danych)
 @login_required
-@permission_required('fleet_mng.can_show_week')
+@permission_required('fleet_mng.can_update_rent')
 def show_report(request, template='fleet_mng/report.html'):
     if request.method == "POST":
         return show_report_date(request, None, None, None)

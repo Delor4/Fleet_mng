@@ -10,9 +10,6 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 
 
-
-
-
 class User(AbstractUser):
     last_active = models.DateTimeField(null=True, blank=True)
 
@@ -93,6 +90,13 @@ class Vehicle(TraceableModel):
                       'description': self.description,
                       }]
                     ])
+
+
+class MileageChecks(TraceableModel):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    next_check = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    checked = models.BooleanField(default=False)
+    checked_mileage = models.IntegerField(validators=[MinValueValidator(0)], null=True)
 
 
 # Wypożyczający

@@ -10,26 +10,30 @@
 
 <script src="{% if DOCK %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
 
+<h4>{{vehicle}} - przeglądy</h4>
+
 {% if mileages_list %}
 <ul class="item-list">
     {% for mileage in mileages_list %}
-    <li class="list-group-item list-group-item-action">
-        <span>{{ mileage.next_check }}</span>
+    <li class="list-group-item list-group-item-action container">
+        <div class="row">
+            <span class="col">{{ mileage.next_check }}</span>
 
-        {% if perms.fleet_mng.update_vehicle %}
-        <form method=post name="confirm_form_{{mileage.id}}" action="{% url 'fleet_mng:mileage_confirm' vehicle.id mileage.id %}"
-              onsubmit="_delete(event,this,{% if mileage.checked == 1 %}'Potwierdź anulowanie przeglądu.'{% else %}'Potwierdź przegląd pojazdu.'{% endif %});">
-            {% csrf_token %}
-            <input type=hidden name="delete" value="{% if mileage.checked == 1 %}0{% else %}1{% endif %}"/>
-            <input type=hidden name="confirm" value="0"/>
-            {% if mileage.checked == 1 %}
-            <button type="submit" class="btn btn-warning">Anuluj</button>
-            {% else %}
-            <button type="submit" class="btn btn-danger">Potwierdź</button>
+            {% if perms.fleet_mng.update_vehicle %}
+            <form class="col" method=post name="confirm_form_{{mileage.id}}"
+                  action="{% url 'fleet_mng:mileage_confirm' vehicle.id mileage.id %}"
+                  onsubmit="_delete(event,this,{% if mileage.checked == 1 %}'Potwierdź anulowanie przeglądu.'{% else %}'Potwierdź przegląd pojazdu.'{% endif %});">
+                {% csrf_token %}
+                <input type=hidden name="delete" value="{% if mileage.checked == 1 %}0{% else %}1{% endif %}"/>
+                <input type=hidden name="confirm" value="0"/>
+                {% if mileage.checked == 1 %}
+                <button type="submit" class="btn btn-warning">Anuluj</button>
+                {% else %}
+                <button type="submit" class="btn btn-danger">Potwierdź</button>
+                {% endif %}
+            </form>
             {% endif %}
-        </form>
-        {% endif %}
-
+        </div>
     </li>
     {% endfor %}
 </ul>

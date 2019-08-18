@@ -27,7 +27,7 @@
               <a href="{% url 'fleet_mng:week' %}"><i class="fa fa-calendar fa-lg"></i> Plan wypożyczeń</a>
             </li>
             {% endif %}
-            {% if perms.fleet_mng.can_update_rent %}
+            {% if perms.fleet_mng.change_rent %}
             <li>
               <a href="{% url 'fleet_mng:report' %}"><i class="fa fa-calendar fa-lg"></i> Raporty</a>
             </li>

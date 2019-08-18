@@ -328,11 +328,11 @@ ul.item-list {
     }
 
     .main-content {
-    margin-left: 15px;
-    padding-right: initial;
-    padding-left: initial;
-  }
-  .top-bar {
-    display: none;
-  }
+        margin-left: 15px;
+        padding-right: initial;
+        padding-left: initial;
+    }
+    .top-bar {
+        display: none;
+    }
 }

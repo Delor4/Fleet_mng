@@ -31,7 +31,7 @@ def mileages(request, pk):
         form = MileageAddForm()
 
     vehicle = Vehicle.objects.get(pk=pk)
-    mileages = MileageChecks.objects.filter(vehicle=vehicle)
+    mileages = MileageChecks.objects.filter(vehicle=vehicle).order_by('next_check')
     return render(request, 'fleet_mng/mileages.html', {
         'mileages_list': mileages,
         'vehicle': vehicle,

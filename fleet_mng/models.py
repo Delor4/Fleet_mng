@@ -77,12 +77,18 @@ class Vehicle(TraceableModel):
 
     def get_next_mileage_check(self):
         mileage = MileageChecks.objects. \
-            filter(vehicle=self, checked__exact=False). \
-            order_by('next_check'). \
-            values('next_check')[:1]
+                      filter(vehicle=self, checked__exact=False). \
+                      order_by('next_check'). \
+                      values('next_check')[:1]
         if mileage:
             return mileage[0]['next_check']
         return None
+
+    def near_mileage_checkup(self):
+        next_m = self.get_next_mileage_check()
+        if next_m and (next_m - self.mileage) < 10000:
+            return True
+        return False
 
     def get_str(self):
         return str([[self.name,

@@ -44,6 +44,7 @@
             <tr>
                 <th>Przeglądy:</th>
                 <td>
+                    Następny: {{vehicle.get_next_mileage_check}}
                     {% if perms.fleet_mng.change_vehicle %}
                     <a href="{% url 'fleet_mng:mileages' vehicle.id%}" class="btn">
                         <button class="btn btn-primary btn-xs" type="button">Zobacz</button>

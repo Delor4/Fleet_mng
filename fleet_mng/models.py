@@ -75,6 +75,15 @@ class Vehicle(TraceableModel):
     def get_current_renters(self):
         return Rent.objects.filter(vehicle=self, rented__exact=1)
 
+    def get_next_mileage_check(self):
+        mileage = MileageChecks.objects. \
+            filter(vehicle=self, checked__exact=False). \
+            order_by('next_check'). \
+            values('next_check')[:1]
+        if mileage:
+            return mileage[0]['next_check']
+        return 0
+
     def get_str(self):
         return str([[self.name,
                      self.brand,

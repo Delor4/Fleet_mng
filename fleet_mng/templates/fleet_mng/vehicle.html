@@ -42,6 +42,17 @@
             </tr>
 
             <tr>
+                <th>Przeglądy:</th>
+                <td>
+                    {% if perms.fleet_mng.change_vehicle %}
+                    <a href="{% url 'fleet_mng:mileages' vehicle.id%}" class="btn">
+                        <button class="btn btn-primary btn-xs" type="button">Zobacz</button>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
                 <th>Termin przeglądu:</th>
                 <td>{{ vehicle.checkup|default:'------' }}</td>
             </tr>

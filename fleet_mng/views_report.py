@@ -45,7 +45,7 @@ def show_report_date(request, year, month, day):
 
     form = ReportDateForm(initial={'report_date': report_date})
 
-    week_data = compute_week_data(from_range, to_range)
+    week_data = compute_week_data(from_range, to_range, True)
 
     return render(request, 'fleet_mng/report.html', {'form': form,
                                                      'week': 'Tablica',

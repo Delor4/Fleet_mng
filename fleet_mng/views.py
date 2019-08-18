@@ -106,7 +106,7 @@ def get_nav_from_date(s_date):
     }
 
 
-def compute_week_data(from_range, to_range):
+def compute_week_data(from_range, to_range, show_deleted=False):
     rents = Rent.objects.filter(from_date__lte=to_range).filter(to_date__gte=from_range)
 
     # fill days
@@ -114,7 +114,10 @@ def compute_week_data(from_range, to_range):
     week_days = [days_names[d.weekday()] for d in days]
 
     vehicles_data = {}
-    vehicles = Vehicle.objects.exclude(deleted=1)
+    vehicles = Vehicle.objects.all()
+    if not show_deleted:
+        vehicles = vehicles.exclude(deleted=1)
+
     # initialize vehicles table
     for vehicle in vehicles:
         vehicles_data[vehicle] = [{'present': 0, 'rents': [], 'classes': []} for _ in range(len(days))]

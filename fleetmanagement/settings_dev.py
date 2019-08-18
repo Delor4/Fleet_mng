@@ -118,6 +118,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/week/'
 
 DOCK = os.environ.get('IN_DOCKER', None)

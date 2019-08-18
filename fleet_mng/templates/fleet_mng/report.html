@@ -52,14 +52,6 @@
     </div>
 </form>
 
-{% if week %}
-<div class="table-responsive">
-    <table class="table table-bordered" id="week_table">
-        {% include "fleet_mng/_week_table.html"%}
-    </table>
-</div>
-{% endif %}
-
 <div class="container" id="reports">
     {% for report in reports %}
     <div class="row alert {% cycle 'alert-primary' 'alert-secondary' 'alert-success' 'alert-danger' 'alert-warning' %}"
@@ -72,6 +64,14 @@
     </div>
     {% endfor %}
 </div>
+
+{% if week %}
+<div class="table-responsive">
+    <table class="table table-bordered" id="week_table">
+        {% include "fleet_mng/_week_table.html"%}
+    </table>
+</div>
+{% endif %}
 
 <script src="{% if DOCK %}{% static 'fleet_mng/week.min.js' %}{%else%}{% static 'fleet_mng/week.js' %}{%endif%}"></script>
 {% endblock %}

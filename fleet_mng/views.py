@@ -133,8 +133,6 @@ def compute_week_data(from_range, to_range, show_deleted=False):
 
     # filling table
     for rent in rents:
-        if rent.vehicle.deleted:
-            continue
         last = int((rent.to_date - rent.from_date).days)
         for i, d in enumerate(date_range(rent.from_date, rent.to_date)):
             if d in days:

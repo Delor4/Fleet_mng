@@ -40,8 +40,8 @@ def show_report_date(request, year, month, day):
 
     naive = timezone.datetime(int(year), int(month), int(day))
     report_date = pytz.timezone("Europe/Warsaw").localize(naive, is_dst=None)
-    from_range = report_date + datetime.timedelta(-7)
-    to_range = from_range + datetime.timedelta((4 * 7) - 1)
+    from_range = report_date
+    to_range = from_range + datetime.timedelta(7 - 1)
 
     form = ReportDateForm(initial={'report_date': report_date})
 

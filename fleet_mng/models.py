@@ -98,6 +98,13 @@ class MileageChecks(TraceableModel):
     checked = models.BooleanField(default=False)
     checked_mileage = models.IntegerField(validators=[MinValueValidator(0)], null=True)
 
+    def get_str(self):
+        return str([self.vehicle,
+                    self.next_check,
+                    self.checked,
+                    self.checked_mileage,
+                    ])
+
 
 # Wypożyczający
 class Renter(TraceableModel):

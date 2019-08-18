@@ -13,29 +13,57 @@ from fleet_mng.models import Vehicle, MileageChecks
 from fleet_mng.widgets import BootstrapDatePickerInput
 
 
-@login_required
-@permission_required('fleet_mng.add_vehicle')
-def mileages(request, pk):
+class MileageAddForm(forms.Form):
+    mileage = forms.IntegerField(label="Nowy przegląd:",
+                                 initial=0)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+def mileages_shared(request, pk, form):
     vehicle = Vehicle.objects.get(pk=pk)
-    mileags = MileageChecks.objects.filter(vehicle=vehicle)
+    mileages = MileageChecks.objects.filter(vehicle=vehicle)
     return render(request, 'fleet_mng/mileages.html', {
-        'mileages_list': mileags,
+        'mileages_list': mileages,
         'vehicle': vehicle,
+        'form': form,
     })
 
 
 @login_required
 @permission_required('fleet_mng.add_vehicle')
+def mileages(request, pk):
+    if request.method == 'POST':
+        form = MileageAddForm(request.POST)
+        if form.is_valid():
+            next_check = form.cleaned_data.get('mileage')
+            vehicle = Vehicle.objects.get(pk=pk)
+            mileage = MileageChecks(vehicle=vehicle, next_check=next_check)
+            mileage.save()
+            return HttpResponseRedirect(
+                '/mileage/{0}/'.format(pk)
+            )
+    else:
+        form = MileageAddForm()
+    return mileages_shared(request, pk, form)
+
+
+@login_required
+@permission_required('fleet_mng.add_vehicle')
 def mileage_new(request, pk):
-    return render(request, 'fleet_mng/mileage.html', { })
+    if request.method == 'POST':
+        vehicle = Vehicle.objects.get(pk=pk)
+
+    return mileages(request, pk)
 
 
 @login_required
 @permission_required('fleet_mng.delete_vehicle')
-def mileage_confirm(request, pk):
+def mileage_confirm(request, vpk, mpk):
     if request.method == 'POST' and \
             int(request.POST['confirm']) == 1:
-        vehicle = Vehicle.objects.get(pk=pk)
+        vehicle = Vehicle.objects.get(pk=vpk)
         if int(request.POST['delete']) == 1:
             vehicle.deleted = 1
         else:

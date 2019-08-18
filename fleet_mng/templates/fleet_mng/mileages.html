@@ -5,22 +5,58 @@
     <a href="{% url 'fleet_mng:week' %}">
         <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
     </a>
-
-    {% if perms.fleet_mng.add_vehicle %}
-    <a href="{% url 'fleet_mng:mileage_new' vehicle.id %}" class="btn">
-        <button class="btn btn-primary btn-sm" type="button">Nowy przegląd</button>
-    </a>
-    {% endif %}
 </div>
+
 {% if mileages_list %}
 <ul class="item-list">
     {% for mileage in mileages_list %}
     <li class="list-group-item list-group-item-action">
-            {{ mileage }}
+        {{ mileage.next_check }}
     </li>
     {% endfor %}
 </ul>
 {% else %}
 <p>Brak zdefiniowanych przeglądów dla pojazdu.</p>
 {% endif %}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="container">
+        {% for field in form %}
+        {% if field.is_hidden %}{{ field }}{% else %}
+        <div class="row">
+            <label class="col-3"><strong class="float-right">{{ field.label_tag }}</strong></label>
+            <div class="col-6">
+                {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <div id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="alert alert-danger alert-dismissible"
+                     role="alert">
+                    <strong>{{ error }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-success">Dodaj</button>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-block alert-danger">
+            {% if form_error_title %}<h4 class="alert-heading">{{ form_error_title }}</h4>{% endif %}
+            <ul>
+                {{ form.non_field_errors|unordered_list }}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</form>
 {% endblock %}

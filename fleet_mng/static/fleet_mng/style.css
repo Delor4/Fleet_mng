@@ -22,6 +22,7 @@ body {
   color: #e1ffff;
   margin: 0px
 }
+
 .nav-side-menu .brand {
   background-color: #23282e;
   line-height: 50px;
@@ -318,4 +319,20 @@ ul.item-list {
   margin-right: 15%; */
   margin-bottom: 1rem;
   display: inline-grid;
+}
+
+/* LAYOUT FOR PRINT */
+@media print {
+    .nav-side-menu {
+        display: none;
+    }
+
+    .main-content {
+    margin-left: 15px;
+    padding-right: initial;
+    padding-left: initial;
+  }
+  .top-bar {
+    display: none;
+  }
 }

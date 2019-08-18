@@ -1,16 +1,9 @@
 from django import forms
-from django.conf import settings
-from django.contrib.admin.models import ADDITION
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import UpdateView
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views import generic
 
 from fleet_mng.models import Vehicle, MileageChecks
-
-from fleet_mng.widgets import BootstrapDatePickerInput
 
 
 class MileageAddForm(forms.Form):

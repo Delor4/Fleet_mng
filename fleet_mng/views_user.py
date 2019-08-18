@@ -1,5 +1,6 @@
 from django.contrib.admin.models import LogEntry, CHANGE, ADDITION
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.models import Group
 from django import forms
 from django.http import HttpResponseRedirect
@@ -145,7 +146,7 @@ def change_user_pass(request, pk):
         if form.is_valid():
             password = form.cleaned_data.get('password')
             user = User.objects.get(id=pk)
-            user.password = password
+            user.password = make_password(password)
             user.save()
             log_user_entry(request, user, CHANGE, 'User pass changed.')
             return HttpResponseRedirect('/user/')
@@ -184,3 +185,48 @@ def user_edit(request, pk):
                                        })
 
         return render(request, 'fleet_mng/user_new.html', {'form': form})
+
+
+class UserPasswdForm(forms.Form):
+    old_password = forms.CharField(label="Hasło:",
+                                   widget=forms.PasswordInput(attrs={'autocomplete': "current-password"}))
+    password = forms.CharField(label="Nowe hasło:", widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+    password_confirm = forms.CharField(label="Powtórz hasło:",
+                                       widget=forms.PasswordInput(attrs={'autocomplete': "new-password"}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(UserPasswdForm, self).clean()
+
+        old_password = cleaned_data.get('old_password')
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
+        if not old_password or old_password == '':
+            raise forms.ValidationError('Wpisz hasło!')
+
+        if not password or password == '':
+            raise forms.ValidationError('Wpisz hasło!')
+
+        if not (password == password_confirm):
+            raise forms.ValidationError('Hasła różnią się!')
+
+
+@login_required
+def user_passwd(request):
+    if request.method == 'POST':
+        form = UserPasswdForm(request.POST)
+        if form.is_valid():
+            old_password = form.cleaned_data.get('old_password')
+            user = User.objects.get(id=request.user.id)
+            if check_password(old_password, user.password):
+                password = form.cleaned_data.get('password')
+                user.password = make_password(password)
+                user.save()
+                log_user_entry(request, user, CHANGE, 'User pass changed.')
+                return HttpResponseRedirect('/')
+    else:
+        form = UserPasswdForm()
+
+    return render(request, 'fleet_mng/user_new.html', {'form': form})

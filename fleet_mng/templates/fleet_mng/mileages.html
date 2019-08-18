@@ -1,17 +1,35 @@
 {# Wyświetlenie listy przeglądów pojazdu #}
 {% extends "fleet_mng/_base.html" %}
 {% block content %}
+{% load static %}
 <div class="buttons_row">
     <a href="{% url 'fleet_mng:week' %}">
         <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-arrow-left fa-lg"></i></button>
     </a>
 </div>
 
+<script src="{% if DOCK %}{% static 'fleet_mng/form_helpers.min.js' %}{%else%}{% static 'fleet_mng/form_helpers.js' %}{%endif%}"></script>
+
 {% if mileages_list %}
 <ul class="item-list">
     {% for mileage in mileages_list %}
     <li class="list-group-item list-group-item-action">
-        {{ mileage.next_check }}
+        <span>{{ mileage.next_check }}</span>
+
+        {% if perms.fleet_mng.update_vehicle %}
+        <form method=post name="confirm_form_{{mileage.id}}" action="{% url 'fleet_mng:mileage_confirm' vehicle.id mileage.id %}"
+              onsubmit="_delete(event,this,{% if mileage.checked == 1 %}'Potwierdź anulowanie przeglądu.'{% else %}'Potwierdź przegląd pojazdu.'{% endif %});">
+            {% csrf_token %}
+            <input type=hidden name="delete" value="{% if mileage.checked == 1 %}0{% else %}1{% endif %}"/>
+            <input type=hidden name="confirm" value="0"/>
+            {% if mileage.checked == 1 %}
+            <button type="submit" class="btn btn-warning">Anuluj</button>
+            {% else %}
+            <button type="submit" class="btn btn-danger">Potwierdź</button>
+            {% endif %}
+        </form>
+        {% endif %}
+
     </li>
     {% endfor %}
 </ul>

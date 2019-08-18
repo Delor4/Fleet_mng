@@ -50,24 +50,16 @@ def mileages(request, pk):
 
 
 @login_required
-@permission_required('fleet_mng.add_vehicle')
-def mileage_new(request, pk):
-    if request.method == 'POST':
-        vehicle = Vehicle.objects.get(pk=pk)
-
-    return mileages(request, pk)
-
-
-@login_required
 @permission_required('fleet_mng.delete_vehicle')
 def mileage_confirm(request, vpk, mpk):
     if request.method == 'POST' and \
             int(request.POST['confirm']) == 1:
+        mileage = MileageChecks.objects.get(pk=mpk)
         vehicle = Vehicle.objects.get(pk=vpk)
         if int(request.POST['delete']) == 1:
-            vehicle.deleted = 1
+            mileage.checked = 1
         else:
-            vehicle.deleted = 0
-        vehicle.additional_data['request'] = request
-        vehicle.save()
-    return HttpResponseRedirect('/vehicle/')
+            mileage.checked = 0
+        mileage.additional_data['request'] = request
+        mileage.save()
+    return HttpResponseRedirect('/mileage/{0}/'.format(vpk))

@@ -82,7 +82,7 @@ class Vehicle(TraceableModel):
             values('next_check')[:1]
         if mileage:
             return mileage[0]['next_check']
-        return 0
+        return None
 
     def get_str(self):
         return str([[self.name,

@@ -27,7 +27,7 @@
                 <input type=hidden name="delete" value="{% if mileage.checked == 1 %}0{% else %}1{% endif %}"/>
                 <input type=hidden name="confirm" value="0"/>
                 {% if mileage.checked == 1 %}
-                <button type="submit" class="btn btn-warning">Anuluj</button>
+                <button type="submit" class="btn btn-success">Anuluj</button>
                 {% else %}
                 <button type="submit" class="btn btn-danger">Potwierdź</button>
                 {% endif %}

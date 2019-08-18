@@ -24,7 +24,7 @@
             <tr>
                 <th>
                     {% if perms.fleet_mng.view_rent %}
-                    <a href="{% url 'fleet_mng:rent' rent.id %}">Wypożycza:</a>
+                    <a href="{% url 'fleet_mng:rent' rent.id %}">Używa:</a>
                     {% else %}
                     Wypożycza:
                     {% endif %}

@@ -33,7 +33,7 @@
                 <td><a href="{% url 'fleet_mng:vehicle' rent.vehicle.id %}">{{ rent.vehicle }}</a></td>
             </tr>
             <tr>
-                <th>Wypożyczony przez:</th>
+                <th>Używany przez:</th>
                 <td>
                     {% if perms.fleet_mng.view_renter %}
                     <a href="{% url 'fleet_mng:renter' rent.renter.id %}">{{ rent.renter }}</a>

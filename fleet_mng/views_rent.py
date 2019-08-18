@@ -34,13 +34,13 @@ class RentForm(forms.Form):
                               label="Przewidywana data zwrotu:",
                               initial=timezone.now().date() + datetime.timedelta(+7))
     vehicle = forms.ChoiceField(label="Dostępne pojazdy:")
-    renter = forms.ChoiceField(label="Wypożyczający:")
+    renter = forms.ChoiceField(label="Użytkownik:")
 
-    new_renter = forms.CharField(max_length=191, required=False, label="Nowy wypożyczający, nazwisko:")
+    new_renter = forms.CharField(max_length=191, required=False, label="Nowy użytkownik, nazwisko:")
     new_renter_description = forms.CharField(
         max_length=2000,
         widget=forms.Textarea(),
-        label="Nowy wypożyczający, uwagi:",
+        label="Nowy użytkownik, uwagi:",
         required=False
     )
     description = forms.CharField(
@@ -148,13 +148,13 @@ class RentUpdateForm(forms.Form):
 
     vehicle = forms.CharField(label="Pojazd:", disabled=True, required=False)
 
-    renter = forms.ChoiceField(label="Wypożyczający:")
+    renter = forms.ChoiceField(label="Użytkownik:")
 
-    new_renter = forms.CharField(max_length=191, required=False, label="Nowy wypożyczający, nazwisko:")
+    new_renter = forms.CharField(max_length=191, required=False, label="Nowy użytkownik, nazwisko:")
     new_renter_description = forms.CharField(
         max_length=2000,
         widget=forms.Textarea(),
-        label="Nowy wypożyczający, uwagi:",
+        label="Nowy użytkownik, uwagi:",
         required=False
     )
     description = forms.CharField(
@@ -198,7 +198,7 @@ class RentUpdateBackedForm(forms.Form):
     to_date = forms.CharField(label="Data zwrotu:",
                               disabled=True, required=False)
     vehicle = forms.CharField(label="Pojazd:", disabled=True, required=False)
-    renter = forms.CharField(label="Wypożyczający:", disabled=True, required=False)
+    renter = forms.CharField(label="Użytkownik:", disabled=True, required=False)
 
     description = forms.CharField(
         label='Uwagi:',

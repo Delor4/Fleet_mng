@@ -20,6 +20,18 @@
                 <td>{{ user.groups.all|join:", " }}</td>
             </tr>
             <tr>
+                <th>Dołączył:</th>
+                <td>{{ user.date_joined|default:'------' }}</td>
+            </tr>
+            <tr>
+                <th>Ostatnio zalogowany:</th>
+                <td>{{ user.last_login|default:'------' }}</td>
+            </tr>
+            <tr>
+                <th>Ostatnio aktywny:</th>
+                <td>{{ user.last_active|default:'------' }}</td>
+            </tr>
+            <tr>
                 <th>Status:</th>
                 <td>
                     {% if not user.is_active %}

@@ -7,7 +7,7 @@
             <li>
                 <a href="/"><i class="fa fa-dashboard fa-lg"></i> Panel</a>
             </li>
-            {% if perms.auth.view_user %}
+            {% if perms.fleet_mng.view_user %}
             <li>
                 <a href="{% url 'fleet_mng:users' %}"><i class="fa fa-user fa-lg"></i> Konta systemowe</a>
             </li>

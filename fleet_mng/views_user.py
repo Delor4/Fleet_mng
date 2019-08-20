@@ -74,7 +74,7 @@ class NewUserForm(UserUpdateForm):
 # pokazuje listę użytkowników
 # /user/
 @login_required
-@permission_required('auth.view_user')
+@permission_required('fleet_mng.view_user')
 def show_users(request):
     users = User.objects.filter(is_superuser=False).order_by('-is_active')
     return render(request, 'fleet_mng/users.html', {'users_list': users})
@@ -83,7 +83,7 @@ def show_users(request):
 # pokazuje użytkownika
 # /user/<int:pk>/
 @login_required
-@permission_required('auth.view_user')
+@permission_required('fleet_mng.view_user')
 def show_user(request, pk):
     user = User.objects.get(pk=pk)
     return render(request, 'fleet_mng/user.html', {'user': user})
@@ -92,9 +92,9 @@ def show_user(request, pk):
 # Obsługa formularza dodawania użytkownika
 # /user/new/    => user_new.html
 @login_required
-@permission_required('auth.add_user')
+@permission_required('fleet_mng.add_user')
 def new_user(request):
-    if request.user.has_perm('auth.add_user') and \
+    if request.user.has_perm('fleet_mng.add_user') and \
             request.method == 'POST':
         form = NewUserForm(request.POST)
         if form.is_valid():
@@ -138,9 +138,9 @@ class UserUpdatePassForm(forms.Form):
 # Obsługa formularza ustawiania hasła użytkownika
 # /user/<int:pk>/pass/    => user_new.html
 @login_required
-@permission_required('auth.change_user')
+@permission_required('fleet_mng.change_user')
 def change_user_pass(request, pk):
-    if request.user.has_perm('auth.change_user') and \
+    if request.user.has_perm('fleet_mng.change_user') and \
             request.method == 'POST':
         form = UserUpdatePassForm(request.POST)
         if form.is_valid():
@@ -159,7 +159,7 @@ def change_user_pass(request, pk):
 # Obsługa formularza zmiany danych użytkownika
 # /user/<int:pk>/edit/    => user_new.html
 @login_required
-@permission_required('auth.change_user')
+@permission_required('fleet_mng.change_user')
 def user_edit(request, pk):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST)

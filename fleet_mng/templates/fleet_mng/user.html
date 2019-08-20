@@ -41,7 +41,7 @@
             </tr>
             </tbody>
         </table>
-        {% if perms.auth.change_user %}
+        {% if perms.fleet_mng.change_user %}
         <div class="buttons_row">
             <a href="{% url 'fleet_mng:user_edit' user.id%}" class="btn">
                 <button class="btn btn-primary btn-xs" type="button">Edycja</button>
